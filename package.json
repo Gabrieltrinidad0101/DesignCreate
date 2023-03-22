@@ -1,0 +1,13 @@
+{
+  "name": "designCreate",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Gabrieltrinidad0101 <gabrielqwes123@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "husky": "^8.0.0"
+  },
+  "scripts": {
+    "prepare": "husky install"
+  }
+}
