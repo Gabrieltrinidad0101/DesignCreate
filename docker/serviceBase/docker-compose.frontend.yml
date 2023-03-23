@@ -1,0 +1,9 @@
+services:
+  frontend:
+    volumes:
+      - ../frontend:/usr/app/frontend
+      - /usr/app/frontend/node_modules
+    ports: 
+      - 3000:5173
+    networks:
+      - redFrontend
