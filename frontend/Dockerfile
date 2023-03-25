@@ -4,8 +4,10 @@ WORKDIR /usr/app/frontend
 
 COPY package.json .
 
-RUN npm install .
+RUN npm install yarn
+
+RUN yarn
 
 COPY . .
 
-CMD ["npm","run","dev"]
+CMD ["yarn","run","dev"]
