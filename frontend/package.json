@@ -7,12 +7,14 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "eslint": "eslint --ignore-path .gitignore . --ext .tsx, src/",
+    "eslint": "eslint --ignore-path .gitignore . --ext .tsx,ts, src/",
+    "eslint-fix": "eslint --ignore-path .gitignore src/ --ext .tsx,ts, src/ --fix",
     "prepare": "husky install"
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.9.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
