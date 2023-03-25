@@ -4,7 +4,8 @@
         "es2021": true
     },
     "ignorePatterns": [
-        "node_modules/"
+        "node_modules/",
+        "vite.config.ts"
     ],
     "extends": [
         "plugin:react/recommended",
