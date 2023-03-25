@@ -1,18 +1,13 @@
 import React from 'react'
-import './App.css'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Authentication from './screens/authentication/infranstruture/Authentication'
 
-function App (): JSX.Element {
+export default function App (): JSX.Element {
   return (
-    <div className="App">
-      <div>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Authentication/>}></Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
-export default App
