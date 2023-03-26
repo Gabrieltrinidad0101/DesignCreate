@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 import Authentication from './screens/authentication/infranstruture/Authentication'
 
 export default function App (): JSX.Element {
@@ -8,6 +9,7 @@ export default function App (): JSX.Element {
       <Routes>
         <Route path="/login" element={<Authentication/>}></Route>
       </Routes>
+      <ToastContainer/>
     </BrowserRouter>
   )
 }
