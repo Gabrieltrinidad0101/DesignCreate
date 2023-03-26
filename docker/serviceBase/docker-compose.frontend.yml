@@ -1,5 +1,7 @@
 services:
   frontend:
+    stdin_open: true
+    container_name: frontend_container
     volumes:
       - ../frontend:/usr/app/frontend
       - /usr/app/frontend/node_modules
