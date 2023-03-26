@@ -1,4 +1,10 @@
+import type Toast from '../../../share/domian/IToast'
 export default interface IAuthentication {
   buttonName: string
-  onSubmit: (name: string, password: string) => void
+  onSubmit: (user: IUser, toast: Toast) => void
+}
+
+export interface IUser {
+  name: string
+  password: string
 }
