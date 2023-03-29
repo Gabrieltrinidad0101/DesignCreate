@@ -39,7 +39,7 @@ export default function AuthComponent ({ Prop: Authentication }: Prop<IAuthentic
           <i className="show-hide"></i>
         </div>
       </div>
-      <button className="login" onClick={clickAuth}>{Authentication.buttonName}</button>
+      <button id="auth-button" className="login" onClick={clickAuth}>{Authentication.buttonName}</button>
     </div>
   )
 }
