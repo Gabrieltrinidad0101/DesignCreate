@@ -12,7 +12,6 @@ export default function AuthComponent ({ Prop: Authentication }: Prop<IAuthentic
   })
 
   const clickAuth = (): void => {
-    console.log(user)
     Authentication.onSubmit(user, Toast)
   }
 
