@@ -12,4 +12,13 @@ export default class UserRepository implements IUserRepository {
       throw new ErrorInsertUser()
     }
   }
+
+  async findByName(name: string): Promise<IUser | null>{
+    try {
+      const user: IUser | null = await UserModel.findOne({name});
+      return user;
+    } catch {
+      throw new ErrorInsertUser()
+    }
+  }
 }
