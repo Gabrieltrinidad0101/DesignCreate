@@ -10,7 +10,7 @@ export default class AuthControl {
     try {
       const newUser = req.body as IUser
       const response: IResultAuth = await this.authControl.register(newUser)
-      res.send(response.message).status(response.statusCode)
+      res.status(response.statusCode).send(response.message)
     } catch (ex) {
       if (ex instanceof ErrorUser) {
         res.send(ex.message).status(500)
