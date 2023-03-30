@@ -5,17 +5,18 @@ import type IUserRepository from '../domain/IUserRepository'
 export default class Authentication {
   constructor (private readonly userRepository: IUserRepository) { }
   async register (user: IUser): Promise<IResultAuth> {
-    if (!user.name || !user.password) {
+    const anyValueIsEmpty = Object.keys(user).some(value => value === '')
+    if (anyValueIsEmpty || user.name === null || user.password === null) {
       return {
         message: 'The user name and password are required',
         statusCode: 500
       }
     }
     const userExist = await this.userRepository.findByName(user.name)
-    if(userExist != null){
+    if (userExist != null) {
       return {
         message: 'The user exist',
-        statusCode: 409  
+        statusCode: 409
       }
     }
     await this.userRepository.insert(user)
