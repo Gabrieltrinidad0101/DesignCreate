@@ -6,7 +6,7 @@ export default class Authentication {
   constructor (private readonly userRepository: IUserRepository) { }
   async register (user: IUser): Promise<IResultAuth> {
     const anyValueIsEmpty = Object.keys(user).some(value => value === '')
-    if (anyValueIsEmpty || user.name === null || user.password === null) {
+    if (anyValueIsEmpty || user.name === undefined || user.password === undefined) {
       return {
         message: 'The user name and password are required',
         statusCode: 500
