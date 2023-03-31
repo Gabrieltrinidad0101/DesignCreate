@@ -6,10 +6,12 @@ import { ErrorUser } from '../domain/IErrorUser'
 
 export default class AuthControl {
   constructor (private readonly authControl: Authentication) {}
-  async login (req: Request, res: Response): Promise<void> {
+  async Authentication (req: Request, res: Response): Promise<void> {
     try {
       const newUser = req.body as IUser
-      const response: IResultAuth = await this.authControl.register(newUser)
+      const response: IResultAuth = newUser.isRegister
+        ? await this.authControl.register(newUser)
+        : await this.authControl.login(newUser)
       res.status(response.statusCode).send(response.message)
     } catch (ex) {
       if (ex instanceof ErrorUser) {

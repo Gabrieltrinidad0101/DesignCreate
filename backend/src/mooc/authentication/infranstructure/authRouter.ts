@@ -3,8 +3,8 @@ import { authControl } from './dependencies'
 import { type Request, type Response } from 'express'
 const authRouter = Router()
 
-authRouter.post('/register', (req: Request, res: Response): void => {
-  authControl.login(req, res)
+authRouter.post('/authentication', (req: Request, res: Response): void => {
+  authControl.Authentication(req, res)
     .catch((error) => {
       console.log(error)
     })

@@ -4,7 +4,8 @@ import type IUserRepository from '../domain/IUserRepository'
 
 export default class Authentication {
   constructor (private readonly userRepository: IUserRepository) { }
-  async register (user: IUser): Promise<IResultAuth> {
+
+  #validateUser (user: IUser): IResultAuth | null | undefined {
     const anyValueIsEmpty = Object.keys(user).some(value => value === '')
     if (anyValueIsEmpty || user.name === undefined || user.password === undefined) {
       return {
@@ -12,6 +13,11 @@ export default class Authentication {
         statusCode: 500
       }
     }
+  }
+
+  async register (user: IUser): Promise<IResultAuth> {
+    const userIsNoValid = this.#validateUser(user)
+    if (userIsNoValid != null) return userIsNoValid
     const userExist = await this.userRepository.findByName(user.name)
     if (userExist != null) {
       return {
@@ -24,6 +30,22 @@ export default class Authentication {
     return {
       message: 'The user was saved successfully',
       statusCode: 200
+    }
+  }
+
+  async login (user: IUser): Promise<IResultAuth> {
+    const userIsNoValid = this.#validateUser(user)
+    if (userIsNoValid != null) return userIsNoValid
+    const userExist = await this.userRepository.findByName(user.name)
+    if (userExist != null) {
+      return {
+        message: 'The user was saved successfully',
+        statusCode: 200
+      }
+    }
+    return {
+      message: 'The user no exist',
+      statusCode: 409
     }
   }
 }
