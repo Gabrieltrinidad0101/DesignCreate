@@ -1,3 +1,3 @@
-export default interface Prop<T> {
+export default interface IProp<T> {
   Prop: T
 }

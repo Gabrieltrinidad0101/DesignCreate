@@ -1,18 +1,17 @@
 import React from 'react'
 import AuthComponent from './components/AuthComponent'
 import Auth from '../application/Auth'
-import type IAuthentication from '../domian/IAuthenticaction'
 import 'react-toastify/dist/ReactToastify.css'
-
+import type IAuthenticationComponent from '../domian/IAuthenticaction'
 export default function Authentication (): JSX.Element {
-  const authentication: IAuthentication = {
+  const authenticationComponent: IAuthenticationComponent = {
     buttonName: 'Register',
     onSubmit: Auth
   }
 
   return (
     <div>
-      <AuthComponent Prop={authentication}/>
+      <AuthComponent Prop={authenticationComponent}/>
     </div>
   )
 }

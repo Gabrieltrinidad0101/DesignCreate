@@ -1,10 +1,19 @@
 import type Toast from '../../../share/domian/IToast'
-export default interface IAuthentication {
+import type ICustomFecth from '../../../share/domian/customFecth'
+
+export default interface IAuthenticationComponent {
   buttonName: string
-  onSubmit: (user: IUser, toast: Toast) => void
+  onSubmit: (authenticatio: IAuthentication) => Promise<void>
+}
+
+export interface IAuthentication {
+  user: IUser
+  toast: Toast
+  customFecth: ICustomFecth
 }
 
 export interface IUser {
   name: string
   password: string
+  isRegister: boolean
 }

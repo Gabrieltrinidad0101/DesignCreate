@@ -1,11 +1,13 @@
-import { type IUser } from '../domian/IAuthenticaction'
-import type Toast from '../../../share/domian/IToast'
+import { type IAuthentication } from '../domian/IAuthenticaction'
 
-const Auth = (user: IUser, toast: Toast): void => {
-  if (user.name === '' || user.password === '') {
-    toast.error('All the inputs are required'); return
+const Auth = async (authenticaction: IAuthentication): Promise<void> => {
+  if (authenticaction.user.name === '' || authenticaction.user.password === '') {
+    authenticaction.toast.error('All the inputs are required'); return
   }
-  toast.sucess(`Welcome ${user.name}`)
+
+  await authenticaction.customFecth.post('/authentication', authenticaction.user)
+
+  authenticaction.toast.sucess(`Welcome ${authenticaction.user.name}`)
 }
 
 export default Auth

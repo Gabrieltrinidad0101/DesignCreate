@@ -1,18 +1,30 @@
 import React, { useState } from 'react'
 import './AuthComponent.css'
 import imagesContainer from '../../../../share/application/imagesContainer'
-import type IAuthentication from '../../domian/IAuthenticaction'
 import type Prop from '../../../../share/domian/prop'
 import Toast from '../../../../share/infranstruture/toast'
-import { type IUser } from '../../domian/IAuthenticaction'
-export default function AuthComponent ({ Prop: Authentication }: Prop<IAuthentication>): JSX.Element {
+import type IAuthenticationComponent from '../../domian/IAuthenticaction'
+import { type IUser, type IAuthentication } from '../../domian/IAuthenticaction'
+import CustomFecth from '../../../../share/infranstruture/customFecth'
+export default function AuthComponent ({ Prop: authenticationComponent }: Prop<IAuthenticationComponent>): JSX.Element {
   const [user, setUser] = useState<IUser>({
     name: '',
-    password: ''
+    password: '',
+    isRegister: true
   })
 
+  const customFecth = new CustomFecth()
+
   const clickAuth = (): void => {
-    Authentication.onSubmit(user, Toast)
+    const authentication: IAuthentication = {
+      user,
+      toast: Toast,
+      customFecth
+    }
+    authenticationComponent.onSubmit(authentication)
+      .catch((error: DOMException) => {
+        console.error(error)
+      })
   }
 
   const inputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -38,7 +50,7 @@ export default function AuthComponent ({ Prop: Authentication }: Prop<IAuthentic
           <i className="show-hide"></i>
         </div>
       </div>
-      <button id="auth-button" className="login" onClick={clickAuth}>{Authentication.buttonName}</button>
+      <button id="auth-button" className="login" onClick={clickAuth}>{authenticationComponent.buttonName}</button>
     </div>
   )
 }
