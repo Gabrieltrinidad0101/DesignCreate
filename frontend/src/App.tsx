@@ -7,7 +7,7 @@ export default function App (): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Authentication/>}></Route>
+        <Route path="/register" element={<Authentication/>}></Route>
       </Routes>
       <ToastContainer/>
     </BrowserRouter>

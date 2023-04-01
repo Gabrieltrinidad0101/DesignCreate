@@ -21,7 +21,7 @@ export default class Authentication {
     const userExist = await this.userRepository.findByName(user.name)
     if (userExist != null) {
       return {
-        message: 'The user exist',
+        message: 'The user exists',
         statusCode: 409
       }
     }
