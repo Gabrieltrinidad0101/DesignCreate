@@ -1,5 +1,6 @@
-import { CustomFetchError } from '../../../share/domian/customFecth';
+import { CustomFetchError } from '../../../share/domian/customFecth'
 import { type IAuthentication } from '../domian/IAuthenticaction'
+import type IHttpResult from "../../../../../share/domain/httpResult"
 
 const Auth = async (authenticaction: IAuthentication): Promise<void> => {
   try {
@@ -7,16 +8,17 @@ const Auth = async (authenticaction: IAuthentication): Promise<void> => {
       authenticaction.toast.error('All the inputs are required'); return
     }
 
-    await authenticaction.customFecth.post('/authentication', authenticaction.user)
+    const httpResult = await authenticaction.customFecth.post<IHttpResult>('/authentication', authenticaction.user)
+
+    localStorage.setItem("token",httpResult.message);
 
     authenticaction.toast.sucess(`Welcome ${authenticaction.user.name}`)
   } catch (error) {
-    console.log(error)
     if (error instanceof CustomFetchError) {
-      authenticaction.toast.error(error.errorName)
-      return;
+      authenticaction.toast.error(error.message)
+      return
     }
-    authenticaction.toast.error("Error")
+    authenticaction.toast.error('Internal error try later')
   }
 }
 

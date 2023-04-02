@@ -1,50 +1,63 @@
-import { type IResultAuth } from '../domain/IAuthentication'
+import { type IHttpStatusCode } from '../../../../../share/domain/httpResult'
 import type IUser from '../domain/IAuthentication'
 import type IUserRepository from '../domain/IUserRepository'
+import IEncrypt from '../domain/encrypt'
 
 export default class Authentication {
-  constructor (private readonly userRepository: IUserRepository) { }
+  constructor (private readonly encrypt: IEncrypt,private readonly userRepository: IUserRepository) { }
 
-  #validateUser (user: IUser): IResultAuth | null | undefined {
+  private validateUser (user: IUser): IHttpStatusCode | null | undefined {
     const anyValueIsEmpty = Object.keys(user).some(value => value === '')
     if (anyValueIsEmpty || user.name === undefined || user.password === undefined) {
       return {
-        message: 'The user name and password are required',
+        result: { 
+          message: 'The user name and password are required',
+        },
         statusCode: 500
       }
     }
   }
 
-  async register (user: IUser): Promise<IResultAuth> {
-    const userIsNoValid = this.#validateUser(user)
+  async register (user: IUser): Promise<IHttpStatusCode> {
+    const userIsNoValid = this.validateUser(user)
     if (userIsNoValid != null) return userIsNoValid
     const userExist = await this.userRepository.findByName(user.name)
     if (userExist != null) {
       return {
-        message: 'The user exists',
+        result:{
+          message: 'The user exists',
+        },
         statusCode: 409
       }
     }
-    await this.userRepository.insert(user)
+    user.password = this.encrypt.sign(user.password);
+    const userSave = await this.userRepository.insert(user)
 
     return {
-      message: 'The user was saved successfully',
+      result:{
+        message: this.encrypt.sign(userSave._id),
+      },
       statusCode: 200
     }
   }
 
-  async login (user: IUser): Promise<IResultAuth> {
-    const userIsNoValid = this.#validateUser(user)
+  async login (user: IUser): Promise<IHttpStatusCode> {
+    const userIsNoValid = this.validateUser(user)
     if (userIsNoValid != null) return userIsNoValid
-    const userExist = await this.userRepository.findByName(user.name)
+    user.password = this.encrypt.sign(user.password); 
+    const userExist = await this.userRepository.findByNameAndPassword(user.name,user.password)
     if (userExist != null) {
       return {
-        message: 'The user was saved successfully',
+        result:{
+          message: 'The user was saved successfully',
+        },
         statusCode: 200
       }
     }
     return {
-      message: 'The user no exist',
+      result: {
+        message: 'The user no exist',
+      },
       statusCode: 409
     }
   }

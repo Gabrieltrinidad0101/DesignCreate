@@ -4,8 +4,3 @@ export default interface IUser {
   _id: string
   isRegister: boolean
 }
-
-export interface IResultAuth {
-  message: string
-  statusCode: number
-}

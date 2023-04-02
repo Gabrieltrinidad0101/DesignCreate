@@ -1,7 +1,7 @@
 import { type Request, type Response } from 'express'
 import type Authentication from '../application/auth'
 import type IUser from '../domain/IAuthentication'
-import { type IResultAuth } from '../domain/IAuthentication'
+//import { IHttpStatusCode } from '../../../../../share/domain/httpResult'
 import { ErrorUser } from '../domain/IErrorUser'
 
 export default class AuthControl {
@@ -9,10 +9,10 @@ export default class AuthControl {
   async Authentication (req: Request, res: Response): Promise<void> {
     try {
       const newUser = req.body as IUser
-      const response: IResultAuth = newUser.isRegister
+      const response = newUser.isRegister
         ? await this.authControl.register(newUser)
         : await this.authControl.login(newUser)
-      res.status(response.statusCode).send(response.message)
+      res.status(response.statusCode).send(response.result)
     } catch (ex) {
       if (ex instanceof ErrorUser) {
         res.send(ex.message).status(500)
