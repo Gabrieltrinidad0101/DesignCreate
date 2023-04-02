@@ -11,6 +11,8 @@
     "eslint-fix": "eslint --ignore-path .gitignore src/ --ext .tsx,ts, src/ --fix"
   },
   "dependencies": {
+    "@types/axios": "^0.14.0",
+    "axios": "^1.3.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.9.0",
