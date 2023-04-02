@@ -1,6 +1,6 @@
 import { CustomFetchError } from '../../../share/domian/customFecth'
 import { type IAuthentication } from '../domian/IAuthenticaction'
-import type IHttpResult from "../../../../../share/domain/httpResult"
+import type IHttpResult from '../../../../../share/domain/httpResult'
 
 const Auth = async (authenticaction: IAuthentication): Promise<void> => {
   try {
@@ -10,7 +10,7 @@ const Auth = async (authenticaction: IAuthentication): Promise<void> => {
 
     const httpResult = await authenticaction.customFecth.post<IHttpResult>('/authentication', authenticaction.user)
 
-    localStorage.setItem("token",httpResult.message);
+    localStorage.setItem('token', httpResult.message)
 
     authenticaction.toast.sucess(`Welcome ${authenticaction.user.name}`)
   } catch (error) {
