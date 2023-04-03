@@ -17,7 +17,7 @@ To run this project, you will need to add the following environment variables to
 Install DesignCreate with bash script and docker
 
 ```bash
-  sudo bash ./docker
+  sudo bash ./docker-start.sh
 ```
 
 ## Running Tests Frontend
