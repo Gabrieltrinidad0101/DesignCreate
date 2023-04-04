@@ -2,8 +2,8 @@ import type Toast from '../../../share/domian/IToast'
 import type ICustomFecth from '../../../share/domian/customFecth'
 
 export default interface IAuthenticationComponent {
-  buttonName: string
   onSubmit: (authenticatio: IAuthentication) => Promise<void>
+  isRegister: boolean
 }
 
 export interface IAuthentication {

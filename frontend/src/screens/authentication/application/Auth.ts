@@ -7,9 +7,7 @@ const Auth = async (authenticaction: IAuthentication): Promise<void> => {
     if (authenticaction.user.name === '' || authenticaction.user.password === '') {
       authenticaction.toast.error('All the inputs are required'); return
     }
-
     const httpResult = await authenticaction.customFecth.post<IHttpResult>('/authentication', authenticaction.user)
-
     localStorage.setItem('token', httpResult.message)
 
     authenticaction.toast.sucess(`Welcome ${authenticaction.user.name}`)

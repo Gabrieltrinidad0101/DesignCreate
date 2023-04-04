@@ -6,22 +6,30 @@ import Toast from '../../../../share/infranstruture/toast'
 import type IAuthenticationComponent from '../../domian/IAuthenticaction'
 import { type IUser, type IAuthentication } from '../../domian/IAuthenticaction'
 import CustomFecth from '../../../../share/infranstruture/customFecth'
+import { Link, useNavigate } from 'react-router-dom'
+
+const customFecth = new CustomFecth()
+
 export default function AuthComponent ({ Prop: authenticationComponent }: Prop<IAuthenticationComponent>): JSX.Element {
   const [user, setUser] = useState<IUser>({
     name: '',
     password: '',
-    isRegister: true
+    isRegister: authenticationComponent.isRegister
   })
 
-  const customFecth = new CustomFecth()
+  const navigation = useNavigate()
 
   const clickAuth = (): void => {
+    const _user: IUser = { ...user, isRegister: authenticationComponent.isRegister }
     const authentication: IAuthentication = {
-      user,
+      user: _user,
       toast: Toast,
       customFecth
     }
     authenticationComponent.onSubmit(authentication)
+      .then(() => {
+        navigation('/home')
+      })
       .catch((error: DOMException) => {
         console.error(error)
       })
@@ -40,7 +48,7 @@ export default function AuthComponent ({ Prop: authenticationComponent }: Prop<I
       <div className="input-auth mb-3">
         <label htmlFor="email">Name</label>
         <div className="sec-2">
-          <input type="text" name="name" onChange={inputChange} placeholder="Username@gmail.com" />
+          <input type="text" name="name" onChange={inputChange} placeholder="Username" />
         </div>
       </div>
       <div className="input-auth">
@@ -50,7 +58,10 @@ export default function AuthComponent ({ Prop: authenticationComponent }: Prop<I
           <i className="show-hide"></i>
         </div>
       </div>
-      <button id="auth-button" className="login" onClick={clickAuth}>{authenticationComponent.buttonName}</button>
+      <button id="auth-button" className="login" onClick={clickAuth}>{!authenticationComponent.isRegister ? 'Login' : 'Register'}</button>
+      <Link to={authenticationComponent.isRegister ? '/login' : '/register' }>
+        {authenticationComponent.isRegister ? 'Login' : 'Register'}
+      </Link>
     </div>
   )
 }
