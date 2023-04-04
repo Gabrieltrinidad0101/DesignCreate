@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
-import type Encrypt from '../domain/encrypt'
-export default class JWT implements Encrypt {
-  sign (value: string): string {
+import type IToken from '../domain/token'
+export default class JWT implements IToken {
+  sign (value: object): string {
     return jwt.sign(value, process.env.KEY ?? 'secret')
   }
 
