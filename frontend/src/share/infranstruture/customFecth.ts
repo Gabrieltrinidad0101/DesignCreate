@@ -4,7 +4,7 @@ import { CustomFetchError } from '../domian/customFecth'
 
 export default class CustomFecth implements ICustomFecth {
   private readonly customFecth = axios.create({
-    baseURL: import.meta.env.VITE_URLBASE
+    baseURL: import.meta.env.VITE_BASE_URL
   })
 
   async post<T>(url: string, body: object, headers?: object | undefined): Promise<T> {
@@ -14,7 +14,7 @@ export default class CustomFecth implements ICustomFecth {
     } catch (error) {
       console.log(error)
       if (error instanceof AxiosError) {
-        const errorMsg: string = ((error.response != null) && error.response.data !== '') ? `${error.response?.data as string}` : 'Internal error try later'
+        const errorMsg: string = ((error.response != null) && error.response.data !== '') ? `${error.response?.data.message as string}` : 'Internal error try later'
         throw new CustomFetchError(errorMsg)
       }
       throw error
