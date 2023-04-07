@@ -1,24 +1,32 @@
 import { type Request, type Response } from 'express'
+import { type IHttpStatusCode } from '../../../../../share/domain/httpResult'
 import type Authentication from '../application/auth'
 import type IUser from '../domain/IAuthentication'
-//import { IHttpStatusCode } from '../../../../../share/domain/httpResult'
 import { ErrorUser } from '../domain/IErrorUser'
 
 export default class AuthControl {
-  constructor (private readonly authControl: Authentication) {}
-  async Authentication (req: Request, res: Response): Promise<void> {
+  constructor (private readonly authControl: Authentication) { }
+
+  authentication = async (req: Request, res: Response): Promise<IHttpStatusCode> => {
     try {
       const newUser = req.body as IUser
       const response = newUser.isRegister
         ? await this.authControl.register(newUser)
         : await this.authControl.login(newUser)
-      res.status(response.statusCode).send(response.result)
+      return response
     } catch (ex) {
-      if (ex instanceof ErrorUser) {
-        res.send(ex.message).status(500)
-        return
+      console.log(ex)
+      const message = ex instanceof ErrorUser ? ex.message : 'Error try later'
+      return {
+        message,
+        statusCode: 500
       }
-      res.send('Error').status(500)
     }
+  }
+
+  verifyAuthentication = async (req: Request, res: Response): Promise<IHttpStatusCode> => {
+    const _id = req.headers.userId?.toString()
+    const httpResult = await this.authControl.searchUserById(_id)
+    return httpResult
   }
 }

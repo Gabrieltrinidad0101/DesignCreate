@@ -2,16 +2,16 @@ import type IUserRepository from '../../domain/IUserRepository'
 import type IUser from '../../domain/IAuthentication'
 import { UserModel } from './userSchema'
 import { ErrorInsertUser } from '../../domain/IErrorUser'
+import { type IBasicUser, type IUserDb } from '../../../../../../share/domain/user'
 
 export default class UserRepository implements IUserRepository {
-  async insert (user: IUser): Promise<IUser> {
+  async insert (user: IBasicUser): Promise<IUserDb | null> {
     try {
       const newUser = new UserModel(user)
       await newUser.save()
-      const userSave: IUser = {
+      const userSave: IUserDb = {
         name: newUser.name,
         password: newUser.password,
-        isRegister: newUser.isRegister,
         _id: newUser._id as string
       }
       return userSave
@@ -29,9 +29,9 @@ export default class UserRepository implements IUserRepository {
     }
   }
 
-  async findByNameAndPassword (name: string, password: string): Promise<IUser | null> {
+  async findById (_id: string, filter?: object): Promise<IUser | null> {
     try {
-      const user: IUser | null = await UserModel.findOne({ name, password })
+      const user: IUser | null = await UserModel.findById(_id, filter)
       return user
     } catch {
       throw new ErrorInsertUser()

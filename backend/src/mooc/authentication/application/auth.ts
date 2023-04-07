@@ -14,9 +14,7 @@ export default class Authentication {
     const anyValueIsEmpty = Object.keys(user).some(value => value === '')
     if (anyValueIsEmpty || user.name === undefined || user.password === undefined) {
       return {
-        result: {
-          message: 'The user name and password are required'
-        },
+        message: 'The user name and password are required',
         statusCode: 500
       }
     }
@@ -28,19 +26,14 @@ export default class Authentication {
     const userExist = await this.userRepository.findByName(user.name)
     if (userExist != null) {
       return {
-        result: {
-          message: 'The user exists'
-        },
+        message: 'The user exists',
         statusCode: 409
       }
     }
     user.password = await this.encrypt.enCode(user.password)
     const userSave = await this.userRepository.insert(user)
     return {
-      result: {
-        message: this.token.sign({ _id: userSave._id })
-      },
-      statusCode: 200
+      message: this.token.sign({ _id: userSave?._id })
     }
   }
 
@@ -49,20 +42,34 @@ export default class Authentication {
     if (userIsNoValid != null) return userIsNoValid
     const userExist = await this.userRepository.findByName(user.name)
     const validateUser = (userExist != null) && await this.encrypt.validate(user.password, userExist.password)
-    if (!validateUser) {
+    if (validateUser) {
       return {
-        result: {
-          message: 'The username or password is incorrect'
-        },
-        statusCode: 404
+        message: this.token.sign({ _id: userExist._id })
       }
     }
-
     return {
-      result: {
-        message: this.token.sign({ _id: userExist._id })
-      },
-      statusCode: 200
+      message: 'The username or password is incorrect',
+      statusCode: 404
+    }
+  }
+
+  async searchUserById (_id: string | undefined): Promise<IHttpStatusCode> {
+    try {
+      if (_id === undefined) {
+        return {
+          message: "Error User's ID is undefined",
+          statusCode: 500
+        }
+      }
+      const user = await this.userRepository.findById(_id, { password: 0 })
+      return {
+        message: user
+      }
+    } catch (ex) {
+      return {
+        message: 'Error try later',
+        statusCode: 500
+      }
     }
   }
 }

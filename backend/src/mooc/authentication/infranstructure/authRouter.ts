@@ -1,13 +1,11 @@
 import { Router } from 'express'
-import { authControl } from './dependencies'
-import { type Request, type Response } from 'express'
+import { authControl, verifyAuthentication } from './dependencies'
+import RouterManager from '../../share/infranstructure/routerManager'
 const authRouter = Router()
 
-authRouter.post('/authentication', (req: Request, res: Response): void => {
-  authControl.Authentication(req, res)
-    .catch((error) => {
-      console.log(error)
-    })
-})
+const router = new RouterManager(authRouter)
+
+router.post('/authentication', authControl.authentication)
+router.get('/verifyAuthentication', verifyAuthentication.verify, authControl.verifyAuthentication)
 
 export { authRouter }
