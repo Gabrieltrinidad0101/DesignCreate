@@ -5,9 +5,8 @@ export default class JWT implements IToken {
     return jwt.sign(value, process.env.KEY ?? 'secret')
   }
 
-  verify (value: string): string | null {
+  verify<T>(value: string): T | null {
     const res = jwt.verify(value, process.env.KEY ?? 'secret')
-    if (typeof (res) === 'string') return res
-    return null
+    return res as T
   }
 }
