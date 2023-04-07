@@ -1,6 +1,6 @@
-import type IUser from './IAuthentication'
+import { type IUserDb, type IUser } from '../../../../../share/domain/user'
 export default interface IUserRepository {
-  insert: (user: IUser) => Promise<IUser>
-  findByName: (name: string) => Promise<IUser | null>
-  findByNameAndPassword: (name: string, password: string) => Promise<IUser | null>
+  insert: (user: IUser) => Promise<IUserDb | null>
+  findByName: (name: string) => Promise<IUserDb | null>
+  findById: (id: string, filter?: object) => Promise<IUserDb | null>
 }

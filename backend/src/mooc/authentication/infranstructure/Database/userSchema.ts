@@ -1,10 +1,9 @@
 import { Schema, model } from 'mongoose'
-
-const userSchama: Schema = new Schema({
+const userSchema: Schema = new Schema({
   name: String,
   password: String
 })
 
-const UserModel = model('user', userSchama)
+const UserModel = model('user', userSchema)
 
 export { UserModel }
