@@ -4,6 +4,7 @@ services:
     container_name: frontend_container
     volumes:
       - ../frontend:/usr/app/frontend
+      - ../share:/usr/app/share
       - /usr/app/frontend/node_modules
     ports: 
       - 3000:5173
