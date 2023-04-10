@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import './AuthComponent.css'
 import imagesContainer from '../../../../share/application/imagesContainer'
 import type Prop from '../../../../share/domian/prop'
-import Toast from '../../../../share/infranstruture/toast'
+import { Toast } from '../../../../share/infranstruture/toast'
 import type IAuthenticationComponent from '../../domian/IAuthenticaction'
-import { type IUser, type IAuthentication } from '../../domian/IAuthenticaction'
-import CustomFecth from '../../../../share/infranstruture/customFecth'
+import { type IAuthentication } from '../../domian/IAuthenticaction'
+import { customFecth } from '../../../../share/infranstruture/dependencies'
 import { Link, useNavigate } from 'react-router-dom'
-
-const customFecth = new CustomFecth()
+import { type IUser } from '../../../../../../share/domain/user'
+import { useAuthenticationContext } from '../../../../share/infranstruture/AuthenticationContext'
 
 export default function AuthComponent ({ Prop: authenticationComponent }: Prop<IAuthenticationComponent>): JSX.Element {
   const [user, setUser] = useState<IUser>({
@@ -18,18 +18,18 @@ export default function AuthComponent ({ Prop: authenticationComponent }: Prop<I
   })
 
   const navigation = useNavigate()
+  const userState = useAuthenticationContext()
 
   const clickAuth = (): void => {
     const _user: IUser = { ...user, isRegister: authenticationComponent.isRegister }
     const authentication: IAuthentication = {
       user: _user,
       toast: Toast,
-      customFecth
+      customFecth,
+      navigation: (path: string) => { navigation(path) },
+      userState
     }
     authenticationComponent.onSubmit(authentication)
-      .then(() => {
-        navigation('/home')
-      })
       .catch((error: DOMException) => {
         console.error(error)
       })
@@ -59,7 +59,7 @@ export default function AuthComponent ({ Prop: authenticationComponent }: Prop<I
         </div>
       </div>
       <button id="auth-button" className="login" onClick={clickAuth}>{!authenticationComponent.isRegister ? 'Login' : 'Register'}</button>
-      <Link to={authenticationComponent.isRegister ? '/login' : '/register' }>
+      <Link to={authenticationComponent.isRegister ? '/login' : '/register'}>
         {authenticationComponent.isRegister ? 'Login' : 'Register'}
       </Link>
     </div>

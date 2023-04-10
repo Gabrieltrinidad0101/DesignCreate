@@ -8,15 +8,14 @@ const Auth = async (authenticaction: IAuthentication): Promise<void> => {
       authenticaction.toast.error('All the inputs are required'); return
     }
     const httpResult = await authenticaction.customFecth.post<IHttpResult>('/authentication', authenticaction.user)
+    if (httpResult == null) return
     localStorage.setItem('token', httpResult.message)
-
     authenticaction.toast.sucess(`Welcome ${authenticaction.user.name}`)
+    authenticaction.navigation('/home')
+    authenticaction.userState.setUser(authenticaction.user)
   } catch (error) {
-    if (error instanceof CustomFetchError) {
-      authenticaction.toast.error(error.message)
-      return
-    }
-    authenticaction.toast.error('Internal error try later')
+    const errorToShow = error instanceof CustomFetchError ? error.message : 'Internal error try later'
+    authenticaction.toast.error(errorToShow)
   }
 }
 

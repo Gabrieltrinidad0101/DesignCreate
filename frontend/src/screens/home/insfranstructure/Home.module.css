@@ -24,7 +24,7 @@ main {
     position: fixed;
     background-color: var(--bg-primary);
     transition: width 600ms ease;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 .navbarNav {
@@ -92,7 +92,7 @@ main {
     text-align: center;
     color: var(--text-secondary);
     background: var(--bg-secondary);
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     letter-spacing: 0.3ch;
     width: 100%;
 }
