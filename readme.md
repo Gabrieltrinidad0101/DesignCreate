@@ -26,7 +26,7 @@ To run tests, run the following command
 
 ```bash
   cd e2e
-  npx cypress open
+  npx cypress run
 ```
     
 ## Authors
