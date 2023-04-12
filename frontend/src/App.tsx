@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import Authentication from './screens/authentication/infranstructure/Authentication'
 import Home from './screens/home/insfranstructure/Home'
+import Editor from './screens/editor/infranstructure/Editor'
 import './App.css'
 import { AuthenticationProvider } from './share/infranstruture/AuthenticationContext'
 export default function App (): JSX.Element {
@@ -13,6 +14,7 @@ export default function App (): JSX.Element {
             <Route path="/login" element={<Authentication isRegister={false} />}></Route>
             <Route element={<AuthenticationProvider />} >
                 <Route path="/home" element={<Home />}></Route>
+                <Route path="/Editor" element={<Editor />}></Route>
             </Route>
           </Routes>
           <ToastContainer />
