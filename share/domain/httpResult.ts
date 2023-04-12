@@ -1,8 +1,7 @@
 export default interface IHttpResult {
-    message: string
+    message: any
 }
 
-export interface IHttpStatusCode{
-    result: IHttpResult
-    statusCode: number
+export interface IHttpStatusCode extends IHttpResult{
+    statusCode?: number
 }
