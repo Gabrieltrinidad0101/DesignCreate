@@ -10,7 +10,7 @@ export default class Authentication {
     private readonly encrypt: IEncrypt,
     private readonly userRepository: IUserRepository) { }
 
-  private validateUser (user: IUser): IHttpStatusCode | null | undefined {
+  private validateUser (user: IUser): IHttpStatusCode | undefined {
     const anyValueIsEmpty = Object.keys(user).some(value => value === '')
     if (anyValueIsEmpty || user.name === undefined || user.password === undefined) {
       return {
@@ -22,9 +22,9 @@ export default class Authentication {
 
   async register (user: IUser): Promise<IHttpStatusCode> {
     const userIsNoValid = this.validateUser(user)
-    if (userIsNoValid != null) return userIsNoValid
+    if (userIsNoValid !== undefined) return userIsNoValid
     const userExist = await this.userRepository.findByName(user.name)
-    if (userExist != null) {
+    if (userExist !== null) {
       return {
         message: 'The user exists',
         statusCode: 409
@@ -39,9 +39,9 @@ export default class Authentication {
 
   async login (user: IUser): Promise<IHttpStatusCode> {
     const userIsNoValid = this.validateUser(user)
-    if (userIsNoValid != null) return userIsNoValid
+    if (userIsNoValid !== undefined) return userIsNoValid
     const userExist = await this.userRepository.findByName(user.name)
-    const validateUser = (userExist != null) && await this.encrypt.validate(user.password, userExist.password)
+    const validateUser = (userExist !== null) && await this.encrypt.validate(user.password, userExist.password)
     if (validateUser) {
       return {
         message: this.token.sign({ _id: userExist._id })
