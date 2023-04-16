@@ -1,10 +1,11 @@
 import { fabric } from 'fabric'
 import { type Canvas } from 'fabric/fabric-impl'
+import { type Align } from '../../domain/shapeProperty'
 
 export default class Graphic {
   private canvas?: Canvas = undefined
   private static staticCanvas?: Canvas = undefined
-  mouseDown: (shape: fabric.Object | null | undefined) => void = () => {}
+  mouseDown: (shape: fabric.Object | null | undefined) => void = () => { }
 
   start (): void {
     this.canvas = Graphic.staticCanvas ?? new fabric.Canvas('editor')
@@ -23,6 +24,7 @@ export default class Graphic {
   private selectShape (): void {
     this.canvas?.on('mouse:down', (e) => {
       const shape = this.canvas?.getActiveObject()
+      if (shape == null) return
       this.mouseDown(shape)
     })
   }
@@ -124,10 +126,17 @@ export default class Graphic {
   }
 
   private addShape (shape: Array<{ x: number, y: number }>): void {
-    const polyg = new fabric.Polygon(shape, {
-      strokeWidth: 2
-    })
+    const polyg = new fabric.Polygon(shape)
     this.canvas?.add(polyg)
     this.canvas?.centerObject(polyg)
+  }
+
+  public aligns (align: Align, shape: fabric.Object): void {
+    const typesAligns = {
+      centerObject: (shape: fabric.Object) => this.canvas?.centerObject(shape),
+      centerObjectH: (shape: fabric.Object) => this.canvas?.centerObjectH(shape),
+      centerObjectV: (shape: fabric.Object) => this.canvas?.centerObjectV(shape)
+    }
+    typesAligns[align](shape)
   }
 }
