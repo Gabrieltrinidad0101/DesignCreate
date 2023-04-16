@@ -1,9 +1,8 @@
 .editorScreen{
-    display: grid;
+    background: #eaeaea;
 }
 
 .editorContainer{
-    background: #eaeaea;
     margin-left: 5rem;
     width: calc(100% - 5rem);
     height: 100vh;
@@ -13,7 +12,22 @@
 }
 
 .editor{
-    width: 80%;
-    height: 80%;
+    width: 70%;
+    height: 70%;
     background: white;
+}
+
+@media only screen and (max-width: 600px) {
+    .editorContainer {
+        margin-left: 0;
+        align-items: normal;
+        justify-content: normal;
+        width: 100%;
+    }
+
+    .editor{
+        width: 100vw;
+        height: calc(100% - 5rem);
+        background: white;
+    }
 }
