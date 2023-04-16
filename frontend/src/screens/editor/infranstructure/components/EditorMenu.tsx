@@ -5,15 +5,14 @@ import { type ChangeItemSubMenu } from '../../domain/eventsMenu'
 import type IProp from '../../../../share/domian/prop'
 import { useGraphic } from '../hooks/useGraphic'
 export default function EditorMenu ({ Prop: changeItemSubMenu }: IProp<ChangeItemSubMenu>): JSX.Element {
-  
-  const grafic = useGraphic();
-  
+  const grafic = useGraphic()
+
   return (
     <Menu hover={true}>
-      <Nav onClick={() => changeItemSubMenu()}>
+      <Nav onClick={() => { changeItemSubMenu() }}>
         <i className="fa-solid fa-arrow-pointer"></i>
       </Nav>
-      <Nav onClick={() =>changeItemSubMenu('Shapes')}>
+      <Nav onClick={() => { changeItemSubMenu('Shapes') }}>
         <i className="fa-solid fa-shapes"></i>
       </Nav>
       <Nav onClick={grafic.textBox}>

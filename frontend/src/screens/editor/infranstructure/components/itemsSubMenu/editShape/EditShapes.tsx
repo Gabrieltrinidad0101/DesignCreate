@@ -2,7 +2,7 @@ import React from 'react'
 import { useGraphic } from '../../../hooks/useGraphic'
 import { type Align, type ShapeProperty } from '../../../../domain/shapeProperty'
 import EditorCss from './Editor.module.css'
-export default function EditShapes(): JSX.Element {
+export default function EditShapes (): JSX.Element {
   const graphic = useGraphic()
 
   const changePropertyToShape = (property: ShapeProperty, value: string | number): void => {
