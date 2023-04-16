@@ -6,7 +6,10 @@ import type IProp from '../../../../share/domian/prop'
 import { useGraphic } from '../hooks/useGraphic'
 export default function EditorMenu ({ Prop: changeItemSubMenu }: IProp<ChangeItemSubMenu>): JSX.Element {
   const grafic = useGraphic()
-
+  const textBox = (): void => {
+    grafic.start()
+    grafic.textBox()
+  }
   return (
     <Menu hover={true}>
       <Nav onClick={() => { changeItemSubMenu() }}>
@@ -15,7 +18,7 @@ export default function EditorMenu ({ Prop: changeItemSubMenu }: IProp<ChangeIte
       <Nav onClick={() => { changeItemSubMenu('Shapes') }}>
         <i className="fa-solid fa-shapes"></i>
       </Nav>
-      <Nav onClick={grafic.textBox}>
+      <Nav onClick={textBox}>
         <i className="fa-solid fa-text-width"></i>
       </Nav>
       <Nav>

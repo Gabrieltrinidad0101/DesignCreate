@@ -6,7 +6,7 @@ export default function EditShapes (): JSX.Element {
   const graphic = useGraphic()
 
   const changePropertyToShape = (property: ShapeProperty, value: string | number): void => {
-    graphic.getCurrentShape()?.set(property, value)
+    graphic.getCurrentObject()?.set(property, value)
     graphic.render()
   }
 
@@ -15,7 +15,7 @@ export default function EditShapes (): JSX.Element {
   }
 
   const changeAligns = (align: Align): void => {
-    const shape = graphic.getCurrentShape()
+    const shape = graphic.getCurrentObject()
     if (shape === null || shape === undefined) return
     graphic.aligns(align, shape)
   }
@@ -24,7 +24,7 @@ export default function EditShapes (): JSX.Element {
     <div>
       <div>
         <p>Background</p>
-        <input type="color" className={EditorCss.colorPicker} onChange={(e) => { changePropertyToShape('fill', e.target.value) }} value={graphic.getCurrentShape()?.fill?.toString()} />
+        <input type="color" className={EditorCss.colorPicker} onChange={(e) => { changePropertyToShape('fill', e.target.value) }} />
       </div>
       <div>
         <p>Line Width</p>

@@ -13,7 +13,7 @@ export default class Base {
     this.selectShape()
   }
 
-  getCurrentShape = (): fabric.Object | null | undefined => {
+  getCurrentObject = (): fabric.Object | null | undefined => {
     return this.canvas?.getActiveObject()
   }
 
