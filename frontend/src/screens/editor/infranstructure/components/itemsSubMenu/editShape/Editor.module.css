@@ -1,0 +1,22 @@
+
+.colorPicker{
+    width: 90%;
+    height: 80px;
+    margin-left: 5%;
+}
+
+.aligns{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.aligns > button{
+    background: none;
+    border: 1px solid transparent;
+    outline: none;
+    cursor: pointer;
+}
+
+.aligns > button:hover{
+    border: 1px solid #000;
+}

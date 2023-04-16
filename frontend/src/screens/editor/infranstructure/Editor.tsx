@@ -33,7 +33,7 @@ export default function Editor (): JSX.Element {
   }, [screen])
 
   graphic.mouseDown = (shape: fabric.Object | null | undefined) => {
-    setItemSubMenu((shape != null) ? 'EditShapes' : undefined)
+    setItemSubMenu((shape != null) ? "EditShapes" : undefined)
   }
 
   const chanceOfItemSubMenu: ChangeItemSubMenu = (typeItemSubMenu?: TypeItemSubMenu): void => {
