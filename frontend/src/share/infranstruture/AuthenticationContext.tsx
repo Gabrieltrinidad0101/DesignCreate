@@ -42,6 +42,7 @@ const AuthenticationProvider = (): JSX.Element => {
 
   if (user === undefined) {
     navigation('/register')
+    return <></>
   }
 
   return <AuthContext.Provider value={{ user, setUser: containerSetUser }} >{<Outlet/>}</AuthContext.Provider>
