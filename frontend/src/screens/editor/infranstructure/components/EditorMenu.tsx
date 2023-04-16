@@ -6,7 +6,7 @@ import type IProp from '../../../../share/domian/prop'
 export default function EditorMenu ({ Prop: changeItemSubMenu }: IProp<ChangeItemSubMenu>): JSX.Element {
   return (
     <Menu hover={true}>
-      <Nav>
+      <Nav onClick={() => { changeItemSubMenu() }}>
         <i className="fa-solid fa-arrow-pointer"></i>
       </Nav>
       <Nav onClick={() => { changeItemSubMenu('Shapes') }}>

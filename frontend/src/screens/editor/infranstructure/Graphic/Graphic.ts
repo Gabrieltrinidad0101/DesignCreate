@@ -23,9 +23,7 @@ export default class Graphic {
 
   private selectShape (): void {
     this.canvas?.on('mouse:down', (e) => {
-      const shape = this.canvas?.getActiveObject()
-      if (shape == null) return
-      this.mouseDown(shape)
+      this.mouseDown(e.target)
     })
   }
 
@@ -134,9 +132,32 @@ export default class Graphic {
   public aligns (align: Align, shape: fabric.Object): void {
     const typesAligns = {
       centerObject: (shape: fabric.Object) => this.canvas?.centerObject(shape),
-      centerObjectH: (shape: fabric.Object) => this.canvas?.centerObjectH(shape),
-      centerObjectV: (shape: fabric.Object) => this.canvas?.centerObjectV(shape)
+      centerObjectLeft: (shape: fabric.Object) => { this.centerObjectLeft(shape) },
+      centerObjectRight: (shape: fabric.Object) => { this.centerObjectRight(shape) },
+      centerObjectTop: (shape: fabric.Object) => { this.centerObjectTop(shape) },
+      centerObjectBottom: (shape: fabric.Object) => { this.centerObjectBottom(shape) }
     }
     typesAligns[align](shape)
+    this.render()
+  }
+
+  private centerObjectLeft (shape: fabric.Object): void {
+    shape.set('left', 0)
+  }
+
+  private centerObjectRight (shape: fabric.Object): void {
+    const scaleX = (shape.scaleX ?? 0)
+    const width = (shape.width ?? 0)
+    shape.set('left', (this.canvas?.width ?? 0) - (width * scaleX))
+  }
+
+  private centerObjectTop (shape: fabric.Object): void {
+    shape.set('top', 0)
+  }
+
+  private centerObjectBottom (shape: fabric.Object): void {
+    const scaleY = (shape.scaleY ?? 0)
+    const height = (shape.height ?? 0)
+    shape.set('top', (this.canvas?.height ?? 0) - (height * scaleY))
   }
 }

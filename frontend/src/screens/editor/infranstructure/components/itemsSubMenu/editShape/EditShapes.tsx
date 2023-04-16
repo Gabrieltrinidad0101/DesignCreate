@@ -23,10 +23,22 @@ export default function EditShapes (): JSX.Element {
     <div>
       <input type="color" onChange={(e) => { changePropertyToShape('fill', e.target.value) }} value={graphic.getCurrentShape()?.fill?.toString()} />
       <input type="range" onChange={changeStrokeWidth} min="0" max="20" defaultValue="0" />
-      <input type="color" onChange={(e) => { changePropertyToShape('stroke', e.target.value) }}/>
-      <input type="button" onClick={(e) => { changeAligns('centerObject') }} value="center"/>
-      <input type="button" onClick={(e) => { changeAligns('centerObjectH') }} value="center"/>
-      <input type="button" onClick={(e) => { changeAligns('centerObjectV') }} value="center"/>
+      <input type="color" onChange={(e) => { changePropertyToShape('stroke', e.target.value) }} />
+      <button onClick={() => { changeAligns('centerObject') }}>
+        <i className="fa-solid fa-align-center"></i>
+      </button>
+      <button onClick={() => { changeAligns('centerObjectLeft') }}>
+        <i className="fa-solid fa-align-left"></i>
+      </button>
+      <button onClick={() => { changeAligns('centerObjectRight') }}>
+        <i className="fa-solid fa-align-right"></i>
+      </button>
+      <button onClick={() => { changeAligns('centerObjectTop') }}>
+        <i className="fa-solid fa-align-left fa-rotate-90"></i>
+      </button>
+      <button onClick={() => { changeAligns('centerObjectBottom') }}>
+        <i className="fa-solid fa-align-left fa-rotate-270"></i>
+      </button>
     </div>
   )
 }

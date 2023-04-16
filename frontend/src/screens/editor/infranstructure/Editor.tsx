@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { type ChangeItemSubMenu } from '../domain/eventsMenu'
 import { type TypeItemSubMenu } from '../domain/itemsSubMenu'
 import EditorMenu from './components/EditorMenu'
 import EditorSubMenu from './components/EditorSubMenu'
@@ -31,11 +32,11 @@ export default function Editor (): JSX.Element {
     }
   }, [screen])
 
-  graphic.mouseDown = () => {
-    setItemSubMenu('EditShapes')
+  graphic.mouseDown = (shape: fabric.Object | null | undefined) => {
+    setItemSubMenu((shape != null) ? 'EditShapes' : undefined)
   }
 
-  const chanceOfItemSubMenu = (typeItemSubMenu: TypeItemSubMenu): void => {
+  const chanceOfItemSubMenu: ChangeItemSubMenu = (typeItemSubMenu?: TypeItemSubMenu): void => {
     setItemSubMenu(itemSubMenu === typeItemSubMenu ? undefined : typeItemSubMenu)
   }
 
