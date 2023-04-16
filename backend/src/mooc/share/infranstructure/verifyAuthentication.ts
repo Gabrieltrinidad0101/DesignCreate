@@ -11,7 +11,7 @@ export default class VerifyAuthentication {
       const token = req.headers.token?.toString()
       if (token === undefined) {
         return {
-          message: 'Error try to login',
+          message: 'No access',
           statusCode: 409
         }
       }
@@ -21,7 +21,7 @@ export default class VerifyAuthentication {
     } catch (error) {
       console.error(error)
       return {
-        message: 'Error try to login',
+        message: 'No access',
         statusCode: 409
       }
     }
