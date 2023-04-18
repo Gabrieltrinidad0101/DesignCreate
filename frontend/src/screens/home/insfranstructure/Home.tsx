@@ -1,18 +1,14 @@
 import React from 'react'
-import HomeCss from './Home.module.css'
-import HomeMenu from './components/HomeMenu'
-import Search from './components/Search'
-import { Link } from 'react-router-dom'
+import HomeMenu from './components/menu/HomeMenu'
+import Search from './components/header/Header'
+import Dashboard from '../../../components/Dashboard/infranstructure/Dashboard'
+import Cards from './components/cards/Cards'
 export default function Home (): JSX.Element {
   return (
-    <div className={HomeCss.homeScreen}>
-      <HomeMenu />
-      <main className={HomeCss.main}>
-        <Search/>
-        <Link to="/editor" className={HomeCss.buttonNewProject}>
-          New Project
-        </Link>
-      </main>
-    </div>
+    <Dashboard
+      Menu={HomeMenu}
+      Header={Search}
+      Body={Cards}
+    />
   )
 }
