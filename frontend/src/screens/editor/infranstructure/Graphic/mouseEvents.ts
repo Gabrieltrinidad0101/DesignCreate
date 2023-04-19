@@ -2,11 +2,11 @@ import Base from './base'
 import { type DynamicObject } from '../../../../share/domian/object'
 export default class MouseEvents extends Base {
   private static clone: fabric.Object | undefined = undefined
-
   events: DynamicObject<() => void> = {
     Delete: () => { this.delete() },
     KeyC: () => { this.copy() },
-    KeyV: () => { this.paste() }
+    KeyV: () => { this.paste() },
+    KeyZ: () => { this.ctrolZ() }
   }
 
   constructor () {
@@ -22,12 +22,12 @@ export default class MouseEvents extends Base {
     this.start()
     const object = this.getCurrentObject()
     if (object === undefined || object === null) return
-    this.canvas?.remove(object)
+    Base.staticCanvas?.remove(object)
   }
 
   copy = (): void => {
     this.start()
-    this.canvas?.getActiveObject()?.clone((cloned: any) => {
+    Base.staticCanvas?.getActiveObject()?.clone((cloned: any): void => {
       MouseEvents.clone = cloned
     })
   }
@@ -38,6 +38,10 @@ export default class MouseEvents extends Base {
     MouseEvents.clone.clone((cloned: any): void => {
       MouseEvents.clone = cloned
     })
+  }
+
+  ctrolZ (): void {
+    console.log('ok z')
   }
 }
 

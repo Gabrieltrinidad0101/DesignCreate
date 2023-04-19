@@ -1,0 +1,62 @@
+.menuContainer {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 5rem calc(100% - 5rem);
+    grid-template-areas: "menu subMenu";
+}
+
+.menuContainerDeleteColumn {
+    grid-template-columns: 5rem;
+}
+
+.menu {
+    background: hsl(240deg 6% 10%);
+    width: 100%;
+    height: 100%;
+    color: hsl(210deg 1% 51%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    grid-area: menu;
+}
+
+.menu>div {
+    height: 50px;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.menu>div:hover {
+    color: white;
+}
+
+.subMenu {
+    background: hsl(210deg 3% 15%);
+    grid-area: subMenu;
+}
+
+
+
+@media only screen and (max-width: 1000px) {
+    .menuContainer {
+        grid-template-columns: 100%;
+        grid-template-rows: 80vh 5rem ;
+        grid-template-areas:"subMenu" "menu";
+        position: absolute;
+        top: calc(100% - 80vh - 5rem);
+    }
+
+    .menu {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+
+    .subMenu {
+    }
+}

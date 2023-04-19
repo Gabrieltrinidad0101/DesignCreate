@@ -1,33 +1,33 @@
-.editorScreen{
-    background: #eaeaea;
-}
 
-.editorContainer{
-    margin-left: 5rem;
-    width: calc(100% - 5rem);
-    height: 100vh;
+.containerEditor{
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    height: 100%;
+    background: rgb(235 235 240);
 }
 
 .editor{
     width: 70%;
-    height: 70%;
+    height: 80%;
     background: white;
 }
 
 @media only screen and (max-width: 600px) {
-    .editorContainer {
+    .main {
         margin-left: 0;
+        width: 100%;
+    }
+    
+    .containerEditor{
         align-items: normal;
         justify-content: normal;
-        width: 100%;
     }
 
     .editor{
-        width: 100vw;
-        height: calc(100% - 5rem);
+        width: 100%;
+        height: 100% ;
         background: white;
     }
 }

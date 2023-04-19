@@ -1,6 +1,6 @@
 import React from 'react'
-import { useGraphic } from '../../../hooks/useGraphic'
-import { type Align, type ShapeProperty } from '../../../../domain/shapeProperty'
+import { useGraphic } from '../../../../hooks/useGraphic'
+import { type Align, type ShapeProperty } from '../../../../../domain/shapeProperty'
 import EditorCss from './Editor.module.css'
 export default function EditShapes (): JSX.Element {
   const graphic = useGraphic()
@@ -21,17 +21,17 @@ export default function EditShapes (): JSX.Element {
   }
 
   return (
-    <div>
+    <div className={EditorCss.container}>
       <div>
         <p>Background</p>
         <input type="color" className={EditorCss.colorPicker} onChange={(e) => { changePropertyToShape('fill', e.target.value) }} />
       </div>
       <div>
-        <p>Line Width</p>
+        <p>Border Width</p>
         <input type="range" onChange={changeStrokeWidth} min="0" max="20" defaultValue="0" />
       </div>
       <div>
-        <p>Line Color</p>
+        <p>Border Color</p>
         <input type="color" className={EditorCss.colorPicker} onChange={(e) => { changePropertyToShape('stroke', e.target.value) }} />
       </div>
       <div>

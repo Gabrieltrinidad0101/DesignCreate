@@ -1,4 +1,4 @@
-import type IItemsSubMenu from '../../../domain/itemsSubMenu'
+import type IItemsSubMenu from '../../../../domain/itemsSubMenu'
 import Shapes from './shapes/Shapes'
 import EditShapes from './editShape/EditShapes'
 

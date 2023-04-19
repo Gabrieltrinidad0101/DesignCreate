@@ -7,13 +7,13 @@ export default function Dashboard ({ Header, Menu, Body }: IDashboard<JSX.Elemen
     <>
       <div className={DashboardCss.container}>
         <div className={DashboardCss.header}>
-          <Header/>
+          {Header}
         </div>
         <div className={DashboardCss.menu}>
-          <Menu/>
+          {Menu}
         </div>
         <div className={DashboardCss.main}>
-          <Body/>
+          {Body}
         </div>
       </div>
     </>

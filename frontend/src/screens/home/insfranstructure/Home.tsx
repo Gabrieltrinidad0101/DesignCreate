@@ -6,9 +6,9 @@ import Cards from './components/cards/Cards'
 export default function Home (): JSX.Element {
   return (
     <Dashboard
-      Menu={HomeMenu}
-      Header={Search}
-      Body={Cards}
+      Menu={<HomeMenu/>}
+      Header={<Search/>}
+      Body={<Cards/>}
     />
   )
 }

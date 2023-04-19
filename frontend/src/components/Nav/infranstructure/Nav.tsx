@@ -4,7 +4,7 @@ import type INav from '../domian/menu'
 
 export default function Nav ({ onClick, text, children }: INav<React.ReactNode>): JSX.Element {
   return (
-    <li className={MenuCss.item}>
+    <li className={MenuCss.item} onClick={onClick}>
       <a href="#">
         {children}
         <span className="">{text}</span>

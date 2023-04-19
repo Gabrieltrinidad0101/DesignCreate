@@ -1,7 +1,7 @@
 import React from 'react'
-import { useGraphic } from '../../../hooks/useGraphic'
+import { useGraphic } from '../../../../hooks/useGraphic'
 import ShapesCss from './Shapes.module.css'
-import imagesContainer from '../../../../../../share/application/imagesContainer'
+import imagesContainer from '../../../../../../../share/application/imagesContainer'
 export default function Shapes (): JSX.Element {
   const graphic = useGraphic()
   return (
