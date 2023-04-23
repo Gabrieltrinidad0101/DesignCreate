@@ -1,8 +1,14 @@
 import React from 'react'
 import HeaderCss from './Header.module.css'
-import { Link } from 'react-router-dom'
-
-export default function Search (): JSX.Element {
+import type IHeader from '../../../domian/header'
+import type Prop from '../../../../../share/domian/prop'
+export default function Header ({ Prop: header }: Prop<IHeader>): JSX.Element {
+  const createNewDesign = (): void => {
+    header.createNewDesign()
+      .catch(error => {
+        console.log(error)
+      })
+  }
   return (
     <header className={HeaderCss.header}>
       <div className={HeaderCss.logo}>
@@ -13,8 +19,8 @@ export default function Search (): JSX.Element {
         <input className={HeaderCss.inputSearch} type="text" />
       </div>
       <div>
-        <button className={HeaderCss.newProject}>
-          <Link to="/editor" className={HeaderCss.newProject}>New Program</Link>
+        <button className={HeaderCss.newProject} onClick={createNewDesign}>
+          New Program
         </button>
       </div>
       <div className={HeaderCss.userPerfil}>
