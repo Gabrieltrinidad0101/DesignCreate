@@ -26,6 +26,15 @@ class CustomFecth implements ICustomFecth {
     return response
   }
 
+  async delete<T>(url: string, headers?: object | undefined): Promise<T | undefined> {
+    const response = await this.baseHttp<T>({
+      url,
+      headers,
+      method: 'delete'
+    })
+    return response
+  }
+
   async baseHttp<T>(baseHttp: BaseHttp): Promise<T | undefined> {
     try {
       const token = localStorage.getItem('token')
