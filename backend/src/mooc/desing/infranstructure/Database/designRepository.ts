@@ -22,7 +22,7 @@ export default class DesignRepository implements IDesignRepository {
   }
 
   get = async (): Promise<IDesign[]> => {
-    const designModal = await DesignModal.find({}, { content: 0 })
+    const designModal = await DesignModal.find({}, { content: 0 }) as IDesign[]
     return designModal
   }
 }
