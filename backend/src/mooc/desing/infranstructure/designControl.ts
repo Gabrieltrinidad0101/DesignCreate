@@ -15,12 +15,21 @@ export default class DesignControl {
 
   findById = async (req: Request, res: Response): Promise<IHttpStatusCode> => {
     const _id = req.params._id
-    const result = await this.design.findById(_id)
+    const userId = req.headers.userId?.toString() ?? ''
+    const result = await this.design.findById(_id, userId)
     return result
   }
 
   get = async (req: Request, res: Response): Promise<IHttpStatusCode> => {
-    const result = await this.design.get()
+    const userId = req.headers.userId?.toString() ?? ''
+    const result = await this.design.get(userId)
+    return result
+  }
+
+  delete = async (req: Request, res: Response): Promise<IHttpStatusCode> => {
+    const _id = req.params._id
+    const userId = req.headers.userId?.toString() ?? ''
+    const result = await this.design.delete(_id, userId)
     return result
   }
 }

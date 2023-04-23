@@ -28,16 +28,24 @@ export default class Design {
     }
   }
 
-  async findById (_id: string): Promise<IHttpStatusCode> {
-    const design = await this.designRepository.findById(_id)
+  async findById (_id: string, userId: string): Promise<IHttpStatusCode> {
+    const design = await this.designRepository.findById(_id, userId)
     return {
       statusCode: 200,
       message: design
     }
   }
 
-  async get (): Promise<IHttpStatusCode> {
-    const design = await this.designRepository.get()
+  async get (userId: string): Promise<IHttpStatusCode> {
+    const design = await this.designRepository.get(userId)
+    return {
+      statusCode: 200,
+      message: design
+    }
+  }
+
+  async delete (_id: string, userId: string): Promise<IHttpStatusCode> {
+    const design = await this.designRepository.delete(_id, userId)
     return {
       statusCode: 200,
       message: design

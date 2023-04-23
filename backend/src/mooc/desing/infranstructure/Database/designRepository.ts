@@ -8,7 +8,7 @@ export default class DesignRepository implements IDesignRepository {
       return await DesignModal.updateOne({ _id: design._id }, design) as IDesignUserId
     }
     delete design._id
-    const designModal = new DesignModal(design)
+    const designModal = new DesignModal({ ...design })
     await designModal.save()
     return {
       ...design,
@@ -16,13 +16,18 @@ export default class DesignRepository implements IDesignRepository {
     }
   }
 
-  findById = async (_id: string): Promise<IDesign | undefined> => {
-    const designModal = await DesignModal.findById(_id, { userId: 0 }) as IDesign | undefined
+  async findById (_id: string, userId: string): Promise<IDesign | null> {
+    const designModal = await DesignModal.findOne<IDesign | null>({ _id, userId }, { userId: 0 })
     return designModal
   }
 
-  get = async (): Promise<IDesign[]> => {
-    const designModal = await DesignModal.find({}, { content: 0 }) as IDesign[]
+  get = async (userId: string): Promise<IDesign[]> => {
+    const designModal = await DesignModal.find<IDesign>({ userId }, { content: 0 })
+      .sort('-createdAt')
     return designModal
+  }
+
+  delete = async (_id: string): Promise<void> => {
+    await DesignModal.deleteOne({ _id })
   }
 }
