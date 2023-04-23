@@ -1,7 +1,7 @@
 import React from 'react'
 import CardCss from './Card.module.css'
 import { type IPropCard } from '../../../domian/card'
-
+import { cutString } from '../../../application/cutString'
 export default function Card ({ design, deleteDesign }: IPropCard): JSX.Element {
   const gotToEditor = (designId: string | undefined): void => {
     if (designId === undefined) return
@@ -27,7 +27,7 @@ export default function Card ({ design, deleteDesign }: IPropCard): JSX.Element 
       <div className={CardCss.design} dangerouslySetInnerHTML={{ __html: design.svg ?? '' }}>
       </div>
       <div className={CardCss.cardName}>
-        <div className={CardCss.text}>{design.name}</div>
+        <div className={CardCss.text}>{cutString(design.name ?? '', 17)}</div>
         <div className={CardCss.edit}></div>
       </div>
     </div>
