@@ -33,7 +33,7 @@ export default class RouterManager {
       }
       const response = await callBack(req, res, next)
       if (response === undefined) return
-      res.status(response.statusCode ?? 200).send({ message: response.message })
+      res.status(response.statusCode ?? 200).send(response)
     } catch (error) {
       console.log(error)
       res.status(500).send({ message: 'Error try later' })

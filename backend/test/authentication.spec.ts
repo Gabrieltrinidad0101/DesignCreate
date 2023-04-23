@@ -26,8 +26,8 @@ describe('POST /authentication', () => {
       password: '12345',
       isRegister: true
     })
-    expect(response.statusCode).toBe(200)
     expect(response.body.message).toBeTruthy()
+    expect(response.statusCode).toBe(200)
   })
 
   test('authentication register user exist', async () => {
@@ -45,8 +45,8 @@ describe('POST /authentication', () => {
       password: '12345',
       isRegister: false
     })
-    expect(response.statusCode).toBe(200)
     token = response.body.message
+    expect(response.statusCode).toBe(200)
     expect(response.body.message).toBeTruthy()
   })
 

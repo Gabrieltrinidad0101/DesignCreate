@@ -1,5 +1,6 @@
 import express from 'express'
 import { authRouter } from './mooc/authentication/infranstructure/authRouter'
+import { designRouter } from './mooc/desing/infranstructure/designRouter'
 import cors from 'cors'
 import morgan from 'morgan'
 import './database'
@@ -9,4 +10,5 @@ app.use(express.json())
 app.use(cors())
 app.use(morgan('dev'))
 app.use('/', authRouter)
+app.use('/design', designRouter)
 export default app
