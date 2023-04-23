@@ -1,4 +1,4 @@
 import mongosee from 'mongoose'
-mongosee.connect('mongodb://mongo/designcreate')
+mongosee.connect('mongodb://localhost/designcreate')
   .then(res => { console.log('Db is connected') })
   .catch(error => { console.error(error) })

@@ -4,7 +4,7 @@ import type IDesignRepository from '../../domian/designRepository'
 import DesignModal from './designSchema'
 export default class DesignRepository implements IDesignRepository {
   update = async (design: IDesignUserId): Promise<IDesignUserId> => {
-    if (design?._id) {
+    if (design?._id !== undefined && design?._id !== '') {
       return await DesignModal.updateOne({ _id: design._id }, design) as IDesignUserId
     }
     delete design._id

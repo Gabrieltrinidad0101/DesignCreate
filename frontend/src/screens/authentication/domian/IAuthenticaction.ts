@@ -1,5 +1,4 @@
-import type Toast from '../../../share/domian/IToast'
-import type ICustomFecth from '../../../share/domian/customFecth'
+import { type IFecthAlert } from '../../../share/domian/customFecth'
 import { type IUser } from '../../../../../share/domain/user'
 import type IUserState from '../../../share/domian/user'
 
@@ -8,10 +7,8 @@ export default interface IAuthenticationComponent {
   isRegister: boolean
 }
 
-export interface IAuthentication {
+export interface IAuthentication extends IFecthAlert {
   user: IUser
-  toast: Toast
-  customFecth: ICustomFecth
   navigation: (path: string) => void
   userState: IUserState
 

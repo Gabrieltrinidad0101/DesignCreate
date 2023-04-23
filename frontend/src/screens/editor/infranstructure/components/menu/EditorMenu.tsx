@@ -19,7 +19,7 @@ export default function EditorMenu (): JSX.Element {
     graphic.onMouseDowm((object: fabric.Object | undefined) => {
       setSubMenu((object != null) ? 'EditShapes' : 'Shapes')
     })
-  })
+  }, [])
 
   return (
     <>

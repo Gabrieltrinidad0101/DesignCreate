@@ -1,5 +1,6 @@
 import { Router } from 'express'
-import { authControl, verifyAuthentication } from './dependencies'
+import { authControl } from './dependencies'
+import { verifyAuthentication } from '../../share/infranstructure/dependecies'
 import RouterManager from '../../share/infranstructure/routerManager'
 const authRouter = Router()
 

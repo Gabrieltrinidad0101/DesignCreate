@@ -9,6 +9,8 @@ import { useGraphic } from './hooks/useGraphic'
 import { useNavigate } from 'react-router-dom'
 import type IHttpResult from '../../../../../share/domain/httpResult'
 import type IDesign from '../../../../../share/domain/design'
+import './Graphic/mouseEvents'
+
 const editorApp = new EditorApp({
   toast: Toast,
   customFecth
