@@ -1,7 +1,8 @@
-import Base from './base'
 import { type DynamicObject } from '../../../../share/domian/object'
-export default class MouseEvents extends Base {
+import Graphic from './Graphic'
+export default class MouseEvents {
   private static clone: fabric.Object | undefined = undefined
+  private readonly graphic: Graphic = new Graphic()
   events: DynamicObject<() => void> = {
     Delete: () => { this.delete() },
     KeyC: () => { this.copy() },
@@ -10,7 +11,6 @@ export default class MouseEvents extends Base {
   }
 
   constructor () {
-    super()
     window.addEventListener('keydown', (e) => {
       const event = this.events[e.code]
       if (event === undefined) return
@@ -19,22 +19,22 @@ export default class MouseEvents extends Base {
   }
 
   delete = (): void => {
-    this.start()
-    const object = this.getCurrentObject()
+    this.graphic.start()
+    const object = this.graphic.getCurrentObject()
     if (object === undefined || object === null) return
-    Base.staticCanvas?.remove(object)
+    this.graphic.remove(object)
   }
 
   copy = (): void => {
-    this.start()
-    Base.staticCanvas?.getActiveObject()?.clone((cloned: any): void => {
+    this.graphic.start()
+    this.graphic.getCurrentObject()?.clone((cloned: any): void => {
       MouseEvents.clone = cloned
     })
   }
 
   paste = (): void => {
     if (MouseEvents.clone === undefined) return
-    this.addShape(MouseEvents.clone)
+    this.graphic.addObject(MouseEvents.clone)
     MouseEvents.clone.clone((cloned: any): void => {
       MouseEvents.clone = cloned
     })
