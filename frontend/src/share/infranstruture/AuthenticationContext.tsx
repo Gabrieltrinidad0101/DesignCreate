@@ -20,17 +20,23 @@ const AuthenticationProvider = (): JSX.Element => {
   const [user, setUser] = useState<IUser>(userInitialState)
   const navigation = useNavigate()
 
-  const verifyAuthentication = async (): Promise<void> => {
+  const verifyAuthentication = async (): Promise<boolean> => {
     try {
-      const result = await customFecth.get<IHttpResult>('/verifyAuthentication')
+      const result = await customFecth.get<IHttpResult<IUser>>('/verifyAuthentication')
+      if (result?.message === undefined) return true
       setUser(result?.message)
+      return false
     } catch (error) {
       console.log(error)
     }
+    return true
   }
 
   useEffect(() => {
     verifyAuthentication()
+      .then((noHasAccount) => {
+        if (noHasAccount) navigation('/register')
+      })
       .catch(error => {
         console.log(error)
       })
@@ -39,13 +45,7 @@ const AuthenticationProvider = (): JSX.Element => {
   const containerSetUser = (user: IUser): void => {
     setUser(prevUser => ({ ...prevUser, ...user }))
   }
-
-  if (user === undefined) {
-    navigation('/register')
-    return <></>
-  }
-
-  return <AuthContext.Provider value={{ user, setUser: containerSetUser }} >{<Outlet/>}</AuthContext.Provider>
+  return <AuthContext.Provider value={{ user, setUser: containerSetUser }} >{<Outlet />}</AuthContext.Provider>
 }
 export const useAuthenticationContext = (): IUserState => {
   return useContext<IUserState>(AuthContext)
