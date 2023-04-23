@@ -10,6 +10,7 @@
     justify-self: center;
     display: grid;
     grid-template-rows: 0% 80% 20%;
+    cursor: pointer;
     
 }
 
@@ -20,7 +21,36 @@
     background-image: linear-gradient(to bottom right,hsla(0,0%,100%,.15),rgba(64,87,109,.07));
 }
 
-.card .design img{
+.deleteCard{
+    width: 30px;
+    height: 30px;
+    margin-left: 80%;
+    margin-top: 5px;
+    text-align: center;
+    opacity: 0;
+}
+
+.card:hover .deleteCard{
+    animation: deleteCard 1s ease forwards;
+}
+
+.card:hover .deleteCard i{
+    margin-top: 5px;
+}
+
+
+.card .design svg{
     width: 100%;
     height: 100%;
+}
+
+
+
+@keyframes deleteCard{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
 }
