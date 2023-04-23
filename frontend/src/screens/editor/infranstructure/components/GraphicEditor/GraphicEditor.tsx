@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import GraphicEditorCss from './GraphicEditor.module.css'
 import { useGraphic } from '../../hooks/useGraphic'
 
 export default function GraphicEditor (): JSX.Element {
   const editorHtml = useRef<HTMLDivElement>(null)
-  const [screen, setScreen] = useState<number>()
   const graphic = useGraphic()
 
   useEffect(() => {
@@ -17,7 +16,6 @@ export default function GraphicEditor (): JSX.Element {
     if (editorHtml.current === null) return
     const { clientWidth, clientHeight } = editorHtml.current
     graphic.setDimensions(clientWidth, clientHeight)
-    setScreen(window.innerWidth)
   }
 
   useEffect(() => {
@@ -25,7 +23,7 @@ export default function GraphicEditor (): JSX.Element {
     return () => {
       window.removeEventListener('resize', changeSizeOfCanvas)
     }
-  }, [screen])
+  }, [])
 
   return (
         <div className={GraphicEditorCss.containerEditor}>
