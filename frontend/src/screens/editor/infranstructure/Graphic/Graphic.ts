@@ -15,6 +15,10 @@ export default class Graphic {
     this.addPolygon(rect)
   }
 
+  onCanvaChanged (callBack: () => void): void {
+    Graphic.staticCanvas?.on('object:modified', callBack)
+  }
+
   circle (): void {
     const circle = new fabric.Circle({ radius: 25 })
     this.addObject(circle)

@@ -95,16 +95,16 @@
         top: calc(100% - 6rem - 80px );
     }
 
-    .newProject > a{
+    .newProject{
         color: transparent;
     }
 
-    .newProject > a::after{
+    .newProject::after{
         content: "+";
         font-size: 70px;
         color: wheat;
         display: block;
-        margin-top: -20px;
+        margin-top: -40px;
     }
 
 }

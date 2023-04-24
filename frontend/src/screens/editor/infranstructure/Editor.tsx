@@ -9,7 +9,10 @@ import { useGraphic } from './hooks/useGraphic'
 import { useNavigate } from 'react-router-dom'
 import type IHttpResult from '../../../../../share/domain/httpResult'
 import type IDesign from '../../../../../share/domain/design'
-import './Graphic/mouseEvents'
+import MouseEvents from './Graphic/mouseEvents'
+import { isEmptyNullOrUndefined } from '../../../../../share/application/isEmptyNullUndefiner'
+
+const mouseEvents: MouseEvents = new MouseEvents()
 
 const editorApp = new EditorApp({
   toast: Toast,
@@ -26,12 +29,13 @@ export default function Editor (): JSX.Element {
     if (designId === '') return
     const res = await customFecth.get<IHttpResult<IDesign>>(`/design/findById/${designId}`)
     const design = res?.message
-    if (design == null) return
-    graphic.jsonLoad(design.content ?? '')
-    setDesignName(design.name ?? '')
+    if (isEmptyNullOrUndefined(design) || isEmptyNullOrUndefined(design?.content)) return
+    graphic.jsonLoad(design?.content ?? '')
+    setDesignName(design?.name ?? '')
   }
 
   useEffect(() => {
+    mouseEvents.start()
     get()
       .catch(error => {
         console.log(error)
