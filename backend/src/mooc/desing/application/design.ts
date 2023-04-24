@@ -45,10 +45,10 @@ export default class Design {
   }
 
   async delete (_id: string, userId: string): Promise<IHttpStatusCode> {
-    const design = await this.designRepository.delete(_id, userId)
+    await this.designRepository.delete(_id, userId)
     return {
       statusCode: 200,
-      message: design
+      message: 'ok'
     }
   }
 }
