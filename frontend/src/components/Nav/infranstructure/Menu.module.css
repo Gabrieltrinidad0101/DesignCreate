@@ -30,7 +30,7 @@
 }
 
 
-.item.bottom{
+.item:last-child{
     position: absolute;
     bottom: 10px;
     width: 13.5rem;
