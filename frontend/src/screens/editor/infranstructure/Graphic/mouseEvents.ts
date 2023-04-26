@@ -4,7 +4,7 @@ export default class MouseEvents {
   private static clone: fabric.Object | undefined = undefined
   private historial: string[] = new Array<string>()
   private readonly graphic: Graphic = new Graphic()
-  private indexOfHistorial: number = 0
+  private static indexOfHistorial: number = 0
   events: DynamicObject<() => void> = {
     Delete: () => { this.delete() },
     KeyC: () => { this.copy() },
@@ -13,15 +13,12 @@ export default class MouseEvents {
     KeyY: () => { this.ctrolY() }
   }
 
-  constructor () {
+  start (): void {
     window.addEventListener('keydown', (e) => {
       const event = this.events[e.code]
       if (event === undefined) return
       event()
     })
-  }
-
-  start (): void {
     this.graphic.onCanvaChanged(this.saveHistorial)
   }
 
@@ -47,22 +44,22 @@ export default class MouseEvents {
 
   private readonly saveHistorial = (): void => {
     const designJson = this.graphic.json()
-    this.historial = this.historial.slice(0, this.indexOfHistorial)
+    this.historial = this.historial.slice(0, MouseEvents.indexOfHistorial)
     this.historial.push(designJson)
-    ++this.indexOfHistorial
+    ++MouseEvents.indexOfHistorial
   }
 
   ctrolZ (): void {
-    if (this.indexOfHistorial === 0) return
-    --this.indexOfHistorial
-    const designJson = this.historial[this.indexOfHistorial]
+    if (MouseEvents.indexOfHistorial === 0) return
+    --MouseEvents.indexOfHistorial
+    const designJson = this.historial[MouseEvents.indexOfHistorial]
     this.graphic.jsonLoad(designJson)
   }
 
   ctrolY (): void {
-    if (this.indexOfHistorial === this.historial.length - 1) return
-    ++this.indexOfHistorial
-    const designJson = this.historial[this.indexOfHistorial]
+    if (MouseEvents.indexOfHistorial === this.historial.length - 1) return
+    ++MouseEvents.indexOfHistorial
+    const designJson = this.historial[MouseEvents.indexOfHistorial]
     this.graphic.jsonLoad(designJson)
   }
 }

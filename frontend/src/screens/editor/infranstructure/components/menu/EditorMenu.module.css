@@ -40,15 +40,25 @@
     grid-area: subMenu;
 }
 
+.miniMenu .subMenu {
+    display: none;
+}
+
 
 
 @media only screen and (max-width: 1000px) {
     .menuContainer {
         grid-template-columns: 100%;
-        grid-template-rows: 80vh 5rem ;
-        grid-template-areas:"subMenu" "menu";
+        grid-template-rows: 80vh 5rem;
+        grid-template-areas: "subMenu" "menu";
         position: absolute;
         top: calc(100% - 80vh - 5rem);
+    }
+
+    .miniMenu{
+        height: 5rem;
+        grid-template-rows: 0vh 5rem;
+        top: calc(100% - 5rem);
     }
 
     .menu {
@@ -57,6 +67,4 @@
         justify-content: space-evenly;
     }
 
-    .subMenu {
-    }
 }

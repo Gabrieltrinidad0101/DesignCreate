@@ -2,6 +2,7 @@ import React from 'react'
 import HeaderCss from './Header.module.css'
 import type IProp from '../../../../../share/domian/prop'
 import { type IEditorEvents } from '../../../domain/IEditor'
+
 export default function Header ({ Prop: editorEvents }: IProp<IEditorEvents>): JSX.Element {
   const changeEvent = (e: React.ChangeEvent<HTMLInputElement>): void => {
     editorEvents.changeName(e.target.value)
@@ -22,22 +23,14 @@ export default function Header ({ Prop: editorEvents }: IProp<IEditorEvents>): J
             <div className={HeaderCss.containerDesignName}>
                 <input type="text" value={editorEvents.designName} onChange={changeEvent} placeholder='Design name' />
             </div>
-            <div className={`${HeaderCss.ctrls} ${HeaderCss.icon}`}>
-                <div>
-                    <i className="fa-solid fa-arrow-rotate-right"></i>
-                </div>
-                <div>
-                    <i className="fa-solid fa-arrow-rotate-left"></i>
-                </div>
-            </div>
             <div className={`${HeaderCss.buttoSaveAndClose} ${HeaderCss.icon}`}>
                 <div onClick={save}>
                     <i className="fa-solid fa-floppy-disk"></i>
                 </div>
-                <div>
+                <div onClick={editorEvents.download}>
                     <i className="fa-solid fa-download"></i>
                 </div>
-                <div>
+                <div onClick={editorEvents.clean}>
                     <i className="fa-solid fa-xmark"></i>
                 </div>
             </div>

@@ -34,7 +34,7 @@ export default function Editor (): JSX.Element {
     setDesignName(design?.name ?? '')
   }
 
-  useEffect(() => {
+  useEffect((): void => {
     mouseEvents.start()
     get()
       .catch(error => {
@@ -59,15 +59,29 @@ export default function Editor (): JSX.Element {
     setDesignName(name)
   }
 
+  const clean = (): void => {
+    graphic.clean()
+  }
+
+  const download = (): void => {
+    const element = document.createElement('a')
+    const svg = graphic.svg() ?? ''
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(svg))
+    element.setAttribute('download', `${designName ?? 'design'}.svg`)
+    element.click()
+  }
+
   return (<>
     <Dashboard
-      Header={<Header Prop={{
+      header={<Header Prop={{
         save,
         designName,
-        changeName
+        changeName,
+        clean,
+        download
       }} />}
-      Body={<GraphicEditor />}
-      Menu={<EditorMenu />}
+      main={<GraphicEditor />}
+      menu={<EditorMenu />}
     />
   </>
   )
