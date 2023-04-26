@@ -30,9 +30,28 @@
     opacity: 0;
 }
 
+.likeDesign{
+    width: 30px;
+    height: 30px;
+    margin-left: 80%;
+    margin-top: 45%;
+    text-align: center;
+    opacity: 0;
+}
+
 .card:hover .deleteCard{
     animation: deleteCard 1s ease forwards;
 }
+
+.card:hover .likeDesign{
+    animation: deleteCard 1s ease forwards;
+}
+
+.card:hover .likeDesign i{
+    font-size: 20px;
+    color: rgb(255, 255, 0);
+}
+
 
 .card:hover .deleteCard i{
     margin-top: 5px;

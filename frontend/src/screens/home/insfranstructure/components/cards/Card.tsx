@@ -23,6 +23,9 @@ export default function Card ({ design, deleteDesign }: IPropCard): JSX.Element 
         <div className={CardCss.deleteCard} onClick={deleteCard}>
           <i className="fa-solid fa-trash"></i>
         </div>
+        <div className={CardCss.likeDesign}>
+          <i className="fa-solid fa-star"></i>
+        </div>
       </div>
       <div className={CardCss.design} dangerouslySetInnerHTML={{ __html: design.svg ?? '' }}>
       </div>
