@@ -1,6 +1,6 @@
 import app from '../src/app'
 import request from 'supertest'
-
+import { User } from './obejctMother/user'
 let token = ''
 
 describe('POST /authentication', () => {
@@ -21,30 +21,24 @@ describe('POST /authentication', () => {
   })
 
   test('authentication register', async () => {
-    const response = await request(app).post('/authentication').send({
-      name: 'juan',
-      password: '12345',
+    const response = await request(app).post('/authentication').send(User({
       isRegister: true
-    })
+    }))
     expect(response.body.message).toBeTruthy()
     expect(response.statusCode).toBe(200)
   })
 
   test('authentication register user exist', async () => {
-    const response = await request(app).post('/authentication').send({
-      name: 'juan',
-      password: '12345',
+    const response = await request(app).post('/authentication').send(User({
       isRegister: true
-    })
+    }))
     expect(response.statusCode).toBe(409)
   })
 
   test('authentication login user exist', async () => {
-    const response = await request(app).post('/authentication').send({
-      name: 'juan',
-      password: '12345',
+    const response = await request(app).post('/authentication').send(User({
       isRegister: false
-    })
+    }))
     token = response.body.message
     expect(response.statusCode).toBe(200)
     expect(response.body.message).toBeTruthy()

@@ -6,4 +6,5 @@ export default interface IDesignRepository {
   findById: (_id: string, userId: string) => Promise<IDesign | null>
   get: (userId: string) => Promise<IDesign[]>
   delete: (_id: string, userId: string) => Promise<void>
+  getAll: (userId: string) => Promise<IDesign[]>
 }

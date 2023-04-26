@@ -44,6 +44,14 @@ export default class Design {
     }
   }
 
+  async getAll (userId: string): Promise<IHttpStatusCode> {
+    const design = await this.designRepository.getAll(userId)
+    return {
+      statusCode: 200,
+      message: design
+    }
+  }
+
   async delete (_id: string, userId: string): Promise<IHttpStatusCode> {
     await this.designRepository.delete(_id, userId)
     return {

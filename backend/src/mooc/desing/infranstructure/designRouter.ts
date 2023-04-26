@@ -8,6 +8,7 @@ const router = new RouterManager(designRouter)
 
 router.post('/save', verifyAuthentication.verify, designControl.save)
 router.get('/findById/:_id', verifyAuthentication.verify, designControl.findById)
-router.get('/get', verifyAuthentication.verify, designControl.get)
+router.get('/home', verifyAuthentication.verify, designControl.get)
+router.get('/explore', verifyAuthentication.verify, designControl.getAll)
 router.delete('/delete/:_id', verifyAuthentication.verify, designControl.delete)
 export { designRouter }

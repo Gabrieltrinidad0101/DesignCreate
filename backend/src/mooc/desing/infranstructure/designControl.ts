@@ -26,6 +26,12 @@ export default class DesignControl {
     return result
   }
 
+  getAll = async (req: Request, res: Response): Promise<IHttpStatusCode> => {
+    const userId = req.headers.userId?.toString() ?? ''
+    const result = await this.design.getAll(userId)
+    return result
+  }
+
   delete = async (req: Request, res: Response): Promise<IHttpStatusCode> => {
     const _id = req.params._id
     const userId = req.headers.userId?.toString() ?? ''

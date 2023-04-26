@@ -27,7 +27,13 @@ export default class DesignRepository implements IDesignRepository {
     return designModal
   }
 
-  delete = async (_id: string): Promise<void> => {
-    await DesignModal.deleteOne({ _id })
+  getAll = async (userId: string): Promise<IDesign[]> => {
+    const designModal = await DesignModal.find<IDesign>({ userId: { $ne: userId } }, { content: 0 })
+      .sort('-createdAt')
+    return designModal
+  }
+
+  delete = async (_id: string, userId: string): Promise<void> => {
+    await DesignModal.deleteOne({ _id, userId })
   }
 }

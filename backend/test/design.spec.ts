@@ -2,8 +2,11 @@ import app from '../src/app'
 import request from 'supertest'
 import { getToken } from './helps/token'
 import './authentication.spec'
+import { Design } from './obejctMother/design/design'
+
 let token = ''
 let designID = ''
+
 describe('POST /Design', () => {
   test('Save', async () => {
     token = (await getToken()).body.message
@@ -11,9 +14,9 @@ describe('POST /Design', () => {
       .set({
         token
       })
-      .send({
+      .send(Design({
         content: 'hola mundo'
-      })
+      }))
     expect(response.body.message).toBe('Save successfully')
     designID = response.body.designID
     expect(designID).toBeTruthy()
