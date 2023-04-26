@@ -1,21 +1,44 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import type IDashboard from '../domian/Dashboard'
 import DashboardCss from './Dashboard.module.css'
+import { type IDashboardState, type IDashboardContext } from '../domian/Dashboard'
 
-export default function Dashboard ({ Header, Menu, Body }: IDashboard<JSX.Element>): JSX.Element {
+const initialState: IDashboardState = {
+  miniMenu: false
+}
+
+const AuthContext = React.createContext<IDashboardContext>({
+  setDashboardState: () => {},
+  dashboardState: initialState
+})
+
+export default function Dashboard ({ header, menu, main }: IDashboard<JSX.Element>): JSX.Element {
+  const [dashboardState, setDashboardState] = useState<IDashboardState>(initialState)
+
+  const changeDashboard = (_dashboardState: IDashboardState): void => {
+    setDashboardState({ ...dashboardState, ..._dashboardState })
+  }
+
   return (
-    <>
-      <div className={DashboardCss.container}>
+    <AuthContext.Provider value={{
+      setDashboardState: changeDashboard,
+      dashboardState
+    }}>
+      <div className={`${DashboardCss.container} ${dashboardState.miniMenu ? DashboardCss.miniMenu : ''}`}>
         <div className={DashboardCss.header}>
-          {Header}
+          {header}
         </div>
-        <div className={DashboardCss.menu}>
-          {Menu}
+        <div className={DashboardCss.menu} >
+          {menu}
         </div>
-        <div className={DashboardCss.main}>
-          {Body}
+        <div className={DashboardCss.main} >
+          {main}
         </div>
       </div>
-    </>
+    </AuthContext.Provider>
   )
+}
+
+export const useDashboardContext = (): IDashboardContext => {
+  return useContext<IDashboardContext>(AuthContext)
 }

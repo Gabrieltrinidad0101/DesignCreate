@@ -8,6 +8,14 @@
         "menu main";
 }
 
+.miniMenu{
+    grid-template-columns: 5rem calc(100% - 5rem);
+}
+
+.miniMenu > .menu{
+    overflow: hidden;
+}
+
 
 .header {
     width: 100%;
