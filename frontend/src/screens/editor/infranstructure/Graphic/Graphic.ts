@@ -5,7 +5,7 @@ import { type Align } from '../../domain/shapeProperty'
 export default class Graphic {
   protected static staticCanvas: Canvas | undefined = undefined
 
-  rect (): void {
+  rect = (): void => {
     const rect = [
       { x: 10, y: 61 },
       { x: 61, y: 61 },
@@ -19,12 +19,12 @@ export default class Graphic {
     Graphic.staticCanvas?.on('object:modified', callBack)
   }
 
-  circle (): void {
+  circle = (): void => {
     const circle = new fabric.Circle({ radius: 25 })
     this.addObject(circle)
   }
 
-  triangle (): void {
+  triangle = (): void => {
     const triangle = new fabric.Triangle({
       width: 50, height: 50
     })
@@ -96,7 +96,7 @@ export default class Graphic {
     this.addPolygon(shapeArrow)
   }
 
-  start (): void {
+  start = (): void => {
     Graphic.staticCanvas ??= new fabric.Canvas('editor')
   }
 
@@ -104,7 +104,7 @@ export default class Graphic {
     return Graphic.staticCanvas?.getActiveObject()
   }
 
-  render (): void {
+  render = (): void => {
     Graphic.staticCanvas?.requestRenderAll()
   }
 
@@ -124,6 +124,12 @@ export default class Graphic {
   public onMouseDowm (mouseDown: (object: fabric.Object | undefined) => void): void {
     Graphic.staticCanvas?.on('mouse:down', (e) => {
       mouseDown(e.target)
+    })
+  }
+
+  public changeOfObject (change: () => void): void {
+    Graphic.staticCanvas?.on('before:transform', (e) => {
+      change()
     })
   }
 
@@ -194,11 +200,15 @@ export default class Graphic {
     shape.set('top', (Graphic.staticCanvas?.height ?? 0) - (height * scaleY) - strokeWidth)
   }
 
-  resetCanvas (): void {
+  resetCanvas = (): void => {
     Graphic.staticCanvas = undefined
   }
 
   canvaIsInitialized (): boolean {
     return Graphic.staticCanvas !== undefined
+  }
+
+  clean = (): void => {
+    Graphic.staticCanvas?.clear()
   }
 }

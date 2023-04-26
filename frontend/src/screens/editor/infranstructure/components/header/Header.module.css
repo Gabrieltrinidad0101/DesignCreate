@@ -1,7 +1,7 @@
 .container {
     height: 100%;
     display: grid;
-    grid-template-columns: 15rem calc(50%) calc(50% - 25rem) 10rem;
+    grid-template-columns: 15rem calc(100% - 25rem) 10rem;
 }
 
 .logoContainer {
@@ -47,15 +47,6 @@
     justify-content: space-evenly;
     align-items: center;
 }
-
-.buttoSaveAndClose::before {
-    content: "|";
-    font-size: 40px;
-    color: wheat;
-    display: block;
-    margin-bottom: 3.5px;
-}
-
 
 .icon i {
     font-size: 20px;
