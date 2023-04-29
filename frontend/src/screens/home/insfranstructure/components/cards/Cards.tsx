@@ -36,7 +36,7 @@ export default function Cards ({ Prop: searchDesign }: Prop<SearchDesign>): JSX.
         <div className={CardCss.cardContainer}>
           {
             designs.map(design => {
-              return <Card design={design} deleteDesign={deleteDesign} key={design._id} />
+              return <Card type={searchDesign} design={design} deleteDesign={deleteDesign} key={design._id} />
             })
           }
         </div>

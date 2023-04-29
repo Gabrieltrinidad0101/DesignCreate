@@ -2,7 +2,8 @@ import React from 'react'
 import CardCss from './Card.module.css'
 import { type IPropCard } from '../../../domian/card'
 import { cutString } from '../../../application/cutString'
-export default function Card ({ design, deleteDesign }: IPropCard): JSX.Element {
+
+export default function Card ({ design, deleteDesign, type }: IPropCard): JSX.Element {
   const gotToEditor = (designId: string | undefined): void => {
     if (designId === undefined) return
     window.location.href = `/editor?_id=${designId}`
@@ -17,15 +18,25 @@ export default function Card ({ design, deleteDesign }: IPropCard): JSX.Element 
       })
   }
 
+  const DeleteButton = (): JSX.Element => {
+    if (type !== 'home') return <></>
+    return <div className={CardCss.deleteCard} onClick={deleteCard}>
+      <i className="fa-solid fa-trash"></i>
+    </div>
+  }
+
+  const StartButton = (): JSX.Element => {
+    if (type === 'home') return <></>
+    return <div className={CardCss.likeDesign}>
+      <i className="fa-solid fa-star"></i>
+    </div>
+  }
+
   return (
     <div className={CardCss.card} onClick={() => { gotToEditor(design._id) }} >
       <div>
-        <div className={CardCss.deleteCard} onClick={deleteCard}>
-          <i className="fa-solid fa-trash"></i>
-        </div>
-        <div className={CardCss.likeDesign}>
-          <i className="fa-solid fa-star"></i>
-        </div>
+        <DeleteButton />
+        <StartButton />
       </div>
       <div className={CardCss.design} dangerouslySetInnerHTML={{ __html: design.svg ?? '' }}>
       </div>

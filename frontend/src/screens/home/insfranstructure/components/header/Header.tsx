@@ -23,9 +23,6 @@ export default function Header ({ Prop: header }: Prop<IHeader>): JSX.Element {
           New Program
         </button>
       </div>
-      <div className={HeaderCss.userPerfil}>
-        <i className="fa-solid fa-user"></i>
-      </div>
     </header>
   )
 }
