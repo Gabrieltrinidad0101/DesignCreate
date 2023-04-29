@@ -148,6 +148,7 @@ export default class Graphic {
 
   public addPolygon (object: Array<{ x: number, y: number }>): void {
     const polyg = new fabric.Polygon(object)
+    console.log(polyg)
     this.addObject(polyg)
   }
 
@@ -210,5 +211,11 @@ export default class Graphic {
 
   clean = (): void => {
     Graphic.staticCanvas?.clear()
+  }
+
+  insertImageFromUrl = (imageUrl: string): void => {
+    fabric.Image.fromURL(imageUrl, (img: fabric.Image) => {
+      this.addObject(img)
+    })
   }
 }

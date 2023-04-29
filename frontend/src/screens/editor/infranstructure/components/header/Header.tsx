@@ -2,6 +2,7 @@ import React from 'react'
 import HeaderCss from './Header.module.css'
 import type IProp from '../../../../../share/domian/prop'
 import { type IEditorEvents } from '../../../domain/IEditor'
+import { Link } from 'react-router-dom'
 
 export default function Header ({ Prop: editorEvents }: IProp<IEditorEvents>): JSX.Element {
   const changeEvent = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -17,9 +18,9 @@ export default function Header ({ Prop: editorEvents }: IProp<IEditorEvents>): J
 
   return (
         <div className={HeaderCss.container}>
-            <div className={HeaderCss.logoContainer}>
+            <Link to="/home" className={HeaderCss.logoContainer}>
                 DesignCreate
-            </div>
+            </Link>
             <div className={HeaderCss.containerDesignName}>
                 <input type="text" value={editorEvents.designName} onChange={changeEvent} placeholder='Design name' />
             </div>

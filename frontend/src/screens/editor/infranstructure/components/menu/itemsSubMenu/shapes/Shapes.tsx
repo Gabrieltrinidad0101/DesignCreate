@@ -15,11 +15,9 @@ export default function Shapes (): JSX.Element {
   const { setDashboardState } = useDashboardContext()
 
   const hiddenSubMenu = (onClick: () => void): void => {
-    if (window.innerWidth <= 1000) {
-      setDashboardState({
-        miniMenu: true
-      })
-    }
+    setDashboardState({
+      miniMenu: window.innerWidth <= 1000
+    })
     onClick()
   }
 

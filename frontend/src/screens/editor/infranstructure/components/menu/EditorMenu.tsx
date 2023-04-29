@@ -36,6 +36,9 @@ export default function EditorMenu (): JSX.Element {
           <div onClick={() => { setText() }}>
             <i className="fa-solid fa-text-width"></i>
           </div>
+          <div onClick={() => { changeSubMenu('Images') }}>
+            <i className="fa-solid fa-image"></i>
+          </div>
         </div>
         <div className={EditorMenuCss.subMenu}>
           <EditorSubMenu Prop={subMenu} />
