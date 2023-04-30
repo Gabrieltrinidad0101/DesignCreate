@@ -1,72 +1,57 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { getImages } from '../../../../../application/getImages'
 import { type IImages } from '../../../../../domain/image'
 import type IImage from '../../../../../domain/image'
 import ImagesCss from './Images.module.css'
 import { isEmptyNullOrUndefined } from '../../../../../../../../../share/application/isEmptyNullUndefiner'
 import { useGraphic } from '../../../../hooks/useGraphic'
-
+import InfinitiveScroll from '../../../../../../../components/infinitiveScroll/infranstructure/InfinitiveScroll'
 export default function Images (): JSX.Element {
   const [imageName, setImageName] = useState<string>('')
-  const [isFeching, setIsFeching] = useState<boolean>()
+  const [imagePageIndex, setImagePageIndex] = useState<number>(1)
   const grafic = useGraphic()
   const [images, setImages] = useState<IImages>({
     hits: []
   })
-  const divScroll = useRef(null)
 
   const loadImages = async (): Promise<void> => {
     if (imageName === '') return
-    const newImages = await getImages(imageName)
-    if (newImages === undefined) return
+    const newImages = await getImages(imageName, imagePageIndex)
+    if (isEmptyNullOrUndefined(newImages) || newImages === undefined) return
     setImages((prevImages) => {
-      if (isEmptyNullOrUndefined(newImages) || isEmptyNullOrUndefined(prevImages)) {
+      if (isEmptyNullOrUndefined(prevImages)) {
         return {
           hits: []
         }
       }
+      if (newImages.hits != null) setImagePageIndex(prevImagePageIndex => ++prevImagePageIndex)
       return {
         hits: [...prevImages.hits ?? [], ...newImages.hits ?? []]
       }
     })
   }
 
-  const wait = async (time: number): Promise<void> => {
-    await new Promise(
-      (resolve: (value: unknown) => void): number =>
-        setTimeout(resolve, time)
-    )
-  }
-
   const searcImages = (): void => {
-    loadImages().then(async (): Promise<void> => {
-      await wait(1000)
-      setIsFeching(false)
-    })
+    loadImages()
       .catch((error) => {
         console.log(error)
       })
   }
-
-  useEffect((): void => {
-    searcImages()
-  }, [isFeching])
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target
     setImageName(value)
   }
 
-  const handleScroll = useCallback((): void => {
-    if (divScroll.current === null) return
-    const { scrollTop, scrollHeight, clientHeight } = divScroll.current
-    if (parseInt(scrollTop) + parseInt(clientHeight) < scrollHeight - 50) return
-    setIsFeching(true)
-  }, [])
-
   const insertImage = (imageUrl?: string): void => {
     if (imageUrl === undefined) return
     grafic.insertImageFromUrl(imageUrl)
+  }
+
+  const Images = (): JSX.Element[] => {
+    return images.hits?.map((image: IImage) =>
+      <img src={image.webformatURL} key={image.id} onClick={(): void => { insertImage(image.webformatURL) }} />
+    ) ?? [<></>]
   }
 
   return (
@@ -77,13 +62,13 @@ export default function Images (): JSX.Element {
           <i className="fa-solid fa-magnifying-glass"></i>
         </button>
       </div>
-      <div className={ImagesCss.imagesContainer} ref={divScroll} onScroll={handleScroll}>
+      <InfinitiveScroll Prop={
         {
-          images.hits?.map((image: IImage) =>
-            <img src={image.webformatURL} key={image.id} onClick={(): void => { insertImage(image.webformatURL) }} />
-          )
+          className: ImagesCss.imagesContainer,
+          next: loadImages,
+          children: Images()
         }
-      </div>
+      } />
     </div>
   )
 }
