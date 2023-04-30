@@ -2,12 +2,10 @@ import { fabric } from 'fabric'
 import { type IEvent, type Canvas } from 'fabric/fabric-impl'
 import { isEmptyNullOrUndefined } from '../../../../../../share/application/isEmptyNullUndefiner'
 import { type Align } from '../../domain/shapeProperty'
-
+import Historial from '../../application/historial'
 export default class Graphic {
   protected static staticCanvas: Canvas | undefined = undefined
-  private static readonly historialUndoStack: string[] = new Array<string>()
-  private static readonly historialRedoStack: string[] = new Array<string>()
-
+  private static readonly historial = new Historial()
   rect = (): void => {
     const rect = [
       { x: 10, y: 61 },
@@ -19,19 +17,15 @@ export default class Graphic {
   }
 
   undo = (): void => {
-    if (Graphic.historialUndoStack.length <= 0) return
-    const state = Graphic.historialUndoStack.pop()
-    if (state === undefined) return
-    Graphic.historialRedoStack.push(state)
-    Graphic.staticCanvas?.loadFromJSON(JSON.parse(state), (): void => {})
+    const design = Graphic.historial.Undo()
+    if (design === undefined) return
+    Graphic.staticCanvas?.loadFromJSON(JSON.parse(design), (): void => {})
   }
 
   redo = (): void => {
-    if (Graphic.historialRedoStack.length <= 0) return
-    const state = Graphic.historialRedoStack.pop()
-    if (state === undefined) return
-    Graphic.historialUndoStack.push(state)
-    Graphic.staticCanvas?.loadFromJSON(JSON.parse(state), () => {})
+    const design = Graphic.historial.Redo()
+    if (design === undefined) return
+    Graphic.staticCanvas?.loadFromJSON(JSON.parse(design), () => {})
   }
 
   onCanvaChanged (): void {
@@ -40,8 +34,7 @@ export default class Graphic {
 
   saveHsitorial = (): void => {
     const design = this.json()
-    Graphic.historialUndoStack.push(design)
-    console.log(Graphic.historialUndoStack.length)
+    Graphic.historial.Add(design)
   }
 
   circle = (): void => {
