@@ -1,57 +1,76 @@
-const url = 'http://localhost:3000';
+import { auth,pageUrl } from "./help/auth.cy";
+
 describe('Authentication register', () => {
   beforeEach(() => {
-    cy.visit(`${url}/register`)
+    cy.visit(`${pageUrl}/register`)
   })
 
   it('register without name', () => {
-    cy.get("input[name='password']").type("juan")
-    cy.get("#auth-button").click();
-    cy.contains("All the inputs are required");
+    auth({
+      name: "juan",
+      password: "",
+      spectedText: "All the inputs are required" 
+    })
   })
 
   it('register without password', () => {
-    cy.get("input[name='name']").type("juan")
-    cy.get("#auth-button").click();
-    cy.contains("All the inputs are required");
+    auth({
+      name: "",
+      password: "juan",
+      spectedText: "All the inputs are required" 
+    })
   })
 
   it('register', () => {
-    register("Welcome juan")
-
+    auth({
+      spectedText: "Welcome juan" 
+    })
     cy.getAllLocalStorage().then((result) => {
-      console.log(result)
-      expect(result[url]["token"]).to.exist
+      expect(result[pageUrl]["token"]).to.exist
     })
   })
 
   it("register user exists", () => {
-    register("The user exists")
+    auth({
+      spectedText: "The user exists" 
+    })
+  })
+
+  it("register other user",()=>{
+    auth({
+      name: "jose",
+      password: "jose",
+      spectedText: "Welcome jose"
+    })
   })
 
 })
 
 describe('Authentication login', () => {
   beforeEach(() => {
-    cy.visit(`${url}/login`)
+    cy.visit(`${pageUrl}/login`)
   })
 
   it("login user no exists", () => {
-    register("The username or password is incorrect","peppe")
+    auth({
+      name: "peppe",
+      spectedText: "The username or password is incorrect" 
+    })
   })
 
   it('login', () => {
-    register("Welcome juan")
+    auth({
+      spectedText: "Welcome juan" 
+    })
     cy.getAllLocalStorage().then((result) => {
-      expect(result[url]["token"]).to.exist
+      expect(result[pageUrl]["token"]).to.exist
     })
   })
 })
 
-
 describe('Authentication', () => {
   beforeEach(() => {
-    cy.visit(`${url}/home`)
+    cy.visit(`${pageUrl}/home`)
   })
 
   it('Verify Redirect', async () => {
@@ -60,10 +79,3 @@ describe('Authentication', () => {
     cy.url().should('include', '/register')
   })
 })
-
-const register = (spectedText, name = "juan") => {
-  cy.get("input[name='name']").type(name)
-  cy.get("input[name='password']").type("juan")
-  cy.get("#auth-button").click();
-  cy.contains(spectedText);
-}
