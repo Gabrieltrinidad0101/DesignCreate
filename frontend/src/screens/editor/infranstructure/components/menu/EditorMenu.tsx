@@ -12,7 +12,7 @@ export default function EditorMenu (): JSX.Element {
 
   const changeSubMenu = (subMenuName: TypeItemSubMenu): void => {
     setDashboardState({
-      miniMenu: !dashboardState.miniMenu
+      miniMenu: false
     })
     setSubMenu(subMenuName)
   }
@@ -22,10 +22,16 @@ export default function EditorMenu (): JSX.Element {
   }
 
   useEffect((): void => {
-    graphic.onMouseDowm((object: fabric.Object | undefined) => {
-      setSubMenu(isEmptyNullOrUndefined(object) ? 'Shapes' : 'EditShapes')
+    graphic.onMouseDowm((event) => {
+      setSubMenu(isEmptyNullOrUndefined(event.target) ? 'Shapes' : 'EditShapes')
     })
   }, [])
+
+  const closeSubMenu = (): void => {
+    setDashboardState({
+      miniMenu: true
+    })
+  }
 
   return (
     <>
@@ -42,6 +48,9 @@ export default function EditorMenu (): JSX.Element {
         </div>
         <div className={EditorMenuCss.subMenu}>
           <EditorSubMenu Prop={subMenu} />
+          <div className={EditorMenuCss.closeSubMenu} onClick={closeSubMenu}>
+            <i className="fa-solid fa-chevron-left"></i>
+          </div>
         </div>
       </div>
     </>

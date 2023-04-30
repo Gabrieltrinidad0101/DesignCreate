@@ -13,7 +13,7 @@ export default function EditShapes (): JSX.Element {
   const changePropertyToShape = (property: ShapeProperty, value: string | number): void => {
     graphic.getCurrentObject()?.set(property, value)
     graphic.render()
-    setShapeValues({ ...shapeValues, [property]: value })
+    setShapeValues((prevShapevalues) => ({ ...prevShapevalues, [property]: value }))
   }
 
   const changeStrokeWidth = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -26,29 +26,34 @@ export default function EditShapes (): JSX.Element {
     graphic.aligns(align, shape)
   }
 
-  useEffect(() => {
-    graphic.changeOfObject(() => {
+  useEffect((): () => void => {
+    const setDefaultValue = (): void => {
       const object = graphic.getCurrentObject()
       if (object === undefined) return
       setShapeValues(
         {
-          fill: object?.fill?.toString(),
+          fill: object?.fill?.toString() ?? 'black',
           stroke: object?.stroke ?? 'black',
-          strokeWidth: object?.strokeWidth
+          strokeWidth: object?.strokeWidth ?? 0
         }
       )
-    })
+    }
+    graphic.onMouseDowm(setDefaultValue)
+    setDefaultValue()
+    return () => {
+      graphic.offMouseDowm(setDefaultValue)
+    }
   }, [])
 
   return (
     <div className={EditorCss.container}>
       <div>
         <p>Background</p>
-        <input type="color" className={EditorCss.colorPicker} value={shapeValues.fill} onChange={(e) => { changePropertyToShape('fill', e.target.value) }} />
+        <input type="color" value={shapeValues.fill} className={EditorCss.colorPicker} onChange={(e) => { changePropertyToShape('fill', e.target.value) }} />
       </div>
       <div>
         <p>Border Width</p>
-        <input type="range" value={shapeValues.strokeWidth} onChange={changeStrokeWidth} min="0" max="20" defaultValue="0" />
+        <input type="range" value={shapeValues.strokeWidth} onChange={changeStrokeWidth} min="0" max="20" />
       </div>
       <div>
         <p>Border Color</p>
