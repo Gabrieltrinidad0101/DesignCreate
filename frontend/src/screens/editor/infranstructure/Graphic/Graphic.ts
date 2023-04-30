@@ -1,9 +1,12 @@
 import { fabric } from 'fabric'
-import { type Canvas } from 'fabric/fabric-impl'
+import { type IEvent, type Canvas } from 'fabric/fabric-impl'
+import { isEmptyNullOrUndefined } from '../../../../../../share/application/isEmptyNullUndefiner'
 import { type Align } from '../../domain/shapeProperty'
 
 export default class Graphic {
   protected static staticCanvas: Canvas | undefined = undefined
+  private static readonly historialUndoStack: string[] = new Array<string>()
+  private static readonly historialRedoStack: string[] = new Array<string>()
 
   rect = (): void => {
     const rect = [
@@ -15,8 +18,30 @@ export default class Graphic {
     this.addPolygon(rect)
   }
 
-  onCanvaChanged (callBack: () => void): void {
-    Graphic.staticCanvas?.on('object:modified', callBack)
+  undo = (): void => {
+    if (Graphic.historialUndoStack.length <= 0) return
+    const state = Graphic.historialUndoStack.pop()
+    if (state === undefined) return
+    Graphic.historialRedoStack.push(state)
+    Graphic.staticCanvas?.loadFromJSON(JSON.parse(state), (): void => {})
+  }
+
+  redo = (): void => {
+    if (Graphic.historialRedoStack.length <= 0) return
+    const state = Graphic.historialRedoStack.pop()
+    if (state === undefined) return
+    Graphic.historialUndoStack.push(state)
+    Graphic.staticCanvas?.loadFromJSON(JSON.parse(state), () => {})
+  }
+
+  onCanvaChanged (): void {
+    Graphic.staticCanvas?.on('object:modified', this.saveHsitorial)
+  }
+
+  saveHsitorial = (): void => {
+    const design = this.json()
+    Graphic.historialUndoStack.push(design)
+    console.log(Graphic.historialUndoStack.length)
   }
 
   circle = (): void => {
@@ -97,7 +122,9 @@ export default class Graphic {
   }
 
   start = (): void => {
+    const editorIsNotLoad = isEmptyNullOrUndefined(Graphic.staticCanvas)
     Graphic.staticCanvas ??= new fabric.Canvas('editor')
+    if (editorIsNotLoad) this.onCanvaChanged()
   }
 
   getCurrentObject = (): fabric.Object | null | undefined => {
@@ -118,24 +145,21 @@ export default class Graphic {
 
   jsonLoad (json: string): void {
     Graphic.staticCanvas?.loadFromJSON(JSON.parse(json), () => {
+      this.saveHsitorial()
     })
   }
 
-  public onMouseDowm (mouseDown: (object: fabric.Object | undefined) => void): void {
-    Graphic.staticCanvas?.on('mouse:down', (e) => {
-      mouseDown(e.target)
-    })
+  public onMouseDowm (mouseDown: (object: IEvent<MouseEvent>) => void): void {
+    Graphic.staticCanvas?.on('mouse:down', mouseDown)
+  }
+
+  public offMouseDowm (mouseDown: (object: IEvent) => void): void {
+    Graphic.staticCanvas?.off('mouse:down', mouseDown)
   }
 
   public changeOfObject (change: () => void): void {
     Graphic.staticCanvas?.on('before:transform', (e) => {
       change()
-    })
-  }
-
-  public onObjectAdd (add: (object: fabric.Object | undefined) => void): void {
-    Graphic.staticCanvas?.on('object:added', (e) => {
-      add(e.target)
     })
   }
 
@@ -148,7 +172,6 @@ export default class Graphic {
 
   public addPolygon (object: Array<{ x: number, y: number }>): void {
     const polyg = new fabric.Polygon(object)
-    console.log(polyg)
     this.addObject(polyg)
   }
 
@@ -157,9 +180,10 @@ export default class Graphic {
   }
 
   public addObject (object: fabric.Object): void {
-    Graphic.staticCanvas?.add(object)
     Graphic.staticCanvas?.centerObject(object)
+    Graphic.staticCanvas?.add(object)
     Graphic.staticCanvas?.setActiveObject(object)
+    this.saveHsitorial()
   }
 
   public aligns (align: Align, object: fabric.Object): void {

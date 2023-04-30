@@ -2,9 +2,8 @@ import { type DynamicObject } from '../../../../share/domian/object'
 import Graphic from './Graphic'
 export default class MouseEvents {
   private static clone: fabric.Object | undefined = undefined
-  private historial: string[] = new Array<string>()
   private readonly graphic: Graphic = new Graphic()
-  private static indexOfHistorial: number = 0
+
   events: DynamicObject<() => void> = {
     Delete: () => { this.delete() },
     KeyC: () => { this.copy() },
@@ -19,7 +18,6 @@ export default class MouseEvents {
       if (event === undefined) return
       event()
     })
-    this.graphic.onCanvaChanged(this.saveHistorial)
   }
 
   delete = (): void => {
@@ -42,24 +40,11 @@ export default class MouseEvents {
     })
   }
 
-  private readonly saveHistorial = (): void => {
-    const designJson = this.graphic.json()
-    this.historial = this.historial.slice(0, MouseEvents.indexOfHistorial)
-    this.historial.push(designJson)
-    ++MouseEvents.indexOfHistorial
-  }
-
   ctrolZ (): void {
-    if (MouseEvents.indexOfHistorial === 0) return
-    --MouseEvents.indexOfHistorial
-    const designJson = this.historial[MouseEvents.indexOfHistorial]
-    this.graphic.jsonLoad(designJson)
+    this.graphic.undo()
   }
 
   ctrolY (): void {
-    if (MouseEvents.indexOfHistorial === this.historial.length - 1) return
-    ++MouseEvents.indexOfHistorial
-    const designJson = this.historial[MouseEvents.indexOfHistorial]
-    this.graphic.jsonLoad(designJson)
+    this.graphic.redo()
   }
 }

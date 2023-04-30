@@ -15,3 +15,5 @@ export interface IDesignUserId extends IDesign {
 export interface SaveDesign extends IHttpStatusCode{
     _id?: string
 }
+
+export type SearchDesign = "home" | "explore" | "like"
