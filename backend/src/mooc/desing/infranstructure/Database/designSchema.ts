@@ -5,6 +5,7 @@ const designSchema = new Schema({
   content: String,
   userId: String,
   svg: String,
+  likes: Array<string>,
   createdAt: {
     type: Date,
     default: Date.now

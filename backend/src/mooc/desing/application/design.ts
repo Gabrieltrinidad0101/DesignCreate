@@ -1,3 +1,4 @@
+import { isEmptyNullOrUndefined } from '../../../../../share/application/isEmptyNullUndefiner'
 import { type IDesignUserId, type SaveDesign } from '../../../../../share/domain/design'
 import { type IHttpStatusCode } from '../../../../../share/domain/httpResult'
 import type IDesignRepository from '../domian/designRepository'
@@ -6,25 +7,17 @@ export default class Design {
   constructor (private readonly designRepository: IDesignRepository) { }
 
   async save (design: IDesignUserId): Promise<SaveDesign> {
-    try {
-      if (design === null || design.content === undefined || design.userId === undefined) {
-        return {
-          statusCode: 422,
-          message: 'Design content is required'
-        }
-      }
-      const designSaved = await this.designRepository.update(design)
+    if (isEmptyNullOrUndefined(design) || design.content === undefined) {
       return {
-        statusCode: 200,
-        message: 'Save successfully',
-        _id: designSaved._id
+        statusCode: 422,
+        message: 'Design content is required'
       }
-    } catch (error) {
-      console.log(error)
-      return {
-        statusCode: 500,
-        message: 'Error try later'
-      }
+    }
+    const designSaved = await this.designRepository.update(design)
+    return {
+      statusCode: 200,
+      message: 'Save successfully',
+      _id: designSaved._id
     }
   }
 
@@ -57,6 +50,22 @@ export default class Design {
     return {
       statusCode: 200,
       message: 'ok'
+    }
+  }
+
+  async like (_id: string, userId: string): Promise<IHttpStatusCode> {
+    await this.designRepository.like(_id, userId)
+    return {
+      statusCode: 200,
+      message: 'ok'
+    }
+  }
+
+  async likes (userId: string): Promise<IHttpStatusCode> {
+    const designs = await this.designRepository.likes(userId)
+    return {
+      statusCode: 200,
+      message: designs
     }
   }
 }

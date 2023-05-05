@@ -38,4 +38,17 @@ export default class DesignControl {
     const result = await this.design.delete(_id, userId)
     return result
   }
+
+  like = async (req: Request, res: Response): Promise<IHttpStatusCode> => {
+    const _id = req.params._id
+    const userId = req.headers.userId?.toString() ?? ''
+    const result = await this.design.like(_id, userId)
+    return result
+  }
+
+  likes = async (req: Request, res: Response): Promise<IHttpStatusCode> => {
+    const userId = req.headers.userId?.toString() ?? ''
+    const result = await this.design.likes(userId)
+    return result
+  }
 }

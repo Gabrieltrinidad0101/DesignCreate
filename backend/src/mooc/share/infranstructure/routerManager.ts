@@ -18,6 +18,10 @@ export default class RouterManager {
     this.baseMethod('delete', path, ...callBacks)
   }
 
+  put = (path: string, ...callBacks: typeCallBack[]): void => {
+    this.baseMethod('put', path, ...callBacks)
+  }
+
   private readonly baseMethod = (method: typeMethods, path: string, ...callBacks: typeCallBack[]): void => {
     this.router[method](path, (req: Request, res: Response) => {
       this.statckCallback(req, res, callBacks)

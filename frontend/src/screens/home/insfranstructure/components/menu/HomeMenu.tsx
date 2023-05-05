@@ -13,7 +13,7 @@ export default function HomeMenu (): JSX.Element {
       <Nav text='Explote' to='/explore' >
         <i className={'fas fa-folder'}></i>
       </Nav>
-      <Nav text='Likes' to='/like' >
+      <Nav text='Likes' to='/likes' >
         <i className={'fas fa-heart'}></i>
       </Nav>
       <Nav text='Sign out' to='/login' onClick={clearSession}>

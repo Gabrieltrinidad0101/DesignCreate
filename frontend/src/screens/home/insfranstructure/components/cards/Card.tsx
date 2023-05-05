@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import CardCss from './Card.module.css'
 import { type IPropCard } from '../../../domian/card'
 import { cutString } from '../../../application/cutString'
+import { useAuthenticationContext } from '../../../../../share/infranstruture/AuthenticationContext'
+import { customFecth } from '../../../../../share/infranstruture/dependencies'
 
 export default function Card ({ design, deleteDesign, type }: IPropCard): JSX.Element {
+  const [like, setLike] = useState<boolean>(false)
+  const authenticationContext = useAuthenticationContext()
+
   const gotToEditor = (designId: string | undefined): void => {
     if (designId === undefined) return
     window.location.href = `/editor?_id=${designId}`
@@ -25,9 +30,25 @@ export default function Card ({ design, deleteDesign, type }: IPropCard): JSX.El
     </div>
   }
 
+  const doLike = (e: React.MouseEvent<HTMLDivElement>): void => {
+    e.stopPropagation()
+    if (design._id === undefined) return
+    customFecth.put(`design/like/${design._id}`)
+      .then(() => {
+        setLike(prev => !prev)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
+  useEffect(() => {
+    setLike(design.likes?.includes(authenticationContext.user._id) ?? false)
+  }, [])
+
   const StartButton = (): JSX.Element => {
     if (type === 'home') return <></>
-    return <div className={CardCss.likeDesign}>
+    return <div className={`${CardCss.likeDesign} ${like ? CardCss.like : ''} `} onClick={doLike}>
       <i className="fa-solid fa-star"></i>
     </div>
   }

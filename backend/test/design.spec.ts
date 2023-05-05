@@ -5,7 +5,7 @@ import './authentication.spec'
 import { Design } from './obejctMother/design/design'
 
 let token = ''
-let designID = ''
+let _id = ''
 
 describe('POST /Design', () => {
   test('Save', async () => {
@@ -18,9 +18,9 @@ describe('POST /Design', () => {
         content: 'hola mundo'
       }))
     expect(response.body.message).toBe('Save successfully')
-    designID = response.body.designID
-    expect(designID).toBeTruthy()
-    expect(designID.length).toBeGreaterThan(0)
+    _id = response.body._id
+    expect(_id).toBeTruthy()
+    expect(_id.length).toBeGreaterThan(0)
     expect(response.statusCode).toBe(200)
   })
 
@@ -37,7 +37,7 @@ describe('POST /Design', () => {
 
   test('Find by id', async () => {
     token = (await getToken()).body.message
-    const response = await request(app).get(`/design/findById/${designID}`)
+    const response = await request(app).get(`/design/findById/${_id}`)
       .set({
         token
       })

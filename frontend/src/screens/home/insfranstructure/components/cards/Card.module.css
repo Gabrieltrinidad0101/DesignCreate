@@ -15,6 +15,7 @@
 }
 
 .card .design{
+    min-height: 8rem;
     background: rgb(184, 184, 184);
     border-radius: 8px;
     background-color: rgba(64,87,109,.07);
@@ -48,9 +49,10 @@
     animation: deleteCard 1s ease forwards;
 }
 
-.card:hover .likeDesign i{
+.card .likeDesign.like{
     font-size: 20px;
     color: rgb(255, 255, 0);
+    opacity: 1;
 }
 
 
