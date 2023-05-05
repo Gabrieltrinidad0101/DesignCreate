@@ -35,7 +35,7 @@
     justify-self: center;
     max-height: calc(100vh - 10rem);
     display: grid;
-    grid-template-columns: repeat(2,100px);
+    grid-template-columns: repeat(2,50%);
     gap: 10px;
     overflow-y: auto;
     overflow-x: hidden;

@@ -6,13 +6,16 @@ import ImagesCss from './Images.module.css'
 import { isEmptyNullOrUndefined } from '../../../../../../../../../share/application/isEmptyNullUndefiner'
 import { useGraphic } from '../../../../hooks/useGraphic'
 import InfinitiveScroll from '../../../../../../../components/infinitiveScroll/infranstructure/InfinitiveScroll'
+import Image from './Image'
+const initialImageState = {
+  hits: []
+}
+
 export default function Images (): JSX.Element {
   const [imageName, setImageName] = useState<string>('')
   const [imagePageIndex, setImagePageIndex] = useState<number>(1)
   const grafic = useGraphic()
-  const [images, setImages] = useState<IImages>({
-    hits: []
-  })
+  const [images, setImages] = useState<IImages>(initialImageState)
 
   const loadImages = async (): Promise<void> => {
     if (imageName === '') return
@@ -32,6 +35,8 @@ export default function Images (): JSX.Element {
   }
 
   const searcImages = (): void => {
+    setImages(initialImageState)
+    setImagePageIndex(0)
     loadImages()
       .catch((error) => {
         console.log(error)
@@ -50,7 +55,9 @@ export default function Images (): JSX.Element {
 
   const Images = (): JSX.Element[] => {
     return images.hits?.map((image: IImage) =>
-      <img src={image.webformatURL} key={image.id} onClick={(): void => { insertImage(image.webformatURL) }} />
+        <Image key={image.id} Prop={
+          { ...image, onClick: insertImage }
+        } />
     ) ?? [<></>]
   }
 

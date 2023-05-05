@@ -3,6 +3,10 @@ export default interface IImage {
   webformatURL?: string
 }
 
+export interface IImageOnClick extends IImage {
+  onClick: (imageUrl?: string) => void
+}
+
 export interface IImages {
   hits?: IImage[]
 }
