@@ -66,7 +66,7 @@ export default function Editor (): JSX.Element {
   const download = (): void => {
     const element = document.createElement('a')
     const svg = graphic.svg() ?? ''
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(svg))
+    element.setAttribute('href', 'data:svg/plain;charset=utf-8,' + encodeURIComponent(svg))
     element.setAttribute('download', `${designName ?? 'design'}.svg`)
     element.click()
   }

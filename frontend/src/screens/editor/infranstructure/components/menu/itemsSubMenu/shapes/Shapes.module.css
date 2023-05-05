@@ -19,7 +19,8 @@
     font-size: 6rem;
 }
 
-.container .emerald img{
+.container .emerald img,
+.container .rightTriangle img{
     width: 3rem;
 }
 

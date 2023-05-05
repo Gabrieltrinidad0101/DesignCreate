@@ -65,10 +65,10 @@
 @media only screen and (max-width: 1000px) {
     .menuContainer {
         grid-template-columns: 100%;
-        grid-template-rows: 80vh 5rem;
+        grid-template-rows: calc(80vh) 5rem;
         grid-template-areas: "subMenu" "menu";
-        position: absolute;
-        top: calc(100% - 80vh - 5rem);
+        position: fixed;
+        top: calc(20vh - 5rem);
     }
 
     .miniMenu {

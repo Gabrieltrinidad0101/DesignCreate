@@ -3,13 +3,7 @@ import { useGraphic } from '../../../../hooks/useGraphic'
 import ShapesCss from './Shapes.module.css'
 import imagesContainer from '../../../../../../../share/application/imagesContainer'
 import { useDashboardContext } from '../../../../../../../components/Dashboard/infranstructure/Dashboard'
-
-interface Prop {
-  children: JSX.Element
-  onClick: () => void
-  className?: string
-}
-
+import type IShapeMenu from '../../../../../domain/shapeMenu'
 export default function Shapes (): JSX.Element {
   const graphic = useGraphic()
   const { setDashboardState } = useDashboardContext()
@@ -21,7 +15,7 @@ export default function Shapes (): JSX.Element {
     onClick()
   }
 
-  const Shape = ({ children, onClick, className }: Prop): JSX.Element => {
+  const Shape = ({ children, onClick, className }: IShapeMenu): JSX.Element => {
     return <div onClick={() => { hiddenSubMenu(onClick) }} className={className}>
       {children}
     </div>
@@ -52,6 +46,9 @@ export default function Shapes (): JSX.Element {
       </Shape>
       <Shape onClick={graphic.arrow}>
         <i className="fa-solid fa-right-long"></i>
+      </Shape>
+      <Shape onClick={graphic.rightTriangle} className={ShapesCss.rightTriangle}>
+        <img src={imagesContainer.rightTriangle} />
       </Shape>
     </div>
   )

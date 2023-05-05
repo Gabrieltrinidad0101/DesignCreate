@@ -28,3 +28,9 @@
 .aligns > button:hover{
     border: 1px solid #000;
 }
+
+.fontSize{
+    width: 90%;
+    font-size: 15px;
+    margin-left: 5%;
+}
