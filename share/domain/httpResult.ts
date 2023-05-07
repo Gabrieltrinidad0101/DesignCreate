@@ -1,5 +1,3 @@
-import IDesign from "./design"
-
 export default interface IHttpResult<T>{
     message: T
 }

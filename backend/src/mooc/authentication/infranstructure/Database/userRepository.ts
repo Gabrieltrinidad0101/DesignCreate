@@ -1,15 +1,14 @@
 import type IUserRepository from '../../domain/IUserRepository'
-import type IUser from '../../domain/IAuthentication'
 import { UserModel } from './userSchema'
 import { ErrorInsertUser } from '../../domain/IErrorUser'
-import { type IBasicUser, type IUserDb } from '../../../../../../share/domain/user'
+import type IUser from '../../../../../../share/domain/user'
 
 export default class UserRepository implements IUserRepository {
-  async insert (user: IBasicUser): Promise<IUserDb | null> {
+  async insert (user: IUser): Promise<IUser | null> {
     try {
       const newUser = new UserModel(user)
       await newUser.save()
-      const userSave: IUserDb = {
+      const userSave: IUser = {
         name: newUser.name,
         password: newUser.password,
         _id: newUser._id as string

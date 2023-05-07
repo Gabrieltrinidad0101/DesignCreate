@@ -1,7 +1,7 @@
 import { type Request, type Response } from 'express'
 import { type IHttpStatusCode } from '../../../../../share/domain/httpResult'
+import type IUser from '../../../../../share/domain/user'
 import type Authentication from '../application/auth'
-import type IUser from '../domain/IAuthentication'
 import { ErrorUser } from '../domain/IErrorUser'
 
 export default class AuthControl {
@@ -10,7 +10,7 @@ export default class AuthControl {
   authentication = async (req: Request, res: Response): Promise<IHttpStatusCode> => {
     try {
       const newUser = req.body as IUser
-      const response = newUser.isRegister
+      const response = (newUser.isRegister ?? false)
         ? await this.authControl.register(newUser)
         : await this.authControl.login(newUser)
       return response

@@ -1,8 +1,8 @@
 import { type IHttpStatusCode } from '../../../../../share/domain/httpResult'
-import type IUser from '../domain/IAuthentication'
 import type IUserRepository from '../domain/IUserRepository'
 import type IToken from '../domain/token'
 import type IEncrypt from '../domain/encrypt'
+import type IUser from '../../../../../share/domain/user'
 
 export default class Authentication {
   constructor (
@@ -11,8 +11,7 @@ export default class Authentication {
     private readonly userRepository: IUserRepository) { }
 
   private validateUser (user: IUser): IHttpStatusCode | undefined {
-    const anyValueIsEmpty = Object.keys(user).some(value => value === '')
-    if (anyValueIsEmpty || user.name === undefined || user.password === undefined) {
+    if (user.name === undefined || user.password === undefined) {
       return {
         message: 'The user name and password are required',
         statusCode: 500
@@ -30,7 +29,7 @@ export default class Authentication {
         statusCode: 409
       }
     }
-    user.password = await this.encrypt.enCode(user.password)
+    user.password = await this.encrypt.enCode(user?.password ?? '')
     const userSave = await this.userRepository.insert(user)
     return {
       message: this.token.sign({ _id: userSave?._id })
@@ -40,7 +39,7 @@ export default class Authentication {
   async login (user: IUser): Promise<IHttpStatusCode> {
     const userIsNoValid = this.validateUser(user)
     if (userIsNoValid !== undefined) return userIsNoValid
-    const userExist = await this.userRepository.findByName(user.name)
+    const userExist = await this.userRepository.findByName(user?.name)
     const validateUser = (userExist !== null) && await this.encrypt.validate(user.password, userExist.password)
     if (validateUser) {
       return {

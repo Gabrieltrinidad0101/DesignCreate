@@ -1,11 +1,6 @@
-export interface IBasicUser {
+export default interface IUser{
     name: string
     password: string
-}
-export interface IUser extends IBasicUser {
-    isRegister: boolean
-}
-
-export interface IUserDb extends IBasicUser {
+    isRegister?: boolean
     _id: string
 }

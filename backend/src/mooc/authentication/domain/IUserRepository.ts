@@ -1,6 +1,6 @@
-import { type IUserDb, type IUser } from '../../../../../share/domain/user'
+import type IUser from '../../../../../share/domain/user'
 export default interface IUserRepository {
-  insert: (user: IUser) => Promise<IUserDb | null>
-  findByName: (name: string) => Promise<IUserDb | null>
-  findById: (id: string, filter?: object) => Promise<IUserDb | null>
+  insert: (user: IUser) => Promise<IUser | null>
+  findByName: (name: string) => Promise<IUser | null>
+  findById: (id: string, filter?: object) => Promise<IUser | null>
 }
