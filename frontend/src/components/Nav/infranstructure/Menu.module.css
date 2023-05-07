@@ -1,6 +1,7 @@
 .nav{
     width: 100%;
     padding: 10px;
+    background: white;
 }
 
 .listItems{
@@ -42,13 +43,17 @@
 @media only screen and (max-width: 1000px) {
     .nav{
         padding: 0px;
+        display: flex;
+        align-items: center;
+        border-top: 1px solid #00000091;
     }
 
     .listItems{
         flex-direction: row;
-        border-top: 1px solid #00000091;
         width: 100vw;
         justify-content: space-evenly;
+        align-items: center;
+        height: 100%;
     }
 
     .item.bottom{
@@ -61,16 +66,16 @@
     }
     
     .item a{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
         background: none;
-        gap: 0px;
     }
 
     .item:last-child{
         position: relative;
         bottom: 0px;
         white-space: nowrap;
+    }
+
+    .item span{
+        display: none;
     }
 }

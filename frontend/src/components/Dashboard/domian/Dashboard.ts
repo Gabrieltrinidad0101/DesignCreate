@@ -6,7 +6,8 @@ export default interface IDashboard<T> {
 }
 
 export interface IDashboardState {
-  miniMenu: boolean
+  miniMenu?: boolean
+  hideMenu?: boolean
 }
 
 export interface IDashboardContext {

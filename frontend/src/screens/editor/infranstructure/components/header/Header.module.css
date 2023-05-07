@@ -55,3 +55,17 @@
     font-size: 20px;
     cursor: pointer;
 }
+
+@media only screen and (max-width: 1000px) {
+    .container {
+        grid-template-columns: calc(100% - 7rem) 7rem;
+    }   
+    
+    .logoContainer{
+        display: none;
+    }
+
+    .containerDesignName>input {
+        width: 85%;
+    }
+}

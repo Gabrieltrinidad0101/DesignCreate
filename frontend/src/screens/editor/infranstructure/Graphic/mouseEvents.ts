@@ -34,7 +34,13 @@ export default class MouseEvents {
 
   private readonly paste = (): void => {
     if (MouseEvents.clone === undefined) return
-    this.graphic.addObject(MouseEvents.clone)
+    console.log(MouseEvents.clone.type)
+    if (MouseEvents.clone.type === 'activeSelection') {
+      this.graphic.discardActiveObject()
+      return
+    }
+    this.graphic.addObjectCopy(MouseEvents.clone)
+    this.graphic.setActiveObject(MouseEvents.clone)
     MouseEvents.clone.clone((cloned: any): void => {
       MouseEvents.clone = cloned
     })

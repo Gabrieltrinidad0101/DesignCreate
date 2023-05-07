@@ -53,14 +53,6 @@ export default function Images (): JSX.Element {
     grafic.insertImageFromUrl(imageUrl)
   }
 
-  const Images = (): JSX.Element[] => {
-    return images.hits?.map((image: IImage) =>
-        <Image key={image.id} Prop={
-          { ...image, onClick: insertImage }
-        } />
-    ) ?? [<></>]
-  }
-
   return (
     <div className={ImagesCss.container}>
       <div className={ImagesCss.inputsContainer}>
@@ -69,13 +61,15 @@ export default function Images (): JSX.Element {
           <i className="fa-solid fa-magnifying-glass"></i>
         </button>
       </div>
-      <InfinitiveScroll Prop={
+      <InfinitiveScroll
+        className={ImagesCss.imagesContainer}
+        next={loadImages}
+      >
         {
-          className: ImagesCss.imagesContainer,
-          next: loadImages,
-          children: Images()
+          images.hits?.map((image: IImage) =>
+            <Image key={image.id} Prop={{ ...image, onClick: insertImage }} />)
         }
-      } />
+      </InfinitiveScroll>
     </div>
   )
 }

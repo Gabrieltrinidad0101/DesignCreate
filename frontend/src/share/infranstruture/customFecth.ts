@@ -35,6 +35,16 @@ class CustomFecth implements ICustomFecth {
     return response
   }
 
+  async put<T>(url: string, data: object = {}, headers?: object | undefined): Promise<T | undefined> {
+    const response = await this.baseHttp<T>({
+      url,
+      data,
+      headers,
+      method: 'put'
+    })
+    return response
+  }
+
   async baseHttp<T>(baseHttp: BaseHttp): Promise<T | undefined> {
     try {
       const token = localStorage.getItem('token')

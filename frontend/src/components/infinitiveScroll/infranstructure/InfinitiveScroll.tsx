@@ -12,7 +12,10 @@ export default function InfinitiveScroll ({ next, children, className }: IInfini
     if (parseInt(scrollTop) + parseInt(clientHeight) < scrollHeight - 100) return
     isLoading = true
     next()
-      .then(() => {
+      .then((): void => {
+        isLoading = false
+      })
+      .catch((): void => {
         isLoading = false
       })
   }, [])

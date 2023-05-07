@@ -3,4 +3,5 @@ export default interface IImagesContainer {
   trapezoid: string
   hegaxon: string
   start4: string
+  rightTriangle: string
 }

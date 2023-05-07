@@ -4,7 +4,8 @@ import DashboardCss from './Dashboard.module.css'
 import { type IDashboardState, type IDashboardContext } from '../domian/Dashboard'
 
 const initialState: IDashboardState = {
-  miniMenu: false
+  miniMenu: false,
+  hideMenu: false
 }
 
 const AuthContext = React.createContext<IDashboardContext>({
@@ -24,7 +25,10 @@ export default function Dashboard ({ header, menu, main }: IDashboard<JSX.Elemen
       setDashboardState: changeDashboard,
       dashboardState
     }}>
-      <div className={`${DashboardCss.container} ${dashboardState.miniMenu ? DashboardCss.miniMenu : ''}`}>
+      <div className={`
+        ${DashboardCss.container} ${(dashboardState.miniMenu ?? false) ? DashboardCss.miniMenu : ''}
+        ${(dashboardState.hideMenu ?? false) ? DashboardCss.hideMenu : ''}`
+        }>
         <div className={DashboardCss.header}>
           {header}
         </div>

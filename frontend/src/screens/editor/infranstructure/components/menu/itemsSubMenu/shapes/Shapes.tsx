@@ -1,7 +1,6 @@
 import React from 'react'
 import { useGraphic } from '../../../../hooks/useGraphic'
 import ShapesCss from './Shapes.module.css'
-import imagesContainer from '../../../../../../../share/application/imagesContainer'
 import { useDashboardContext } from '../../../../../../../components/Dashboard/infranstructure/Dashboard'
 import type IShapeMenu from '../../../../../domain/shapeMenu'
 export default function Shapes (): JSX.Element {
@@ -16,7 +15,7 @@ export default function Shapes (): JSX.Element {
   }
 
   const Shape = ({ children, onClick, className }: IShapeMenu): JSX.Element => {
-    return <div onClick={() => { hiddenSubMenu(onClick) }} className={className}>
+    return <div onClick={() => { hiddenSubMenu(onClick) }} className={ShapesCss.shape}>
       {children}
     </div>
   }
@@ -24,31 +23,34 @@ export default function Shapes (): JSX.Element {
   return (
     <div className={ShapesCss.container}>
       <Shape onClick={graphic.rect}>
-        <i className="fa-solid fa-square"></i>
+        <div></div>
       </Shape>
       <Shape onClick={graphic.circle}>
-        <i className="fa-solid fa-circle"></i>
+        <div className={ShapesCss.circle}></div>
       </Shape>
-      <Shape onClick={graphic.triangle} className={ShapesCss.triangle}>
-        <i className="fa-solid fa-caret-up"></i>
+      <Shape onClick={graphic.triangle}>
+        <div className={ShapesCss.triangle}></div>
       </Shape>
       <Shape onClick={graphic.trapezoid}>
-        <img src={imagesContainer.trapezoid} />
+        <div className={ShapesCss.trapezoid}></div>
       </Shape>
-      <Shape onClick={graphic.emerald} className={ShapesCss.emerald}>
-        <img src={imagesContainer.hegaxon} />
+      <Shape onClick={graphic.emerald}>
+        <div className={ShapesCss.emerald}></div>
       </Shape>
       <Shape onClick={graphic.star5}>
-        <i className="fa-solid fa-star"></i>
+        <div className={ShapesCss.star5}></div>
       </Shape>
       <Shape onClick={graphic.star4}>
-        <img src={imagesContainer.start4} />
+        <div className={ShapesCss.star4}></div>
       </Shape>
       <Shape onClick={graphic.arrow}>
-        <i className="fa-solid fa-right-long"></i>
+        <div className={ShapesCss.arrow}></div>
       </Shape>
-      <Shape onClick={graphic.rightTriangle} className={ShapesCss.rightTriangle}>
-        <img src={imagesContainer.rightTriangle} />
+      <Shape onClick={graphic.rightTriangle}>
+        <div className={ShapesCss.rightTriangle}></div>
+      </Shape>
+      <Shape onClick={graphic.leftTriangle}>
+        <div className={ShapesCss.leftTriangle}></div>
       </Shape>
     </div>
   )

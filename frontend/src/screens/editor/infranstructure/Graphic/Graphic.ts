@@ -19,13 +19,13 @@ export default class Graphic {
   undo = (): void => {
     const design = Graphic.historial.Undo()
     if (design === undefined) return
-    Graphic.staticCanvas?.loadFromJSON(JSON.parse(design), (): void => {})
+    Graphic.staticCanvas?.loadFromJSON(JSON.parse(design), (): void => { })
   }
 
   redo = (): void => {
     const design = Graphic.historial.Redo()
     if (design === undefined) return
-    Graphic.staticCanvas?.loadFromJSON(JSON.parse(design), () => {})
+    Graphic.staticCanvas?.loadFromJSON(JSON.parse(design), () => { })
   }
 
   onCanvaChanged (): void {
@@ -114,10 +114,29 @@ export default class Graphic {
     this.addPolygon(shapeArrow)
   }
 
+  leftTriangle = (): void => {
+    const rect = [
+      { x: 10, y: 61 },
+      { x: 61, y: 61 },
+      { x: 61, y: 10 }
+    ]
+    this.addPolygon(rect)
+  }
+
+  rightTriangle = (): void => {
+    const rightTriangle = [
+      { x: 10, y: 61 },
+      { x: 61, y: 61 },
+      { x: 10, y: 10 }
+    ]
+    this.addPolygon(rightTriangle)
+  }
+
   start = (): void => {
     const editorIsNotLoad = isEmptyNullOrUndefined(Graphic.staticCanvas)
     Graphic.staticCanvas ??= new fabric.Canvas('editor')
     if (editorIsNotLoad) this.onCanvaChanged()
+    Graphic.staticCanvas.preserveObjectStacking = true
   }
 
   getCurrentObject = (): fabric.Object | null | undefined => {
@@ -169,7 +188,27 @@ export default class Graphic {
   }
 
   public remove (object: fabric.Object): void {
+    if (object.type === 'activeSelection') {
+      const objects = object as fabric.ActiveSelection
+      objects.forEachObject(object => {
+        Graphic.staticCanvas?.remove(object)
+      })
+      Graphic.staticCanvas?.discardActiveObject()
+      return
+    }
     Graphic.staticCanvas?.remove(object)
+  }
+
+  setCanvas (object: fabric.Object): void {
+    object.canvas = Graphic.staticCanvas
+  }
+
+  setActiveObject (object: fabric.Object): void {
+    Graphic.staticCanvas?.setActiveObject(object)
+  }
+
+  discardActiveObject = (): void => {
+    Graphic.staticCanvas?.discardActiveObject()
   }
 
   public addObject (object: fabric.Object): void {
@@ -177,6 +216,18 @@ export default class Graphic {
     Graphic.staticCanvas?.add(object)
     Graphic.staticCanvas?.setActiveObject(object)
     this.saveHsitorial()
+  }
+
+  public addObjectCopy (object: fabric.Object): void {
+    object.set({
+      left: (object?.left ?? 0) + 10,
+      top: (object?.top ?? 0) + 10
+    })
+    Graphic.staticCanvas?.add(object)
+  }
+
+  public addBasic (object: fabric.Object): void {
+    Graphic.staticCanvas?.add(object)
   }
 
   public aligns (align: Align, object: fabric.Object): void {
@@ -233,6 +284,14 @@ export default class Graphic {
   insertImageFromUrl = (imageUrl: string): void => {
     fabric.Image.fromURL(imageUrl, (img: fabric.Image) => {
       this.addObject(img)
-    })
+    }, { crossOrigin: 'anonymous' })
+  }
+
+  sendToFront = (): void => {
+    this.getCurrentObject()?.bringToFront()
+  }
+
+  sendToBack = (): void => {
+    this.getCurrentObject()?.sendToBack()
   }
 }

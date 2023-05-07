@@ -1,14 +1,15 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { customFecth } from './dependencies'
 import type IHttpResult from '../../../../share/domain/httpResult'
-import { type IUser } from '../../../../share/domain/user'
+import type IUser from '../../../../share/domain/user'
 import type IUserState from '../domian/user'
 import { Outlet, useNavigate } from 'react-router-dom'
 
 const userInitialState = {
   name: '',
   password: '',
-  isRegister: false
+  isRegister: false,
+  _id: ''
 }
 
 const AuthContext = React.createContext<IUserState>({
@@ -45,7 +46,9 @@ const AuthenticationProvider = (): JSX.Element => {
   const containerSetUser = (user: IUser): void => {
     setUser(prevUser => ({ ...prevUser, ...user }))
   }
-  return <AuthContext.Provider value={{ user, setUser: containerSetUser }} >{<Outlet />}</AuthContext.Provider>
+  return <AuthContext.Provider value={{ user, setUser: containerSetUser }} >{
+    user._id === '' ? <></> : <Outlet />
+  }</AuthContext.Provider>
 }
 export const useAuthenticationContext = (): IUserState => {
   return useContext<IUserState>(AuthContext)

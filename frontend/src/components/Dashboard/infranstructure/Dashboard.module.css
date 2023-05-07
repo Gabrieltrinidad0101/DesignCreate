@@ -2,7 +2,7 @@
     width: 100%;
     height: 100vh;
     display: grid;
-    grid-template-columns: 15rem calc(100% - 15rem);
+    grid-template-columns: 20rem calc(100vw - 20rem);
     grid-template-rows: 5rem calc(100vh - 5rem);
     grid-template-areas: "header header"
         "menu main";
@@ -12,9 +12,18 @@
     grid-template-columns: 5rem calc(100% - 5rem);
 }
 
+.hideMenu{
+    grid-template-columns: 0px 100%;
+}
+
 .miniMenu > .menu{
     overflow: hidden;
 }
+
+.hideMenu > .menu{
+    display: none;
+}
+
 
 
 .header {
@@ -37,7 +46,6 @@
     width: 100%;
     height: 100%;
     grid-area: main;
-    overflow: auto;
     z-index: 1;
 }
 
