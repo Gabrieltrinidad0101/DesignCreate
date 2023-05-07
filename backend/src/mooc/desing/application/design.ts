@@ -1,10 +1,15 @@
 import { isEmptyNullOrUndefined } from '../../../../../share/application/isEmptyNullUndefiner'
-import { type IDesignUserId, type SaveDesign } from '../../../../../share/domain/design'
+import { type ISearchDesign, type IDesignUserId, type SaveDesign } from '../../../../../share/domain/design'
 import { type IHttpStatusCode } from '../../../../../share/domain/httpResult'
 import type IDesignRepository from '../domian/designRepository'
 
 export default class Design {
   constructor (private readonly designRepository: IDesignRepository) { }
+
+  private validateSearchHttp (searchHttp: ISearchDesign): boolean {
+    return isEmptyNullOrUndefined(searchHttp.page) ||
+      isEmptyNullOrUndefined(searchHttp.limit)
+  }
 
   async save (design: IDesignUserId): Promise<SaveDesign> {
     if (isEmptyNullOrUndefined(design) || design.content === undefined) {
@@ -29,16 +34,28 @@ export default class Design {
     }
   }
 
-  async get (userId: string): Promise<IHttpStatusCode> {
-    const design = await this.designRepository.get(userId)
+  async get (searchHttp: ISearchDesign, userId: string): Promise<IHttpStatusCode> {
+    if (this.validateSearchHttp(searchHttp)) {
+      return {
+        statusCode: 400,
+        message: 'Invalid search'
+      }
+    }
+    const design = await this.designRepository.get(searchHttp, userId)
     return {
       statusCode: 200,
       message: design
     }
   }
 
-  async getAll (userId: string): Promise<IHttpStatusCode> {
-    const design = await this.designRepository.getAll(userId)
+  async getAll (searchHttp: ISearchDesign, userId: string): Promise<IHttpStatusCode> {
+    if (this.validateSearchHttp(searchHttp)) {
+      return {
+        statusCode: 400,
+        message: 'Invalid search'
+      }
+    }
+    const design = await this.designRepository.getAll(searchHttp, userId)
     return {
       statusCode: 200,
       message: design
@@ -61,8 +78,14 @@ export default class Design {
     }
   }
 
-  async likes (userId: string): Promise<IHttpStatusCode> {
-    const designs = await this.designRepository.likes(userId)
+  async likes (searchHttp: ISearchDesign, userId: string): Promise<IHttpStatusCode> {
+    if (this.validateSearchHttp(searchHttp)) {
+      return {
+        statusCode: 400,
+        message: 'Invalid search'
+      }
+    }
+    const designs = await this.designRepository.likes(searchHttp, userId)
     return {
       statusCode: 200,
       message: designs

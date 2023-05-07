@@ -1,10 +1,21 @@
 import { type IHttpStatusCode } from '../../../../../share/domain/httpResult'
 import type Design from '../application/design'
 import { type Request, type Response } from 'express'
-import { type IDesignUserId } from '../../../../../share/domain/design'
+import { type ISearchDesign, type IDesignUserId } from '../../../../../share/domain/design'
 
 export default class DesignControl {
-  constructor (private readonly design: Design) {}
+  constructor (private readonly design: Design) { }
+
+  private getSearchHttp (req: Request): ISearchDesign {
+    const page = parseInt(req.query.page?.toString() ?? '0')
+    const limit = parseInt(req.query.limit?.toString() ?? '0')
+    const search = req.query.search?.toString() ?? ''
+    return {
+      page,
+      limit,
+      search
+    }
+  }
 
   save = async (req: Request, res: Response): Promise<IHttpStatusCode> => {
     const design = req.body as IDesignUserId
@@ -22,13 +33,15 @@ export default class DesignControl {
 
   get = async (req: Request, res: Response): Promise<IHttpStatusCode> => {
     const userId = req.headers.userId?.toString() ?? ''
-    const result = await this.design.get(userId)
+    const searchHttp = this.getSearchHttp(req)
+    const result = await this.design.get(searchHttp, userId)
     return result
   }
 
   getAll = async (req: Request, res: Response): Promise<IHttpStatusCode> => {
     const userId = req.headers.userId?.toString() ?? ''
-    const result = await this.design.getAll(userId)
+    const searchHttp = this.getSearchHttp(req)
+    const result = await this.design.getAll(searchHttp, userId)
     return result
   }
 
@@ -48,7 +61,8 @@ export default class DesignControl {
 
   likes = async (req: Request, res: Response): Promise<IHttpStatusCode> => {
     const userId = req.headers.userId?.toString() ?? ''
-    const result = await this.design.likes(userId)
+    const searchHttp = this.getSearchHttp(req)
+    const result = await this.design.likes(searchHttp, userId)
     return result
   }
 }

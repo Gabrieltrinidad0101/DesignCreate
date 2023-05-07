@@ -1,32 +1,26 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import type Prop from '../../../share/domian/prop'
+import React, { useCallback, useRef } from 'react'
 import type IInfinitiveScroll from '../domian/infinitiveScroll'
-export default function InfinitiveScroll ({ Prop: infinitiveScroll }: Prop<IInfinitiveScroll<JSX.Element>>): JSX.Element {
-  const [isFeching, setIsFeching] = useState<boolean>()
 
+let isLoading = false
+
+export default function InfinitiveScroll ({ next, children, className }: IInfinitiveScroll<JSX.Element>): JSX.Element {
   const divScroll = useRef(null)
 
   const handleScroll = useCallback((): void => {
-    if (divScroll.current === null) return
+    if (divScroll.current === null || isLoading) return
     const { scrollTop, scrollHeight, clientHeight } = divScroll.current
-    if (parseInt(scrollTop) + parseInt(clientHeight) < scrollHeight - 50) return
-    setIsFeching(true)
+    if (parseInt(scrollTop) + parseInt(clientHeight) < scrollHeight - 100) return
+    isLoading = true
+    next()
+      .then(() => {
+        isLoading = false
+      })
   }, [])
 
-  useEffect((): void => {
-    infinitiveScroll.next()
-      .then(() => {
-        setIsFeching(false)
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  }, [isFeching])
-
   return (
-    <div ref={divScroll} onScroll={handleScroll} className={infinitiveScroll.className} >
+    <div ref={divScroll} onScroll={handleScroll} className={className} >
       {
-        infinitiveScroll.children
+        children
       }
     </div>
   )

@@ -1,8 +1,7 @@
 import { isEmptyNullOrUndefined } from '../../../../../../share/application/isEmptyNullUndefiner'
 import type IDesign from '../../../../../../share/domain/design'
-import { type IDesignUserId } from '../../../../../../share/domain/design'
+import { type ISearchDesign, type IDesignUserId } from '../../../../../../share/domain/design'
 import type IDesignRepository from '../../domian/designRepository'
-import { type ISearchHttp } from '../../domian/designRepository'
 import DesignModal from './designSchema'
 export default class DesignRepository implements IDesignRepository {
   update = async (design: IDesignUserId): Promise<IDesignUserId> => {
@@ -23,15 +22,21 @@ export default class DesignRepository implements IDesignRepository {
     return designModal
   }
 
-  get = async (searchHttp: ISearchHttp, userId: string): Promise<IDesign[]> => {
+  get = async (searchHttp: ISearchDesign, userId: string): Promise<IDesign[]> => {
     const designModal = await DesignModal.find<IDesign>({ userId }, { content: 0 })
-      .sort('-createdAt')
+      .skip(searchHttp.page * searchHttp.limit)
+      .limit(searchHttp.limit)
+      .find(
+        searchHttp.search === ''
+          ? {}
+          : { name: { $regex: searchHttp.search } }
+      )
     return designModal
   }
 
-  getAll = async (searchHttp: ISearchHttp, userId: string): Promise<IDesign[]> => {
+  getAll = async (searchHttp: ISearchDesign, userId: string): Promise<IDesign[]> => {
     const designModal = await DesignModal.find<IDesign>({ userId: { $ne: userId } }, { content: 0 })
-      .sort('-createdAt')
+      .sort('-createdAt').skip(searchHttp.page * searchHttp.limit).limit(searchHttp.limit)
     return designModal
   }
 
@@ -40,9 +45,7 @@ export default class DesignRepository implements IDesignRepository {
   }
 
   like = async (_id: string, userId: string): Promise<void> => {
-    console.log(_id)
     const design = await DesignModal.findOne<IDesign>({ _id, likes: userId })
-    console.log(design)
     if (isEmptyNullOrUndefined(design)) {
       await DesignModal.findOneAndUpdate(
         { _id },
@@ -58,7 +61,7 @@ export default class DesignRepository implements IDesignRepository {
     )
   }
 
-  likes = async (searchHttp: ISearchHttp, userId: string): Promise<IDesign[]> => {
-    return await DesignModal.find<IDesign>({ likes: userId })
+  likes = async (searchHttp: ISearchDesign, userId: string): Promise<IDesign[]> => {
+    return await DesignModal.find<IDesign>({ likes: userId }).skip(searchHttp.page * searchHttp.limit).limit(searchHttp.limit)
   }
 }

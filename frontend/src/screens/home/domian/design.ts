@@ -1,9 +1,9 @@
-import { type TypeSearchDesign } from '../../../../../share/domain/design'
+import { type ISearchDesign, type TypeSearchDesign } from '../../../../../share/domain/design'
 import type IDesign from '../../../../../share/domain/design'
 
 export default interface IDesignApp {
   createNewDesign: () => Promise<void>
-  get: (searchDesign: TypeSearchDesign) => Promise<IDesign[] | undefined>
+  get: (searchDesign: ISearchDesign) => Promise<IDesign[] | undefined>
   deleteDesign: (designID: string) => Promise<void>
 }
 
