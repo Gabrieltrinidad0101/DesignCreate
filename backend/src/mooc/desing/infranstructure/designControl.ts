@@ -7,11 +7,11 @@ export default class DesignControl {
   constructor (private readonly design: Design) { }
 
   private getSearchHttp (req: Request): ISearchDesign {
-    const page = parseInt(req.query.page?.toString() ?? '0')
+    const skip = parseInt(req.query.skip?.toString() ?? '0')
     const limit = parseInt(req.query.limit?.toString() ?? '0')
     const search = req.query.search?.toString() ?? ''
     return {
-      page,
+      skip,
       limit,
       search
     }
@@ -19,6 +19,7 @@ export default class DesignControl {
 
   save = async (req: Request, res: Response): Promise<IHttpStatusCode> => {
     const design = req.body as IDesignUserId
+    console.log(req.headers.userId)
     design.userId = req.headers.userId?.toString()
     const result = await this.design.save(design)
     return result
@@ -63,6 +64,13 @@ export default class DesignControl {
     const userId = req.headers.userId?.toString() ?? ''
     const searchHttp = this.getSearchHttp(req)
     const result = await this.design.likes(searchHttp, userId)
+    return result
+  }
+
+  copyDesign = async (req: Request, res: Response): Promise<IHttpStatusCode> => {
+    const userId = req.headers.userId?.toString() ?? ''
+    const _id = req.params._id
+    const result = await this.design.copyDesign(_id, userId)
     return result
   }
 }

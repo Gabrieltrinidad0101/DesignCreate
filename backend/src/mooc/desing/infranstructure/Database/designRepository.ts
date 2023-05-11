@@ -24,7 +24,8 @@ export default class DesignRepository implements IDesignRepository {
 
   get = async (searchHttp: ISearchDesign, userId: string): Promise<IDesign[]> => {
     const designModal = await DesignModal.find<IDesign>({ userId }, { content: 0 })
-      .skip(searchHttp.page * searchHttp.limit)
+      .skip(searchHttp.skip)
+      .sort({ _id: -1 })
       .limit(searchHttp.limit)
       .find(
         searchHttp.search === ''
@@ -36,7 +37,14 @@ export default class DesignRepository implements IDesignRepository {
 
   getAll = async (searchHttp: ISearchDesign, userId: string): Promise<IDesign[]> => {
     const designModal = await DesignModal.find<IDesign>({ userId: { $ne: userId } }, { content: 0 })
-      .sort('-createdAt').skip(searchHttp.page * searchHttp.limit).limit(searchHttp.limit)
+      .skip(searchHttp.skip)
+      .sort({ _id: -1 })
+      .limit(searchHttp.limit)
+      .find(
+        searchHttp.search === ''
+          ? {}
+          : { name: { $regex: searchHttp.search } }
+      )
     return designModal
   }
 
@@ -62,6 +70,26 @@ export default class DesignRepository implements IDesignRepository {
   }
 
   likes = async (searchHttp: ISearchDesign, userId: string): Promise<IDesign[]> => {
-    return await DesignModal.find<IDesign>({ likes: userId }).skip(searchHttp.page * searchHttp.limit).limit(searchHttp.limit)
+    return await DesignModal.find<IDesign>({ likes: userId })
+      .skip(searchHttp.skip)
+      .sort({ _id: -1 })
+      .limit(searchHttp.limit)
+      .find(
+        searchHttp.search === ''
+          ? {}
+          : { name: { $regex: searchHttp.search } }
+      )
+  }
+
+  copyDesign = async (_id: string, userId: string): Promise<string | undefined> => {
+    const design = await DesignModal.findById<IDesignUserId>(_id)
+    if (design === null) return
+    const designModal = new DesignModal({
+      content: design.content,
+      svg: design.svg,
+      userId
+    })
+    await designModal.save()
+    return designModal._id.toString()
   }
 }

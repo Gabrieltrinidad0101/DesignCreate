@@ -9,4 +9,5 @@ export default interface IDesignRepository {
   getAll: (searchHttp: ISearchDesign, userId: string) => Promise<IDesign[]>
   like: (_id: string, userId: string) => Promise<void>
   likes: (searchHttp: ISearchDesign, userId: string) => Promise<IDesign[]>
+  copyDesign: (_id: string, userId: string) => Promise<string | undefined>
 }

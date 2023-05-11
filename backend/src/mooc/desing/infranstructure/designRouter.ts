@@ -13,4 +13,5 @@ router.get('/explore', verifyAuthentication.verify, designControl.getAll)
 router.delete('/delete/:_id', verifyAuthentication.verify, designControl.delete)
 router.put('/like/:_id', verifyAuthentication.verify, designControl.like)
 router.get('/likes', verifyAuthentication.verify, designControl.likes)
+router.get('/copyDesign/:_id', verifyAuthentication.verify, designControl.copyDesign)
 export { designRouter }
