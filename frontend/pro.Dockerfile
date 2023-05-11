@@ -1,5 +1,7 @@
 FROM node:18-alpine as build
 
+ARG API
+
 WORKDIR /usr/app/frontend
 
 COPY package.json . 
@@ -7,6 +9,8 @@ COPY package.json .
 RUN npm install .
 
 COPY . .
+
+RUN VITE_API=$API npm run build
 
 FROM nginx:1.23.3-alpine
 
