@@ -7,7 +7,7 @@ import InfinitiveScroll from '../../../../../components/infinitiveScroll/infrans
 import { Toast } from '../../../../../share/infranstruture/toast'
 import { useSearchDesignContext } from '../../Home'
 
-let counterDesignPage = 0
+let skipIndex = 0
 
 export default function Cards ({ designApp, typeSearch }: IDesignAppTypeSearch): JSX.Element {
   const [designs, setDesigns] = useState<IDesign[]>([])
@@ -21,43 +21,45 @@ export default function Cards ({ designApp, typeSearch }: IDesignAppTypeSearch):
     })
   }
 
-  const processGetCards = async (): Promise<void> => {
+  const wait = async (time: number): Promise<void> => { await new Promise((resolve): void => { setTimeout(resolve, time) }) }
+
+  const processGetCards = async (search: string = ''): Promise<void> => {
+    setDesigns([])
     const grid = document.querySelector(`.${CardCss.cardContainer}`) as HTMLElement | undefined
     if (grid === undefined) { Toast.error('Error loading'); return }
-    const limit = Math.round((grid.clientHeight / 160) + 1) *
-      Math.round((grid.clientWidth / 160))
-    await getDesign(limit)
+    const limit = Math.round((grid.clientHeight / 160)) * Math.round((grid.clientWidth / 160))
+    await getDesign(search, 0, limit)
   }
 
-  const getDesign = async (limit: number = 10): Promise<void> => {
+  const getDesign = async (search: string = '', skip?: number, limit?: number): Promise<number> => {
+    const grid = document.querySelector(`.${CardCss.cardContainer}`) as HTMLElement | undefined
     const reponseHttp = await designApp.get({
       type: typeSearch,
-      page: counterDesignPage,
-      limit,
-      search: searchDesignContext
+      skip: skip ?? skipIndex,
+      limit: limit ?? Math.round(((grid?.clientWidth ?? 160) / 160)),
+      search
     })
-    if (reponseHttp === undefined || reponseHttp.length <= 0) return
-    setDesigns(prev => [...prev, ...reponseHttp])
-    ++counterDesignPage
-  }
-
-  useEffect(() => {
-    return () => {
-      setDesigns([])
-      counterDesignPage = 0
-      getDesign()
-        .catch(error => {
-          console.log(error)
-        })
+    if (reponseHttp === undefined || reponseHttp.length <= 0) {
+      await wait(2000)
+      return 0
     }
-  }, [typeSearch])
+    setDesigns(prev => [...prev, ...reponseHttp])
+    skipIndex = skip === 0 ? reponseHttp.length : skipIndex + reponseHttp.length
+    return reponseHttp.length
+  }
 
   useEffect(() => {
     processGetCards()
       .catch(error => {
         console.log(error)
       })
-  }, [])
+    searchDesignContext.searchCall?.((text: string) => {
+      processGetCards(text)
+        .catch(error => {
+          console.log(error)
+        })
+    })
+  }, [typeSearch])
 
   return (
     <InfinitiveScroll
@@ -65,8 +67,8 @@ export default function Cards ({ designApp, typeSearch }: IDesignAppTypeSearch):
       className={CardCss.cardContainer}
     >
       {
-        designs.map(design =>
-          <Card type={typeSearch} design={design} deleteDesign={deleteDesign} key={crypto.randomUUID()} />
+        designs.map((design): JSX.Element =>
+          <Card type={typeSearch} designApp={designApp} design={design} deleteDesign={deleteDesign} key={design._id} />
         )
       }
     </InfinitiveScroll >

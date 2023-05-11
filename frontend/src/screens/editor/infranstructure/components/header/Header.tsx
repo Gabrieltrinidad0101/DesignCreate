@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 export default function Header ({ Prop: editorEvents }: IProp<IEditorEvents>): JSX.Element {
   const changeEvent = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    editorEvents.changeName(e.target.value)
+    editorEvents.changeName(e.target.value.toLocaleLowerCase())
   }
 
   const save = (): void => {

@@ -2,9 +2,9 @@
     padding: 10px;
     display: grid;
     height: calc(100vh - 10rem);
-    grid-template-rows: 160px;
     grid-template-columns: repeat(auto-fill,minmax(10rem,1fr));
     overflow: auto;
+    gap: 0px
 }
 
 .card{
@@ -17,12 +17,15 @@
     position: relative;
 }
 
+
 .card .design{
     background: rgb(184, 184, 184);
     border-radius: 8px;
     background-color: rgba(64,87,109,.07);
     background-image: linear-gradient(to bottom right,hsla(0,0%,100%,.15),rgba(64,87,109,.07));
+    overflow: hidden;
 }
+
 
 .deleteCard{
     width: 30px;

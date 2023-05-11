@@ -39,6 +39,8 @@
     background: hsl(210deg 3% 15%);
     grid-area: subMenu;
     position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .closeSubMenu {
@@ -65,10 +67,10 @@
 @media only screen and (max-width: 1000px) {
     .menuContainer {
         grid-template-columns: 100%;
-        grid-template-rows: calc(80vh) 5rem;
+        grid-template-rows: calc(100vh - 10rem) 5rem;
         grid-template-areas: "subMenu" "menu";
         position: fixed;
-        top: calc(20vh - 5rem);
+        top: 5rem;
     }
 
     .miniMenu {

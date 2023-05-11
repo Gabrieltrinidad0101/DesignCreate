@@ -3,6 +3,7 @@ import { type IEvent, type Canvas } from 'fabric/fabric-impl'
 import { isEmptyNullOrUndefined } from '../../../../../../share/application/isEmptyNullUndefiner'
 import { type Align } from '../../domain/shapeProperty'
 import Historial from '../../application/historial'
+
 export default class Graphic {
   protected static staticCanvas: Canvas | undefined = undefined
   private static readonly historial = new Historial()
@@ -152,7 +153,8 @@ export default class Graphic {
   }
 
   json (): string {
-    return JSON.stringify(Graphic.staticCanvas?.toDatalessJSON())
+    const json = JSON.stringify(Graphic.staticCanvas?.toDatalessJSON())
+    return json
   }
 
   jsonLoad (json: string): void {
@@ -281,10 +283,21 @@ export default class Graphic {
     Graphic.staticCanvas?.clear()
   }
 
-  insertImageFromUrl = (imageUrl: string): void => {
-    fabric.Image.fromURL(imageUrl, (img: fabric.Image) => {
-      this.addObject(img)
-    }, { crossOrigin: 'anonymous' })
+  insertImageFromUrl = async (imageUrl: string): Promise<void> => {
+    const img = new Image()
+    img.crossOrigin = 'anonymous'
+    img.src = imageUrl
+    img.onload = () => {
+      const canvas = document.createElement('canvas')
+      canvas.width = img.width
+      canvas.height = img.height
+      const ctx = canvas.getContext('2d')
+      ctx?.drawImage(img, 0, 0)
+      const base64 = canvas.toDataURL()
+      fabric.Image.fromURL(base64, (img) => {
+        this.addObject(img)
+      }, { crossOrigin: 'anonymous' })
+    }
   }
 
   sendToFront = (): void => {

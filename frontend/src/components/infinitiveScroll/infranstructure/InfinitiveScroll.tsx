@@ -1,15 +1,15 @@
-import React, { useCallback, useRef } from 'react'
+import React, { useRef } from 'react'
 import type IInfinitiveScroll from '../domian/infinitiveScroll'
 
 let isLoading = false
 
 export default function InfinitiveScroll ({ next, children, className }: IInfinitiveScroll<JSX.Element>): JSX.Element {
-  const divScroll = useRef(null)
+  const divScroll = useRef<HTMLDivElement>(null)
 
-  const handleScroll = useCallback((): void => {
+  const handleScroll = (): void => {
     if (divScroll.current === null || isLoading) return
     const { scrollTop, scrollHeight, clientHeight } = divScroll.current
-    if (parseInt(scrollTop) + parseInt(clientHeight) < scrollHeight - 100) return
+    if (scrollHeight === clientHeight || scrollTop + clientHeight < scrollHeight - 100) return
     isLoading = true
     next()
       .then((): void => {
@@ -18,7 +18,7 @@ export default function InfinitiveScroll ({ next, children, className }: IInfini
       .catch((): void => {
         isLoading = false
       })
-  }, [])
+  }
 
   return (
     <div ref={divScroll} onScroll={handleScroll} className={className} >

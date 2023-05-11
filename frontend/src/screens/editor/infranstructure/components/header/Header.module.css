@@ -24,6 +24,10 @@
     align-items: center;
 }
 
+.containerDesignName > input[type="text"] {
+    text-transform: lowercase;
+}
+
 .containerDesignName>input {
     width: 90%;
     height: 40px;

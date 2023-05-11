@@ -38,7 +38,28 @@ export default class DesignApp implements IDesignApp {
     await this.customFecth.delete<IHttpResult<IDesign[]>>(`/design/delete/${designID}`)
   }
 
-  createUrl = ({ type, page, limit, search }: ISearchDesign): string => {
-    return `/design/${type ?? 'home'}?page=${page}&limit=${limit}&search=${search}`
+  copyDesign = async (designID: string): Promise<string | undefined> => {
+    const httpResult = await this.customFecth.get<IHttpResult<string>>(`/design/copyDesign/${designID}`)
+    return httpResult?.message
+  }
+
+  goToEditor = async (designId: string | undefined, type: string): Promise<void> => {
+    if (designId === undefined) return
+    if (type !== 'home') {
+      const copyDesignId = await this.copyDesign(designId)
+      if (copyDesignId === undefined) return
+      window.location.href = `/editor?_id=${copyDesignId}`
+      return
+    }
+    window.location.href = `/editor?_id=${designId}`
+  }
+
+  createUrl = ({ type, skip, limit, search }: ISearchDesign): string => {
+    return `/design/${type ?? 'home'}?skip=${skip}&limit=${limit}&search=${search}`
+  }
+
+  doLike = async (designId?: string): Promise<void> => {
+    if (designId === undefined) return
+    await this.customFecth.put(`design/like/${designId}`)
   }
 }

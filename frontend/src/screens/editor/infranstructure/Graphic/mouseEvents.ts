@@ -38,12 +38,13 @@ export default class MouseEvents {
     if (MouseEvents.clone.type === 'activeSelection') {
       this.graphic.discardActiveObject()
       const activeSelection = MouseEvents.clone as fabric.ActiveSelection
-      this.graphic.setCanvas(activeSelection);
-      activeSelection.forEachObject((obj)=> {
+      this.graphic.setCanvas(activeSelection)
+      activeSelection.forEachObject((obj) => {
         this.graphic.addObjectCopy(obj)
-      });
+      })
       activeSelection.setCoords()
       this.graphic.setActiveObject(activeSelection)
+      this.copy()
       return
     }
     this.graphic.addObjectCopy(MouseEvents.clone)

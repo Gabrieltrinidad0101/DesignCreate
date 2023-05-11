@@ -4,25 +4,37 @@ import Header from './components/header/Header'
 import Dashboard from '../../../components/Dashboard/infranstructure/Dashboard'
 import { Outlet } from 'react-router-dom'
 import { designApp } from './dependencies'
-
-const SearchDesignContext = createContext<string>('')
+import { type ISearchDesignContext } from '../domian/design'
+const SearchDesign = createContext<ISearchDesignContext>({})
 
 export default function Home (): JSX.Element {
-  const [searchDesign, setSearchDesign] = useState<string>('')
+  const [searchDesignContext, setSearchDesignContext] = useState<string>('')
+  const [callBack, setCallBack] = useState<() => (texto: string) => void>()
+
+  const changeText = (text: string): void => {
+    setSearchDesignContext(text)
+  }
 
   return (
-      <Dashboard
-        menu={<HomeMenu />}
-        header={<Header Prop={{
-          createNewDesign: designApp.createNewDesign,
-          searchDesign,
-          setSearchDesign: (searchDesign: string): void => { setSearchDesign(searchDesign) }
-        }} />}
-        main={<Outlet />}
-      />
+    <Dashboard
+      menu={<HomeMenu />}
+      header={<Header Prop={{
+        createNewDesign: designApp.createNewDesign,
+        searchDesign: searchDesignContext,
+        setSearchDesign: changeText,
+        search: (): void => callBack?.()(searchDesignContext)
+      }} />}
+      main={
+        <SearchDesign.Provider value={{
+          searchCall: (callBack) => { setCallBack(() => () => callBack) }
+        }}>
+          <Outlet />
+        </SearchDesign.Provider>
+      }
+    />
   )
 }
 
-export const useSearchDesignContext = (): string => {
-  return useContext<string>(SearchDesignContext)
+export const useSearchDesignContext = (): ISearchDesignContext => {
+  return useContext<ISearchDesignContext>(SearchDesign)
 }

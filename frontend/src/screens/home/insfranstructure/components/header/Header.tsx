@@ -24,6 +24,10 @@ export default function Header ({ Prop: header }: Prop<IHeader>): JSX.Element {
     header.setSearchDesign(value)
   }
 
+  const onEnter = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (e.key === 'Enter') header.search()
+  }
+
   return (
     <header className={HeaderCss.header}>
       <div className={HeaderCss.logo}>
@@ -32,8 +36,8 @@ export default function Header ({ Prop: header }: Prop<IHeader>): JSX.Element {
       </div>
       <div className={HeaderCss.search}>
         <div>
-          <input className={HeaderCss.searchInput} value={header.searchDesign} type="text" onChange={changeText} />
-          <i className={`${HeaderCss.searchButton} fa-solid fa-magnifying-glass`}></i>
+          <input className={HeaderCss.searchInput} onBlur={header.search} onKeyDown={onEnter} value={header.searchDesign} type="text" onChange={changeText} />
+          <i onClick={header.search} className={`${HeaderCss.searchButton} fa-solid fa-magnifying-glass`}></i>
         </div>
       </div>
       <div>

@@ -1,13 +1,15 @@
 import type IDesign from '../../../../../share/domain/design'
 import { type TypeSearchDesign } from '../../../../../share/domain/design'
+import type IDesignApp from './design'
 
 export default interface ICard {
   designs: IDesign[]
-  deleteDesign: (_cardID: string) => Promise<void>
+  deleteDesign: (cardID: string) => Promise<void>
 }
 
 export interface IPropCard {
   design: IDesign
   type: TypeSearchDesign
-  deleteDesign: (_cardID: string) => Promise<void>
+  designApp: IDesignApp
+  deleteDesign: (cardId: string) => Promise<void>
 }

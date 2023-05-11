@@ -51,12 +51,19 @@ export default function Images (): JSX.Element {
   const insertImage = (imageUrl?: string): void => {
     if (imageUrl === undefined) return
     grafic.insertImageFromUrl(imageUrl)
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
+  const searchImageEnter = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (e.key === 'Enter') searcImages()
   }
 
   return (
     <div className={ImagesCss.container}>
       <div className={ImagesCss.inputsContainer}>
-        <input type="text" value={imageName} onChange={onChange} />
+        <input type="text" value={imageName} onChange={onChange} onKeyDown={searchImageEnter} />
         <button onClick={searcImages}>
           <i className="fa-solid fa-magnifying-glass"></i>
         </button>
