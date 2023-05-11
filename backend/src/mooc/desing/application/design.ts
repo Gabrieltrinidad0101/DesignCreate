@@ -7,7 +7,7 @@ export default class Design {
   constructor (private readonly designRepository: IDesignRepository) { }
 
   private validateSearchHttp (searchHttp: ISearchDesign): boolean {
-    return isEmptyNullOrUndefined(searchHttp.page) ||
+    return isEmptyNullOrUndefined(searchHttp.skip) ||
       isEmptyNullOrUndefined(searchHttp.limit)
   }
 
@@ -89,6 +89,20 @@ export default class Design {
     return {
       statusCode: 200,
       message: designs
+    }
+  }
+
+  async copyDesign (_id: string, userId: string): Promise<IHttpStatusCode> {
+    if (isEmptyNullOrUndefined(_id)) {
+      return {
+        statusCode: 400,
+        message: 'Design ID is required'
+      }
+    }
+    const newDesignId = await this.designRepository.copyDesign(_id, userId)
+    return {
+      statusCode: 200,
+      message: newDesignId
     }
   }
 }

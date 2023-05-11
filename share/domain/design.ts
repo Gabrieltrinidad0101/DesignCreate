@@ -1,11 +1,14 @@
 import { IHttpStatusCode } from "./httpResult"
 
-export default interface IDesign {
+export interface IDesignWithoutId{
     name?: string
     content?: string
     svg?: string
-    _id?: string
     likes?: Array<string>
+}
+
+export default interface IDesign extends IDesignWithoutId{
+    _id?: string
 }
 
 
@@ -21,7 +24,7 @@ export type TypeSearchDesign = "home" | "explore" | "likes"
 
 export interface ISearchDesign {
     limit: number
-    page: number
+    skip: number
     search: string
     type?: TypeSearchDesign
 }
