@@ -10,7 +10,7 @@ const Auth = async (authenticaction: IAuthentication): Promise<void> => {
     const httpResult = await authenticaction.customFecth.post<IHttpResult<string>>('/authentication', authenticaction.user)
     if (httpResult == null) return
     localStorage.setItem('token', httpResult.message)
-    authenticaction.toast.sucess(`Welcome ${authenticaction.user.name}`)
+    authenticaction.toast.sucess(`Welcome ${authenticaction.user.name ?? ''}`)
     authenticaction.navigation('/home')
     authenticaction.userState.setUser(authenticaction.user)
   } catch (error) {

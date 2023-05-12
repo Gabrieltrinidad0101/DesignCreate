@@ -1,6 +1,6 @@
 export default interface IUser{
-    name: string
-    password: string
+    name?: string
+    password?: string
     isRegister?: boolean
-    _id: string
+    _id?: string
 }

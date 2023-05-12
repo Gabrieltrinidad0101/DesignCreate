@@ -23,13 +23,13 @@ export default function Shapes (): JSX.Element {
   return (
     <div className={ShapesCss.container}>
       <Shape onClick={graphic.rect}>
-        <div></div>
+        <div id="rect"></div>
       </Shape>
       <Shape onClick={graphic.circle}>
-        <div className={ShapesCss.circle}></div>
+        <div id="circle" className={ShapesCss.circle}></div>
       </Shape>
       <Shape onClick={graphic.triangle}>
-        <div className={ShapesCss.triangle}></div>
+        <div id="triangule" className={ShapesCss.triangle}></div>
       </Shape>
       <Shape onClick={graphic.trapezoid}>
         <div className={ShapesCss.trapezoid}></div>
@@ -38,7 +38,7 @@ export default function Shapes (): JSX.Element {
         <div className={ShapesCss.emerald}></div>
       </Shape>
       <Shape onClick={graphic.star5}>
-        <div className={ShapesCss.star5}></div>
+        <div id="star5" className={ShapesCss.star5}></div>
       </Shape>
       <Shape onClick={graphic.star4}>
         <div className={ShapesCss.star4}></div>

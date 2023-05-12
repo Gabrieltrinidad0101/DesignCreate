@@ -1,5 +1,5 @@
-import { type IUser } from '../../../../share/domain/user'
+import type IUser from '../../../../share/domain/user'
 export default interface IUserState {
-  user: IUser
+  user?: IUser
   setUser: (user: IUser) => void
 }

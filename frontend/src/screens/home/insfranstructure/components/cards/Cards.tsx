@@ -64,7 +64,7 @@ export default function Cards ({ designApp, typeSearch }: IDesignAppTypeSearch):
   return (
     <InfinitiveScroll
       next={getDesign}
-      className={CardCss.cardContainer}
+      className={`${CardCss.cardContainer} cards`}
     >
       {
         designs.map((design): JSX.Element =>

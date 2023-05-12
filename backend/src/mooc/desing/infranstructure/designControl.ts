@@ -19,7 +19,6 @@ export default class DesignControl {
 
   save = async (req: Request, res: Response): Promise<IHttpStatusCode> => {
     const design = req.body as IDesignUserId
-    console.log(req.headers.userId)
     design.userId = req.headers.userId?.toString()
     const result = await this.design.save(design)
     return result

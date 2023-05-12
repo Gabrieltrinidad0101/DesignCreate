@@ -4,6 +4,7 @@ import type IHttpResult from '../../../../share/domain/httpResult'
 import type IUser from '../../../../share/domain/user'
 import type IUserState from '../domian/user'
 import { Outlet, useNavigate } from 'react-router-dom'
+import { isEmptyNullOrUndefined } from '../../../../share/application/isEmptyNullUndefiner'
 
 const userInitialState = {
   name: '',
@@ -18,13 +19,13 @@ const AuthContext = React.createContext<IUserState>({
 })
 
 const AuthenticationProvider = (): JSX.Element => {
-  const [user, setUser] = useState<IUser>(userInitialState)
+  const [user, setUser] = useState<IUser | undefined>(userInitialState)
   const navigation = useNavigate()
 
   const verifyAuthentication = async (): Promise<boolean> => {
     try {
       const result = await customFecth.get<IHttpResult<IUser>>('/verifyAuthentication')
-      if (result?.message === undefined) return true
+      if (isEmptyNullOrUndefined(result?.message)) return true
       setUser(result?.message)
       return false
     } catch (error) {
@@ -47,7 +48,7 @@ const AuthenticationProvider = (): JSX.Element => {
     setUser(prevUser => ({ ...prevUser, ...user }))
   }
   return <AuthContext.Provider value={{ user, setUser: containerSetUser }} >{
-    user._id === '' ? <></> : <Outlet />
+    isEmptyNullOrUndefined(user?._id) ? <></> : <Outlet />
   }</AuthContext.Provider>
 }
 export const useAuthenticationContext = (): IUserState => {

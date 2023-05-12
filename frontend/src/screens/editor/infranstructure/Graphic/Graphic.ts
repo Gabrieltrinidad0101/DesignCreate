@@ -250,25 +250,35 @@ export default class Graphic {
   }
 
   private centerObjectLeft (shape: fabric.Object): void {
-    shape.set('left', 0)
+    const coords = Object.values(shape.oCoords ?? {})
+    const x2 = (shape.oCoords?.tl.x ?? 0)
+    const x1 = coords.reduce((acc: fabric.Point, current: fabric.Point) => acc.x < current.x ? acc : current).x
+    const differenceOfDistance = x2 - x1
+    shape.set('left', differenceOfDistance)
   }
 
   private centerObjectRight (shape: fabric.Object): void {
-    const scaleX = (shape.scaleX ?? 0)
-    const width = (shape.width ?? 0)
-    const strokeWidth = shape.strokeWidth ?? 0
-    shape.set('left', (Graphic.staticCanvas?.width ?? 0) - (width * scaleX) - strokeWidth)
+    const coords = Object.values(shape.oCoords ?? {})
+    const x1 = (shape.oCoords?.tl.x ?? 0)
+    const x2 = coords.reduce((acc: fabric.Point, current: fabric.Point) => acc.x > current.x ? acc : current).x
+    const differenceOfDistance = x2 - x1
+    shape.set('left', (Graphic.staticCanvas?.width ?? 0) - differenceOfDistance)
   }
 
   private centerObjectTop (shape: fabric.Object): void {
-    shape.set('top', 0)
+    const coords = Object.values(shape.oCoords ?? {})
+    const y2 = (shape.oCoords?.tl.y ?? 0)
+    const y1 = coords.reduce((acc: fabric.Point, current: fabric.Point) => acc.y < current.y ? acc : current).y
+    const differenceOfDistance = y2 - y1
+    shape.set('top', differenceOfDistance)
   }
 
   private centerObjectBottom (shape: fabric.Object): void {
-    const scaleY = shape.scaleY ?? 0
-    const height = shape.height ?? 0
-    const strokeWidth = shape.strokeWidth ?? 0
-    shape.set('top', (Graphic.staticCanvas?.height ?? 0) - (height * scaleY) - strokeWidth)
+    const coords = Object.values(shape.oCoords ?? {})
+    const y1 = (shape.oCoords?.tl.y ?? 0)
+    const y2 = coords.reduce((acc: fabric.Point, current: fabric.Point) => acc.y > current.y ? acc : current).y
+    const differenceOfDistance = y2 - y1
+    shape.set('top', (Graphic.staticCanvas?.height ?? 0) - differenceOfDistance)
   }
 
   resetCanvas = (): void => {

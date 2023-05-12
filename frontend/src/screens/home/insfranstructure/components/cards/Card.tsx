@@ -41,7 +41,7 @@ export default function Card ({ design, deleteDesign, type, designApp }: IPropCa
   }
 
   useEffect(() => {
-    setLike(design.likes?.includes(authenticationContext.user._id) ?? false)
+    setLike(design.likes?.includes(authenticationContext.user?._id ?? '') ?? false)
   }, [])
 
   const StartButton = (): JSX.Element => {

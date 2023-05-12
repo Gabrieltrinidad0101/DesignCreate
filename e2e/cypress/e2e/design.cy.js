@@ -24,14 +24,14 @@ describe('Design', () => {
     it("creates a rect", () => {
         createdDesign({
             cards: 0,
-            shape: ".fa-solid.fa-square",
+            shape: "#rect",
             name: "rect"
         })
     })
 
     it("creates a circle", () => {
         createdDesign({
-            shape: ".fa-solid.fa-circle",
+            shape: "#circle",
             name: "circle",
             cards: 1
         })
@@ -39,7 +39,7 @@ describe('Design', () => {
 
     it("creates a triangule", () => {
         createdDesign({
-            shape: ".fa-solid.fa-caret-up",
+            shape: "#triangule",
             name: "triangule",
             cards: 2
         })
@@ -59,7 +59,7 @@ describe("Design other user", () => {
 
     it("creates a star5", () => {
         createdDesign({
-            shape: ".fa-solid.fa-star",
+            shape: "#star5",
             name: "star",
             cards: 0
         })
@@ -67,6 +67,7 @@ describe("Design other user", () => {
 
     it("explore", () => {
         cy.contains("Explote").click()
-        cy.get('.fa-solid.fa-trash').should('have.length', 3)
+        cy.wait(1000)
+        cy.get('.cards').children().should('have.length', 3)
     })
 })
