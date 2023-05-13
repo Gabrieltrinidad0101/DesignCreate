@@ -45,7 +45,7 @@ const AuthenticationProvider = (): JSX.Element => {
   }, [])
 
   const containerSetUser = (user: IUser): void => {
-    setUser(prevUser => ({ ...prevUser, ...user }))
+    setUser((prevUser: IUser | undefined) => ({ ...prevUser, ...user }))
   }
   return <AuthContext.Provider value={{ user, setUser: containerSetUser }} >{
     isEmptyNullOrUndefined(user?._id) ? <></> : <Outlet />
