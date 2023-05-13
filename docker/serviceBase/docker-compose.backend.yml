@@ -6,7 +6,7 @@ services:
       - 4000:4000
     volumes:
       - ../backend:/usr/app/backend
-      - ../share:/usr/app/backend/sharekk
+      - ../share:/usr/app/backend/sharek
       - /usr/app/backend/node_modules
     networks:
       - redDatabase
