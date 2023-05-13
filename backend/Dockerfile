@@ -4,6 +4,8 @@ WORKDIR /usr/app/backend
 
 COPY ./package.json .
 
+COPY ../share .
+
 RUN npm install .
 
 COPY . .
