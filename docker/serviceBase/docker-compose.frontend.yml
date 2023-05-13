@@ -2,7 +2,10 @@ services:
   frontend:
     stdin_open: true
     container_name: frontend_container
-    build: ../frontend
+    build: 
+      args: 
+        - API=${API}
+      dockerfile: ../frontend
     volumes:
       - ../frontend:/usr/app/frontend
       - ../share:/usr/app/share
