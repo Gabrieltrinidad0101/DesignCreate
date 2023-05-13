@@ -5,7 +5,7 @@ services:
     build: ../frontend
     volumes:
       - ../frontend:/usr/app/frontend
-      - ../share:/usr/app/frontend/share
+      - ../share:/usr/app/frontend
       - /usr/app/frontend/node_modules
     ports:
       - 3000:3000
