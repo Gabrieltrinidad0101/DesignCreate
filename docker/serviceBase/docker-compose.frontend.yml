@@ -5,7 +5,7 @@ services:
     build: 
       args: 
         - API=${API}
-      dockerfile: ../frontend
+      context: ../frontend
     volumes:
       - ../frontend:/usr/app/frontend
       - ../share:/usr/app/share
