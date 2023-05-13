@@ -7,7 +7,7 @@ import type IAuthenticationComponent from '../../domian/IAuthenticaction'
 import { type IAuthentication } from '../../domian/IAuthenticaction'
 import { customFecth } from '../../../../share/infranstruture/dependencies'
 import { Link, useNavigate } from 'react-router-dom'
-import { type IUser } from '../../../../../../share/domain/user'
+import type IUser from '../../../../../../share/domain/user'
 import { useAuthenticationContext } from '../../../../share/infranstruture/AuthenticationContext'
 
 export default function AuthComponent ({ Prop: authenticationComponent }: Prop<IAuthenticationComponent>): JSX.Element {
