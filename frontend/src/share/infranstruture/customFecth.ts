@@ -48,7 +48,7 @@ class CustomFecth implements ICustomFecth {
   async baseHttp<T>(baseHttp: BaseHttp): Promise<T | undefined> {
     try {
       const token = localStorage.getItem('token')
-      baseHttp.headers = { ...baseHttp.headers, 'Access-Control-Allow-Origin': '*', token }
+      baseHttp.headers = { ...baseHttp.headers, token }
       const result = await this.customFecth.request(baseHttp)
       return result.data as T
     } catch (error) {
