@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host",
-    "build": "tsc && vite build",
+    "build": "tsc --noEmitOnError && vite build",
     "preview": "vite preview",
     "eslint": "eslint --ignore-path .gitignore . --ext .tsx,ts, src/",
     "eslint-fix": "eslint --ignore-path .gitignore src/ --ext .tsx,ts, src/ --fix"
