@@ -10,6 +10,8 @@ RUN npm install .
 
 COPY . .
 
+COPY shape /usr/app/
+
 RUN VITE_API=$API npm run build
 
 FROM nginx:1.23.3-alpine

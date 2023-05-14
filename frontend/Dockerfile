@@ -6,8 +6,6 @@ COPY package.json .
 
 RUN npm install .
 
-COPY shape /usr/app/
-
 COPY . .
 
 CMD ["npm","run","dev"]
