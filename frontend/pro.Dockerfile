@@ -4,13 +4,11 @@ ARG API
 
 WORKDIR /usr/app/frontend
 
-COPY frontend/package.json . 
+COPY package.json . 
 
 RUN npm install .
 
-COPY frontend/* .
-
-COPY share /usr/app
+COPY . .
 
 RUN VITE_API=$API npm run build
 
