@@ -10,7 +10,7 @@ RUN npm install .
 
 COPY . .
 
-COPY /home/gabriel/projects/actions-runner/_work/DesignCreate/DesignCreate/share /usr/app
+ADD ../share /usr/app
 
 RUN VITE_API=$API npm run build
 
