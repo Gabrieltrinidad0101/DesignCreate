@@ -10,7 +10,7 @@ RUN npm install .
 
 COPY . .
 
-COPY share /usr/app/
+COPY share /usr/app/share
 
 RUN VITE_API=$API npm run build
 
