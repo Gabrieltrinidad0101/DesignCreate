@@ -12,7 +12,7 @@ COPY . .
 
 COPY share /usr/app/share
 
-RUN VITE_API=$API npm run build
+RUN VITE_BASE_URL=$API npm run build
 
 FROM nginx:1.23.3-alpine
 
