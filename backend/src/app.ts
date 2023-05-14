@@ -1,3 +1,5 @@
+import * as dotenv from 'dotenv'
+dotenv.config()
 import express from 'express'
 import { authRouter } from './mooc/authentication/infranstructure/authRouter'
 import { designRouter } from './mooc/desing/infranstructure/designRouter'
