@@ -7,7 +7,9 @@ jobs:
   build:
     runs-on: self-hosted
     environment: dev
-    steps:
+    steps: 
+    - name: Delete all the resources
+      run: echo ${{secrets.SUDO_PASSWORD}} | sudo -S rm -r ../DesignCreate
     - uses: actions/checkout@v3
     - name: Build the Docker image
       run: 
