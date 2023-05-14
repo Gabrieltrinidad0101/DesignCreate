@@ -10,14 +10,14 @@ RUN npm install .
 
 COPY . .
 
-COPY ../share /usr/app
+COPY /home/gabriel/projects/actions-runner/_work/DesignCreate/DesignCreate/share /usr/app
+
+RUN VITE_API=$API npm run build
 
 FROM nginx:1.23.3-alpine
 
 COPY --from=build /usr/app/frontend/dist /usr/nginx/share/html
 
 COPY ./nginx.conf /etc/nginx/conf.d
-
-RUN VITE_API=$API npm run build
 
 CMD ["nginx","-g","daemon off;"]
