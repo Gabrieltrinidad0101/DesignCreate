@@ -9,9 +9,6 @@ jobs:
     environment: dev
     steps:
     - uses: actions/checkout@v3
-    - name: copy share folder inside frontend
-      run: 
-        cp -r ./share ./frontend
     - name: Build the Docker image
       run: 
         echo ${{secrets.SUDO_PASSWORD}} | sudo -S bash ./docker-pro.sh ${{secrets.API}} ${{secrets.DBUSER}} ${{secrets.DBPASSWORD}} 
