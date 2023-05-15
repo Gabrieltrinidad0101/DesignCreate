@@ -2,9 +2,6 @@ services:
   mongo:
     image: mongo:5.0.14
     container_name: mongo_container
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=${DBUSER}
-      - MONGO_INITDB_ROOT_PASSWORD=${DBPASSWORD}
     ports:
       - 27018:27017
     networks:
