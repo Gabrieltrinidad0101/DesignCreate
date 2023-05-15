@@ -14,7 +14,8 @@ export default class UserRepository implements IUserRepository {
         _id: newUser._id as string
       }
       return userSave
-    } catch {
+    } catch (error){
+      console.log(error)
       throw new ErrorInsertUser()
     }
   }
@@ -23,7 +24,8 @@ export default class UserRepository implements IUserRepository {
     try {
       const user: IUser | null = await UserModel.findOne({ name })
       return user
-    } catch {
+    } catch (error){
+      console.log(error)
       throw new ErrorInsertUser()
     }
   }
@@ -32,7 +34,8 @@ export default class UserRepository implements IUserRepository {
     try {
       const user: IUser | null = await UserModel.findById(_id, filter)
       return user
-    } catch {
+    } catch (error){
+      console.log(error)
       throw new ErrorInsertUser()
     }
   }
