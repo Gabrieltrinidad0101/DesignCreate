@@ -1,11 +1,11 @@
 import * as dotenv from 'dotenv'
-dotenv.config()
 import express from 'express'
 import { authRouter } from './mooc/authentication/infranstructure/authRouter'
 import { designRouter } from './mooc/desing/infranstructure/designRouter'
 import cors from 'cors'
 import morgan from 'morgan'
 import './database'
+dotenv.config()
 const app = express()
 
 app.use(express.json({ limit: '50mb' }))
