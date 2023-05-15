@@ -2,7 +2,6 @@ export API=$1
 export DBUSER=$2
 export DBPASSWORD=$3
 export HOST=$4
-cp -r ./share ./frontend
 docker compose -f ./docker/docker-compose.yml \
                -f ./docker/serviceBase/docker-compose.backend.yml \
                -f ./docker/serviceBase/docker-compose.database.yml \
