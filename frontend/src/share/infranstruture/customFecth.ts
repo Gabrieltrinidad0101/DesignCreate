@@ -49,10 +49,13 @@ class CustomFecth implements ICustomFecth {
     try {
       const token = localStorage.getItem('token')
       baseHttp.headers = { ...baseHttp.headers, token }
+      document.getElementById("LoadingFetch")?.setAttribute("style","display:flex")
       const result = await this.customFecth.request(baseHttp)
+      document.getElementById("LoadingFetch")?.setAttribute("style","display:none")
       return result.data as T
     } catch (error) {
       console.log(error)
+      document.getElementById("LoadingFetch")?.setAttribute("style","display:none")
       if (error instanceof AxiosError) {
         const errorMsg: string = ((error.response !== undefined) && error.response.data !== '') ? `${error.response?.data.message as string}` : 'Internal error try later'
         Toast.error(errorMsg)
