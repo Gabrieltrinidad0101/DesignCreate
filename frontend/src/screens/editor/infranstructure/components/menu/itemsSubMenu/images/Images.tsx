@@ -7,6 +7,7 @@ import { isEmptyNullOrUndefined } from '../../../../../../../../../share/applica
 import { useGraphic } from '../../../../hooks/useGraphic'
 import InfinitiveScroll from '../../../../../../../components/infinitiveScroll/infranstructure/InfinitiveScroll'
 import Image from './Image'
+import { useDashboardContext } from '../../../../../../../components/Dashboard/infranstructure/Dashboard'
 const initialImageState = {
   hits: []
 }
@@ -14,6 +15,7 @@ const initialImageState = {
 export default function Images (): JSX.Element {
   const [imageName, setImageName] = useState<string>('')
   const [imagePageIndex, setImagePageIndex] = useState<number>(1)
+  const { setDashboardState } = useDashboardContext()
   const grafic = useGraphic()
   const [images, setImages] = useState<IImages>(initialImageState)
 
@@ -50,6 +52,9 @@ export default function Images (): JSX.Element {
 
   const insertImage = (imageUrl?: string): void => {
     if (imageUrl === undefined) return
+    setDashboardState({
+      miniMenu: window.innerWidth <= 1000
+    })
     grafic.insertImageFromUrl(imageUrl)
       .catch(error => {
         console.log(error)
