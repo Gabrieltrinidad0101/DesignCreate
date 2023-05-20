@@ -8,7 +8,7 @@ import Editor from './screens/editor/infranstructure/Editor'
 import './App.css'
 import { AuthenticationProvider } from './share/infranstruture/AuthenticationContext'
 import { designApp } from './screens/home/insfranstructure/dependencies'
-
+import Loading from "./components/loading/Loading"
 export default function App (): JSX.Element {
   return (
     <BrowserRouter>
@@ -25,6 +25,7 @@ export default function App (): JSX.Element {
             </Route>
           </Routes>
           <ToastContainer />
+          <Loading/>
         </BrowserRouter>
   )
 }

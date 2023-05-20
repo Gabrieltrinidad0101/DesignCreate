@@ -10,7 +10,7 @@ export default class Design {
     return isEmptyNullOrUndefined(searchHttp.skip) ||
       isEmptyNullOrUndefined(searchHttp.limit)
   }
-
+  
   async save (design: IDesignUserId): Promise<SaveDesign> {
     if (isEmptyNullOrUndefined(design) || design.content === undefined) {
       return {

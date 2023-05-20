@@ -2,6 +2,7 @@
     padding: 10px;
     display: grid;
     height: calc(100vh - 10rem);
+    grid-template-rows: 160px;
     grid-template-columns: repeat(auto-fill,minmax(10rem,1fr));
     overflow: auto;
     gap: 0px
