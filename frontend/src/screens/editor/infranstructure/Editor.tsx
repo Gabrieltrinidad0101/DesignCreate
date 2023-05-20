@@ -40,6 +40,7 @@ export default function Editor (): JSX.Element {
       .catch(error => {
         console.log(error)
       })
+    document.title = "editor";
   }, [])
 
   const save = async (): Promise<void> => {

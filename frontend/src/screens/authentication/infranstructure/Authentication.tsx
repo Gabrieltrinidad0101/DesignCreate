@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import AuthComponent from './components/AuthComponent'
 import Auth from '../application/Auth'
 import 'react-toastify/dist/ReactToastify.css'
@@ -10,6 +10,10 @@ export default function Authentication ({ isRegister }: IAuthenticationPage): JS
     onSubmit: Auth,
     isRegister
   }
+
+  useEffect(()=>{
+    document.title = isRegister ? "register": "login"
+  })
 
   return (
     <div className='login-screen'>
