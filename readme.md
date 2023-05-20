@@ -19,14 +19,27 @@ Install DesignCreate with bash script and docker
 ```bash
   sudo bash ./docker-start.sh
 ```
+## Demo
+
+Link http://45.35.64.124:3000/register
+
 
 ## Running Tests Frontend
 
 To run tests, run the following command
 
-```bash
+```
   cd e2e
   npx cypress run
+```
+
+## Running Tests Backend
+
+To run tests, run the following command
+
+```
+  cd backend
+  yarn run test
 ```
     
 ## Authors
