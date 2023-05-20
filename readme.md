@@ -21,7 +21,7 @@ Install DesignCreate with bash script and docker
 ```
 ## Demo
 
-Link http://45.35.64.124:3000
+Link http://45.35.64.124:3000/register
 
 
 ## Running Tests Frontend
