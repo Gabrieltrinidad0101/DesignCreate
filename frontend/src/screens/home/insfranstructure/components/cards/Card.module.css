@@ -13,7 +13,7 @@
     height: 160px;
     justify-self: center;
     display: grid;
-    grid-template-rows: 0% 80% 20%;
+    grid-template-rows: 0% 128px 20%;
     cursor: pointer;
     position: relative;
 }
