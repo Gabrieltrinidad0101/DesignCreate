@@ -1,6 +1,6 @@
 import { type Request, type Response } from 'express'
-import { type IHttpStatusCode } from '../../../../../share/domain/httpResult'
-import type IUser from '../../../../../share/domain/user'
+import { type IHttpStatusCode } from '../../../share/domain/httpResult'
+import type IUser from '../../../share/domain/user'
 import type Authentication from '../application/auth'
 import { ErrorUser } from '../domain/IErrorUser'
 

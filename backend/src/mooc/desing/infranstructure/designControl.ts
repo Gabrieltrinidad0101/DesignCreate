@@ -1,7 +1,7 @@
-import { type IHttpStatusCode } from '../../../../../share/domain/httpResult'
+import { type IHttpStatusCode } from '../../../share/domain/httpResult'
 import type Design from '../application/design'
 import { type Request, type Response } from 'express'
-import { type ISearchDesign, type IDesignUserId } from '../../../../../share/domain/design'
+import { type ISearchDesign, type IDesignUserId } from '../../../share/domain/design'
 
 export default class DesignControl {
   constructor (private readonly design: Design) { }

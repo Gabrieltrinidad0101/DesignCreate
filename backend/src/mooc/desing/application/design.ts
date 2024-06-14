@@ -1,6 +1,6 @@
-import { isEmptyNullOrUndefined } from '../../../../../share/application/isEmptyNullUndefiner'
-import { type ISearchDesign, type IDesignUserId, type SaveDesign } from '../../../../../share/domain/design'
-import { type IHttpStatusCode } from '../../../../../share/domain/httpResult'
+import { isEmptyNullOrUndefined } from '../../../share/application/isEmptyNullUndefiner'
+import { type ISearchDesign, type IDesignUserId, type SaveDesign } from '../../../share/domain/design'
+import { type IHttpStatusCode } from '../../../share/domain/httpResult'
 import type IDesignRepository from '../domian/designRepository'
 
 export default class Design {

@@ -1,9 +1,9 @@
-import { type IHttpStatusCode } from '../../../../../share/domain/httpResult'
+import { type IHttpStatusCode } from '../../../share/domain/httpResult'
 import type IUserRepository from '../domain/IUserRepository'
 import type IToken from '../domain/token'
 import type IEncrypt from '../domain/encrypt'
-import type IUser from '../../../../../share/domain/user'
-import { isEmptyNullOrUndefined } from '../../../../../share/application/isEmptyNullUndefiner'
+import type IUser from '../../../share/domain/user'
+import { isEmptyNullOrUndefined } from '../../../share/application/isEmptyNullUndefiner'
 
 export default class Authentication {
   constructor (

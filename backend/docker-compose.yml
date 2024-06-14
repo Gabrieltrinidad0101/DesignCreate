@@ -12,12 +12,11 @@ services:
     networks:
       - redDatabase
       - redBackend
-  backend_production:
+  backend_pro:
     container_name: backend
     environment:
       - HOST=mongo_pro
     build:
-      context: .
       dockerfile: pro.Dockerfile
     networks:
       - redDatabase

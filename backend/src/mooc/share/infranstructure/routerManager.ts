@@ -1,5 +1,5 @@
 import { type Request, type Response, type Router } from 'express'
-import { type IHttpStatusCode } from '../../../../../share/domain/httpResult'
+import { type IHttpStatusCode } from '../../../share/domain/httpResult'
 
 type typeCallBack = (req: Request, res: Response, next?: () => void) => Promise<IHttpStatusCode | undefined>
 type typeMethods = 'post' | 'get' | 'put' | 'delete'

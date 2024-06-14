@@ -1,7 +1,7 @@
 import type IUserRepository from '../../domain/IUserRepository'
 import { UserModel } from './userSchema'
 import { ErrorInsertUser } from '../../domain/IErrorUser'
-import type IUser from '../../../../../../share/domain/user'
+import type IUser from '../../../../share/domain/user'
 
 export default class UserRepository implements IUserRepository {
   async insert (user: IUser): Promise<IUser | null> {
