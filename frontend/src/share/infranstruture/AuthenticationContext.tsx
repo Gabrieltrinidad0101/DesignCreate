@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { customFecth } from './dependencies'
-import type IHttpResult from '../../../../share/domain/httpResult'
-import type IUser from '../../../../share/domain/user'
+import type IHttpResult from '../../share/domain/httpResult'
+import type IUser from '../domain/user'
 import type IUserState from '../domian/user'
 import { Outlet, useNavigate } from 'react-router-dom'
-import { isEmptyNullOrUndefined } from '../../../../share/application/isEmptyNullUndefiner'
+import { isEmptyNullOrUndefined } from '../../share/application/isEmptyNullUndefiner'
 
 const userInitialState = {
   name: '',

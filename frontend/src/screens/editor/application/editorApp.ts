@@ -1,7 +1,7 @@
-import { CustomFetchError, type IFecthAlert } from '../../../share/domian/customFecth'
-import { type SaveDesign } from '../../../../../share/domain/design'
+import { CustomFetchError, type IFecthAlert } from '../../../share/domain/customFecth'
+import { type SaveDesign } from '../../../share/domain/design'
 import type IEditorApp from '../domain/IEditor'
-import type IDesign from '../../../../../share/domain/design'
+import type IDesign from '../../../share/domain/design'
 
 export default class EditorApp implements IEditorApp {
   constructor (private readonly fetchAlert: IFecthAlert) {}

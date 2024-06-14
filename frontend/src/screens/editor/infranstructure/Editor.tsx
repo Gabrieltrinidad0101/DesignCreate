@@ -7,10 +7,10 @@ import { Toast, customFecth } from '../../../share/infranstruture/dependencies'
 import EditorApp from '../application/editorApp'
 import { useGraphic } from './hooks/useGraphic'
 import { useNavigate } from 'react-router-dom'
-import type IHttpResult from '../../../../../share/domain/httpResult'
-import type IDesign from '../../../../../share/domain/design'
+import type IHttpResult from '../../../share/domain/httpResult'
+import type IDesign from '../../../share/domain/design'
 import MouseEvents from './Graphic/mouseEvents'
-import { isEmptyNullOrUndefined } from '../../../../../share/application/isEmptyNullUndefiner'
+import { isEmptyNullOrUndefined } from '../../../share/application/isEmptyNullUndefiner'
 
 const mouseEvents: MouseEvents = new MouseEvents()
 
@@ -40,7 +40,7 @@ export default function Editor (): JSX.Element {
       .catch(error => {
         console.log(error)
       })
-    document.title = "editor";
+    document.title = 'editor'
   }, [])
 
   const save = async (): Promise<void> => {

@@ -1,6 +1,6 @@
 import { fabric } from 'fabric'
 import { type IEvent, type Canvas } from 'fabric/fabric-impl'
-import { isEmptyNullOrUndefined } from '../../../../../../share/application/isEmptyNullUndefiner'
+import { isEmptyNullOrUndefined } from '../../../../share/application/isEmptyNullUndefiner'
 import { type Align } from '../../domain/shapeProperty'
 import Historial from '../../application/historial'
 

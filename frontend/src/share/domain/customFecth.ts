@@ -1,4 +1,4 @@
-import type BaseHttp from '../../share/domian/baseHttp'
+import type BaseHttp from './baseHttp'
 import type IToast from './IToast'
 
 export default interface ICustomFecth {

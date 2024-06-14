@@ -4,7 +4,7 @@ import EditorSubMenu from './EditorSubMenu'
 import { type TypeItemSubMenu } from '../../../domain/itemsSubMenu'
 import { useGraphic } from '../../hooks/useGraphic'
 import { useDashboardContext } from '../../../../../components/Dashboard/infranstructure/Dashboard'
-import { isEmptyNullOrUndefined } from '../../../../../../../share/application/isEmptyNullUndefiner'
+import { isEmptyNullOrUndefined } from '../../../../../share/application/isEmptyNullUndefiner'
 export default function EditorMenu (): JSX.Element {
   const graphic = useGraphic()
   const [subMenu, setSubMenu] = useState<TypeItemSubMenu>('Shapes')

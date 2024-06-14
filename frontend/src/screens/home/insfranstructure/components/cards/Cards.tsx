@@ -59,7 +59,7 @@ export default function Cards ({ designApp, typeSearch }: IDesignAppTypeSearch):
           console.log(error)
         })
     })
-    document.title = typeSearch;
+    document.title = typeSearch
   }, [typeSearch])
 
   return (
