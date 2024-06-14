@@ -1,6 +1,6 @@
 import React from 'react'
 import HeaderCss from './Header.module.css'
-import type IProp from '../../../../../share/domian/prop'
+import type IProp from '../../../../../share/domain/prop'
 import { type IEditorEvents } from '../../../domain/IEditor'
 import { Link } from 'react-router-dom'
 

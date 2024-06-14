@@ -1,4 +1,4 @@
-import type IToast from '../domian/IToast'
+import type IToast from '../domain/IToast'
 import { toast } from 'react-toastify'
 
 export const Toast: IToast = {

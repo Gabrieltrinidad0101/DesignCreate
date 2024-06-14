@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import type IInfinitiveScroll from '../domian/infinitiveScroll'
+import type IInfinitiveScroll from '../domain/infinitiveScroll'
 
 let isLoading = false
 

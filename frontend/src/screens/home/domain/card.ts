@@ -1,5 +1,5 @@
-import type IDesign from '../../../../../share/domain/design'
-import { type TypeSearchDesign } from '../../../../../share/domain/design'
+import type IDesign from '../../../share/domain/design'
+import { type TypeSearchDesign } from '../../../share/domain/design'
 import type IDesignApp from './design'
 
 export default interface ICard {

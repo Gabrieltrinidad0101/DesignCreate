@@ -34,6 +34,6 @@
   ],
   "typeRoots": [
     "src/types",
-    "../share/domian"
+    "../share/domain"
   ]
 }

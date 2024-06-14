@@ -1,4 +1,4 @@
-import type IDesign from '../../../../../share/domain/design'
+import type IDesign from '../../../share/domain/design'
 
 export default interface IEditorApp {
   save: (design: IDesign, showSucessAlter?: 'noShowSucessAlter') => Promise<string | undefined>

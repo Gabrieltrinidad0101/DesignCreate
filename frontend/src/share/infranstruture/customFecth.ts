@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios'
-import type ICustomFecth from '../domian/customFecth'
-import type BaseHttp from '../domian/baseHttp'
+import type ICustomFecth from '../domain/customFecth'
+import type BaseHttp from '../domain/baseHttp'
 import { Toast } from './dependencies'
 
 class CustomFecth implements ICustomFecth {

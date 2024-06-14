@@ -1,6 +1,6 @@
-import { type IFecthAlert } from '../../../share/domian/customFecth'
-import type IUser from '../../../../../share/domain/user'
-import type IUserState from '../../../share/domian/user'
+import { type IFecthAlert } from '../../../share/domain/customFecth'
+import type IUser from '../../../share/domain/user'
+import { type IUserState } from '../../../share/domain/user'
 
 export default interface IAuthenticationComponent {
   onSubmit: (authenticatio: IAuthentication) => Promise<void>

@@ -1,5 +1,5 @@
 import React from 'react'
-import type Prop from '../../../../../../../share/domian/prop'
+import type Prop from '../../../../../../../share/domain/prop'
 import { type IImageOnClick } from '../../../../../domain/image'
 export default function Image ({ Prop: image }: Prop<IImageOnClick>): JSX.Element {
   return (

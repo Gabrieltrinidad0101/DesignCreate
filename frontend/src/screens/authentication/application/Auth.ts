@@ -1,5 +1,5 @@
 import { CustomFetchError } from '../../../share/domain/customFecth'
-import { type IAuthentication } from '../domian/IAuthenticaction'
+import { type IAuthentication } from '../domain/IAuthenticaction'
 import type IHttpResult from '../../../share/domain/httpResult'
 
 const Auth = async (authenticaction: IAuthentication): Promise<void> => {

@@ -5,7 +5,7 @@ import hegaxon from '../../assets/images/hexagon.png'
 import start4 from '../../assets/images/start4.png'
 import rightTriangle from '../../assets/images/rightTriangle.png'
 
-import type IImagesContainer from '../domian/IImageContainer'
+import type IImagesContainer from '../domain/IImageContainer'
 
 const imagesContainer: IImagesContainer = {
   logo,

@@ -1,7 +1,7 @@
 import React from 'react'
 import HeaderCss from './Header.module.css'
-import type IHeader from '../../../domian/header'
-import type Prop from '../../../../../share/domian/prop'
+import type IHeader from '../../../domain/header'
+import type Prop from '../../../../../share/domain/prop'
 import { useDashboardContext } from '../../../../../components/Dashboard/infranstructure/Dashboard'
 
 export default function Header ({ Prop: header }: Prop<IHeader>): JSX.Element {

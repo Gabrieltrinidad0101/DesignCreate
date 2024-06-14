@@ -4,7 +4,7 @@ import Header from './components/header/Header'
 import Dashboard from '../../../components/Dashboard/infranstructure/Dashboard'
 import { Outlet } from 'react-router-dom'
 import { designApp } from './dependencies'
-import { type ISearchDesignContext } from '../domian/design'
+import { type ISearchDesignContext } from '../domain/design'
 const SearchDesign = createContext<ISearchDesignContext>({})
 
 export default function Home (): JSX.Element {

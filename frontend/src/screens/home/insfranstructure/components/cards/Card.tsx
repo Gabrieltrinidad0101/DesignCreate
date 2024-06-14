@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CardCss from './Card.module.css'
-import { type IPropCard } from '../../../domian/card'
+import { type IPropCard } from '../../../domain/card'
 import { cutString } from '../../../application/cutString'
 import { useAuthenticationContext } from '../../../../../share/infranstruture/AuthenticationContext'
 

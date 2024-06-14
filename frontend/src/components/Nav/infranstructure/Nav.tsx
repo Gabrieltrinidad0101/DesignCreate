@@ -1,6 +1,6 @@
 import React from 'react'
 import MenuCss from './Menu.module.css'
-import type INav from '../domian/menu'
+import type INav from '../domain/menu'
 import { Link } from 'react-router-dom'
 
 export default function Nav ({ onClick, text, children, to }: INav<React.ReactNode>): JSX.Element {

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
-import type IDashboard from '../domian/Dashboard'
+import type IDashboard from '../domain/Dashboard'
 import DashboardCss from './Dashboard.module.css'
-import { type IDashboardState, type IDashboardContext } from '../domian/Dashboard'
+import { type IDashboardState, type IDashboardContext } from '../domain/Dashboard'
 
 const initialState: IDashboardState = {
   miniMenu: false,

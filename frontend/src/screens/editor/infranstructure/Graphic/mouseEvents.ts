@@ -1,4 +1,4 @@
-import { type DynamicObject } from '../../../../share/domian/object'
+import { type DynamicObject } from '../../../../share/domain/object'
 import Graphic from './Graphic'
 export default class MouseEvents {
   private static clone: fabric.Object | undefined = undefined

@@ -1,7 +1,7 @@
 import { isEmptyNullOrUndefined } from '../../../../share/application/isEmptyNullUndefiner'
 import type IDesign from '../../../../share/domain/design'
 import { type ISearchDesign, type IDesignUserId } from '../../../../share/domain/design'
-import type IDesignRepository from '../../domian/designRepository'
+import type IDesignRepository from '../../domain/designRepository'
 import DesignModal from './designSchema'
 export default class DesignRepository implements IDesignRepository {
   update = async (design: IDesignUserId): Promise<IDesignUserId> => {

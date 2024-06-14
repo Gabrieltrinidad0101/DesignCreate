@@ -2,10 +2,10 @@ import { isEmptyNullOrUndefined } from '../../../share/application/isEmptyNullUn
 import { type ISearchDesign } from '../../../share/domain/design'
 import type IDesign from '../../../share/domain/design'
 import type IHttpResult from '../../../share/domain/httpResult'
-import type ICustomFecth from '../../../share/domian/customFecth'
-import type IToast from '../../../share/domian/IToast'
+import type ICustomFecth from '../../../share/domain/customFecth'
+import type IToast from '../../../share/domain/IToast'
 import type IEditorApp from '../../editor/domain/IEditor'
-import type IDesignApp from '../domian/design'
+import type IDesignApp from '../domain/design'
 
 export default class DesignApp implements IDesignApp {
   constructor (
