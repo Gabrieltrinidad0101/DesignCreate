@@ -1,6 +1,6 @@
 services:
   backend:
-    container_name: backend_container
+    container_name: backend_dev
     build:
       context: .
     ports:
@@ -13,7 +13,7 @@ services:
       - redDatabase
       - redBackend
   backend_production:
-    container_name: backend_container
+    container_name: backend
     environment:
       - HOST=mongo_pro
     build:
@@ -24,13 +24,17 @@ services:
       - redBackend
   mongo:
     image: mongo:5.0.14
-    container_name: mongo_container
+    container_name: mongo_dev
     ports:
       - 27018:27017
     networks:
       - redDatabase
   mongo_pro:
     image: mongo:5.0.14
-    container_name: mongo_container
+    container_name: mongo
     networks:
       - redDatabase
+
+networks:
+  redDatabase:
+  redBackend:
