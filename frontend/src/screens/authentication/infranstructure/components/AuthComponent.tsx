@@ -59,7 +59,7 @@ export default function AuthComponent ({ Prop: authenticationComponent }: Prop<I
         </div>
       </div>
       <button id="auth-button" className="login" onClick={clickAuth}>{!authenticationComponent.isRegister ? 'Login' : 'Register'}</button>
-      <Link to={authenticationComponent.isRegister ? '/login' : '/register'}>
+      <Link to={authenticationComponent.isRegister ? '/DesignCreate/login' : '/DesignCreate/register'}>
         {authenticationComponent.isRegister ? 'Login' : 'Register'}
       </Link>
     </div>

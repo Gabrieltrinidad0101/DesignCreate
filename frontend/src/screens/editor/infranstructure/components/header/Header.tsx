@@ -18,7 +18,7 @@ export default function Header ({ Prop: editorEvents }: IProp<IEditorEvents>): J
 
   return (
         <div className={HeaderCss.container}>
-            <Link to="/home" className={HeaderCss.logoContainer}>
+            <Link to="/DesignCreate/home" className={HeaderCss.logoContainer}>
                 DesignCreate
             </Link>
             <div className={HeaderCss.containerDesignName}>
