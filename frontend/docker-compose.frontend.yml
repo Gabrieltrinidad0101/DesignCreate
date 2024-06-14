@@ -12,8 +12,6 @@ services:
       - /usr/app/frontend/node_modules
     ports:
       - 3000:3000
-    networks:
-      - redFrontend
   frontend_pro:
     container_name: frontend_container
     build: 
@@ -22,5 +20,8 @@ services:
       dockerfile: pro.Dockerfile
     ports:
       - 3000:3000
-    networks:
-      - redFrontend
+
+networks:
+  default:
+    name: development
+    external: true
