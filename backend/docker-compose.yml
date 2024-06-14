@@ -1,0 +1,36 @@
+services:
+  backend:
+    container_name: backend_container
+    build:
+      context: .
+    ports:
+      - 4000:4000
+    volumes:
+      - ../backend:/usr/app/backend
+      - ../share:/usr/app/share
+      - /usr/app/backend/node_modules
+    networks:
+      - redDatabase
+      - redBackend
+  backend_production:
+    container_name: backend_container
+    environment:
+      - HOST=mongo_pro
+    build:
+      context: .
+      dockerfile: pro.Dockerfile
+    networks:
+      - redDatabase
+      - redBackend
+  mongo:
+    image: mongo:5.0.14
+    container_name: mongo_container
+    ports:
+      - 27018:27017
+    networks:
+      - redDatabase
+  mongo_pro:
+    image: mongo:5.0.14
+    container_name: mongo_container
+    networks:
+      - redDatabase

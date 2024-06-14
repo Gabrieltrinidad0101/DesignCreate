@@ -1,9 +1,2 @@
-export API=$1
-export DBUSER=$2
-export DBPASSWORD=$3
-export HOST=$4
-docker compose -f ./docker/docker-compose.yml \
-               -f ./docker/serviceBase/docker-compose.backend.yml \
-               -f ./docker/serviceBase/docker-compose.database.yml \
-               -f ./docker/serviceBase/docker-compose.nginx.yml \
-               up -d --build
+docker compose -f ./backend/docker-compose.yml up backend_pro mongo_pro -d --build
+docker compose -f ./nginx/docker-compose.yml -d --build

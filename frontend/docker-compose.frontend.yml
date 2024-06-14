@@ -14,3 +14,13 @@ services:
       - 3000:3000
     networks:
       - redFrontend
+  frontend_pro:
+    container_name: frontend_container
+    build: 
+      args: 
+        - API=${API}
+      dockerfile: pro.Dockerfile
+    ports:
+      - 3000:3000
+    networks:
+      - redFrontend
