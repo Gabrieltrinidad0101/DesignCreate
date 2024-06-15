@@ -22,7 +22,7 @@ const editorApp = new EditorApp({
 export default function Editor (): JSX.Element {
   const graphic = useGraphicLoad()
   const navigate = useNavigate()
-  const designId = useSearchParams()[0].get("_id")
+  const designId = useSearchParams()[0].get("_id") ?? undefined
   const [designName, setDesignName] = useState<string>('')
 
   const get = async (): Promise<void> => {

@@ -10,7 +10,7 @@ export default function HomeMenu (): JSX.Element {
       <Nav text="Home" to='/home'>
         <i className={'fas fa-home'}></i>
       </Nav>
-      <Nav text='Explote' to='/explore' >
+      <Nav text='Explore' to='/explore' >
         <i className={'fas fa-folder'}></i>
       </Nav>
       <Nav text='Likes' to='/likes' >
