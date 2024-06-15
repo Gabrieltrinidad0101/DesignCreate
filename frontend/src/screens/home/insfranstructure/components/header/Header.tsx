@@ -6,6 +6,7 @@ import { useDashboardContext } from '../../../../../components/Dashboard/infrans
 
 export default function Header ({ Prop: header }: Prop<IHeader>): JSX.Element {
   const { dashboardState, setDashboardState } = useDashboardContext()
+
   const createNewDesign = (): void => {
     header.createNewDesign()
       .catch(error => {
