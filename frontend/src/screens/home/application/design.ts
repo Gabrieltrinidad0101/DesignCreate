@@ -6,7 +6,7 @@ import type ICustomFecth from '../../../share/domain/customFecth'
 import type IToast from '../../../share/domain/IToast'
 import type IEditorApp from '../../editor/domain/IEditor'
 import type IDesignApp from '../domain/design'
-
+import {BASE_URL} from '../../../share/application/url'
 export default class DesignApp implements IDesignApp {
   constructor (
     private readonly editorApp: IEditorApp,
@@ -24,7 +24,10 @@ export default class DesignApp implements IDesignApp {
       this.toast.error('Error creating new Design try later')
       return
     }
-    window.location.href = `/editor?_id=${_id}`
+
+
+
+    this.openEditorWindow(BASE_URL(`/editor?_id=${_id}`))
   }
 
   get = async (searchDesign: ISearchDesign): Promise<IDesign[] | undefined> => {
@@ -43,15 +46,24 @@ export default class DesignApp implements IDesignApp {
     return httpResult?.message
   }
 
+  openEditorWindow = (url: string)=>{
+    debugger
+    const link = document.createElement("a")
+    link.setAttribute("target","_blank")
+    link.href = url
+    link.click()
+  }
+
   goToEditor = async (designId: string | undefined, type: string): Promise<void> => {
+    debugger
     if (designId === undefined) return
     if (type !== 'home') {
       const copyDesignId = await this.copyDesign(designId)
       if (copyDesignId === undefined) return
-      window.location.href = `/editor?_id=${copyDesignId}`
+      this.openEditorWindow(BASE_URL(`/editor?_id=${copyDesignId}`))
       return
     }
-    window.location.href = `/editor?_id=${designId}`
+    this.openEditorWindow(BASE_URL(`/editor?_id=${designId}`))
   }
 
   createUrl = ({ type, skip, limit, search }: ISearchDesign): string => {

@@ -5,7 +5,7 @@ import { type Align } from '../../domain/shapeProperty'
 import Historial from '../../application/historial'
 
 export default class Graphic {
-  protected static staticCanvas: Canvas | undefined = undefined
+  static staticCanvas: Canvas | undefined = undefined
   private static readonly historial = new Historial()
   rect = (): void => {
     const rect = [

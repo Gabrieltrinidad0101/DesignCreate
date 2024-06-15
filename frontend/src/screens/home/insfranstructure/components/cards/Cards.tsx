@@ -48,6 +48,8 @@ export default function Cards ({ designApp, typeSearch }: IDesignAppTypeSearch):
     return reponseHttp.length
   }
 
+
+
   useEffect(() => {
     processGetCards()
       .catch(error => {

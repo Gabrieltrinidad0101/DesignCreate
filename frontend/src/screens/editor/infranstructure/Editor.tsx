@@ -5,8 +5,8 @@ import GraphicEditor from './components/GraphicEditor/GraphicEditor'
 import Header from './components/header/Header'
 import { Toast, customFecth } from '../../../share/infranstruture/dependencies'
 import EditorApp from '../application/editorApp'
-import { useGraphic } from './hooks/useGraphic'
-import { useNavigate } from 'react-router-dom'
+import { useGraphicLoad } from './hooks/useGraphic'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import type IHttpResult from '../../../share/domain/httpResult'
 import type IDesign from '../../../share/domain/design'
 import MouseEvents from './Graphic/mouseEvents'
@@ -20,9 +20,9 @@ const editorApp = new EditorApp({
 })
 
 export default function Editor (): JSX.Element {
-  const graphic = useGraphic()
+  const graphic = useGraphicLoad()
   const navigate = useNavigate()
-  const designId = new URLSearchParams(window.location.search).get('_id') ?? ''
+  const designId = useSearchParams()[0].get("_id")
   const [designName, setDesignName] = useState<string>('')
 
   const get = async (): Promise<void> => {
