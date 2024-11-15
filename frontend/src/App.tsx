@@ -1,5 +1,4 @@
-import React from 'react'
-import { HashRouter, Route, Routes } from 'react-router-dom'
+import React, { HashRouter, Route, Routes } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import Authentication from './screens/authentication/infranstructure/Authentication'
 import Home from './screens/home/insfranstructure/Home'
@@ -9,9 +8,9 @@ import './App.css'
 import { AuthenticationProvider } from './share/infranstruture/AuthenticationContext'
 import { designApp } from './screens/home/insfranstructure/dependencies'
 import Loading from './components/loading/Loading'
+
 export default function App (): JSX.Element {
   return (
-
     <HashRouter>
           <Routes>
             <Route path="/register" element={<Authentication isRegister={true} />}></Route>

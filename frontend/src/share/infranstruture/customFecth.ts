@@ -62,7 +62,7 @@ class CustomFecth implements ICustomFecth {
       showNoAlert = true
       document.getElementById('LoadingFetch')?.setAttribute('style', 'display:none')
       if (error instanceof AxiosError) {
-        const errorMsg: string = ((error.response !== undefined) && error.response.data !== '') ? `${error.response?.data.message as string}` : 'Internal error try later'
+        const errorMsg: string = error.response?.data !== '' ? `${error.response?.data.message as string}` : 'Internal error try later'
         Toast.error(errorMsg)
         return
       }

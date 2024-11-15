@@ -6,7 +6,8 @@ import type ICustomFecth from '../../../share/domain/customFecth'
 import type IToast from '../../../share/domain/IToast'
 import type IEditorApp from '../../editor/domain/IEditor'
 import type IDesignApp from '../domain/design'
-import {BASE_URL} from '../../../share/application/url'
+import { BASE_URL } from '../../../share/application/url'
+
 export default class DesignApp implements IDesignApp {
   constructor (
     private readonly editorApp: IEditorApp,
@@ -24,8 +25,6 @@ export default class DesignApp implements IDesignApp {
       this.toast.error('Error creating new Design try later')
       return
     }
-
-
 
     this.openEditorWindow(BASE_URL(`/editor?_id=${_id}`))
   }
@@ -46,16 +45,14 @@ export default class DesignApp implements IDesignApp {
     return httpResult?.message
   }
 
-  openEditorWindow = (url: string)=>{
-    debugger
-    const link = document.createElement("a")
-    link.setAttribute("target","_blank")
+  openEditorWindow = (url: string): void => {
+    const link = document.createElement('a')
+    link.setAttribute('target', '_blank')
     link.href = url
     link.click()
   }
 
   goToEditor = async (designId: string | undefined, type: string): Promise<void> => {
-    debugger
     if (designId === undefined) return
     if (type !== 'home') {
       const copyDesignId = await this.copyDesign(designId)

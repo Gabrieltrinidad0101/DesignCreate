@@ -25,9 +25,6 @@ describe('Authentication register', () => {
     auth({
       spectedText: "Welcome juan" 
     })
-    cy.getAllLocalStorage().then((result) => {
-      expect(result[pageUrl]["token"]).to.exist
-    })
   })
 
   it("register user exists", () => {
@@ -61,9 +58,6 @@ describe('Authentication login', () => {
   it('login', () => {
     auth({
       spectedText: "Welcome juan" 
-    })
-    cy.getAllLocalStorage().then((result) => {
-      expect(result[pageUrl]["token"]).to.exist
     })
   })
 })

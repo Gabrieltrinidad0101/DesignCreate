@@ -22,11 +22,11 @@ const editorApp = new EditorApp({
 export default function Editor (): JSX.Element {
   const graphic = useGraphicLoad()
   const navigate = useNavigate()
-  const designId = useSearchParams()[0].get("_id") ?? undefined
+  const designId = useSearchParams()[0].get('_id') ?? undefined
   const [designName, setDesignName] = useState<string>('')
 
   const get = async (): Promise<void> => {
-    if (designId === '') return
+    if (designId === '' || designId === undefined) return
     const res = await customFecth.get<IHttpResult<IDesign>>(`/design/findById/${designId}`)
     const design = res?.message
     if (isEmptyNullOrUndefined(design) || isEmptyNullOrUndefined(design?.content)) return
