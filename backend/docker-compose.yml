@@ -9,12 +9,14 @@ services:
       - ../backend:/usr/app/backend
       - ../share:/usr/app/share
       - /usr/app/backend/node_modules
+      
   backend_pro:
     container_name: designcreate_backend
     environment:
       - HOST=mongo_pro
     build:
       dockerfile: pro.Dockerfile
+
   mongo:
     image: mongo:5.0.14
     container_name: mongo_dev
