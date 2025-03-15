@@ -7,10 +7,8 @@ on:
 jobs:
   build-and-deploy:
     runs-on: self-hosted
-    steps: 
+    steps:
     - uses: actions/checkout@v3
-    - name: copy share folder
-      run: cp -r ./share ./frontend
-    - name: Build the Docker image
+    - name: Build and Deploy
       run: 
-        echo ${{secrets.SUDO_PASSWORD}} | sudo -S bash ./docker-pro.sh ${{secrets.API}} ${{secrets.DBUSER}} ${{secrets.DBPASSWORD}} ${{secrets.HOST}} 
+        docker compose up backend_pro --build -d
