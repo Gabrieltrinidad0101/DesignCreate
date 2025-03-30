@@ -1,6 +1,6 @@
 services:
-  designcreate:
-    container_name: designcreate_backend
+  designcreate_dev:
+    container_name: designcreate_dev
     build:
       context: .
     ports:
@@ -11,7 +11,7 @@ services:
       - /usr/app/backend/node_modules
       
   designcreate:
-    container_name: designcreate_backend
+    container_name: designcreate
     environment:
       - HOST=mongo
     build:
