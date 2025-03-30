@@ -1,5 +1,5 @@
 services:
-  backend:
+  designcreate:
     container_name: designcreate_backend
     build:
       context: .
@@ -10,10 +10,10 @@ services:
       - ../share:/usr/app/share
       - /usr/app/backend/node_modules
       
-  backend_pro:
+  designcreate:
     container_name: designcreate_backend
     environment:
-      - HOST=mongo_pro
+      - HOST=mongo
     build:
       dockerfile: pro.Dockerfile
 
@@ -26,5 +26,5 @@ services:
     
 networks:
   default:
-    name: development
+    name: docker-network
     external: true
