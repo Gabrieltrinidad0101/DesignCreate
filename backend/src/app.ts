@@ -11,6 +11,6 @@ const app = express()
 app.use(express.json())
 app.use(cors({ origin: '*' }))
 app.use(morgan('dev'))
-app.use('/', authRouter)
-app.use('/design', designRouter)
+app.use('/designcreate/', authRouter)
+app.use('/designcreate/design', designRouter)
 export default app
