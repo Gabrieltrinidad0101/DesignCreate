@@ -26,6 +26,6 @@ RUN npm i --only=production
 
 COPY --from=build /usr/app/dist ./dist
 
-EXPOSE 8080
+EXPOSE 4000
 
 CMD ["npm", "run", "start"]
