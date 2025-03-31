@@ -17,7 +17,7 @@ jobs:
 
       - name: Set up Docker
         run: |
-          sudo chmod 666 /var/run/docker.sock || true
+          echo ${{ secrets.USERPWD }} | sudo -S chmod 666 /var/run/docker.sock || true
       
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v2
