@@ -13,4 +13,4 @@ jobs:
         run: |
           docker login -u gabrielopensource -p ${{ secrets.PACKAGE_TOKEN }} ghcr.io
           docker compose -f ./backend/docker-compose.yml build designcreate_pro
-          docker push ghcr.io/Gabrieltrinidad0101/designcreate_pro:latest
+          docker push ghcr.io/gabrieltrinidad0101/backend-designcreate_pro:latest
