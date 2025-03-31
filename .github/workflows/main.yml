@@ -11,6 +11,6 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build
         run: |
-          sudo docker login -u gabrielopensource -p ${{ secrets.PACKAGE_TOKEN }} ghcr.io
-          sudo docker compose -f ./backend/docker-compose.yml build designcreate_pro
-          sudo docker push ghcr.io/gabrieltrinidad0101/backend-designcreate_pro:latest
+          echo "${{ secrets.PACKAGE_TOKEN }}" | docker login -u gabrielopensource --password-stdin ghcr.io
+          docker compose -f ./backend/docker-compose.yml build designcreate_pro
+          docker push ghcr.io/gabrieltrinidad0101/backend-designcreate_pro:latest
