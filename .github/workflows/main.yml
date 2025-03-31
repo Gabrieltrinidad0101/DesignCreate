@@ -19,5 +19,5 @@ jobs:
 
       - name: Build
         run: |
-          docker compose -f ./backend/docker-compose.yml build designcreate_pro
+          docker compose -f backend/docker-compose.yml build designcreate_pro
           docker push ghcr.io/gabrieltrinidad0101/backend-designcreate_pro:latest
