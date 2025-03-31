@@ -4,41 +4,14 @@ on:
   push:
     branches:
       - master
-
 jobs:
   build-and-deploy:
-    runs-on: self-hosted
-    permissions:
-      packages: write
-      contents: read
-      
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
-      - name: Allow sudo without password
-        run: echo "${{ github.actor }} ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/${{ github.actor }} > /dev/null
-
-      - name: Run Docker command
-        run: sudo chmod 666 /var/run/docker.sock
+      - name: Build
+        run: |
+          echo "${{ secrets.PACKAGE_TOKEN }}" | docker login -u gabrielopensource --password-stdin ghcr.io
+          docker compose -f ./backend/docker-compose.yml build designcreate_pro
+          docker push ghcr.io/gabrieltrinidad0101/backend-designcreate_pro:latest
       
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: gabrielopensource
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Build and Push Docker Image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: backend/pro.Dockerfile
-          build-args: |
-            HOST=mongo
-          push: true
-          tags: |
-            ghcr.io/gabrielopensource/backend-designcreate_pro:latest
-            ghcr.io/gabrielopensource/backend-designcreate_pro:${{ github.sha }}
