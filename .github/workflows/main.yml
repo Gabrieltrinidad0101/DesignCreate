@@ -15,9 +15,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up Docker
-        run: |
-          echo ${{ secrets.USERPWD }} | sudo -S chmod 666 /var/run/docker.sock || true
+      - name: Allow sudo without password
+        run: echo "${{ github.actor }} ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/${{ github.actor }} > /dev/null
+
+      - name: Run Docker command
+        run: sudo chmod 666 /var/run/docker.sock
       
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v2
