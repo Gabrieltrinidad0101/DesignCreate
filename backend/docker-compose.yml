@@ -12,6 +12,7 @@ services:
       
   designcreate_pro:
     container_name: designcreate_pro
+    image: ghcr.io/gabrieltrinidad0101/backend-designcreate_pro:latest
     environment:
       - HOST=mongo
     build:

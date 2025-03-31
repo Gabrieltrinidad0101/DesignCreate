@@ -6,12 +6,12 @@ on:
       - master
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubu
     steps:
       - uses: actions/checkout@v3
       - name: Build
         run: |
           echo "${{ secrets.PACKAGE_TOKEN }}" | docker login -u gabrielopensource --password-stdin ghcr.io
           docker compose -f ./backend/docker-compose.yml build designcreate_pro
-          docker push backend-designcreate_pro:latest
+          docker push ghcr.io/gabrieltrinidad0101/backend-designcreate_pro:latest
       
