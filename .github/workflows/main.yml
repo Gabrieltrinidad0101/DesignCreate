@@ -22,5 +22,5 @@ jobs:
           echo "${{ secrets.PACKAGE_TOKEN }}" | docker login -u gabrielopensource --password-stdin ghcr.io
           echo ${{secrets.SSH_PRIVATE_KEY}} | sudo -S docker stop designcreate_pro
           echo ${{secrets.SSH_PRIVATE_KEY}} | sudo -S docker rm designcreate_pro
+          echo ${{secrets.SSH_PRIVATE_KEY}} | sudo -S docker pull ghcr.io/gabrieltrinidad0101/backend-designcreate_pro:latest
           echo ${{secrets.SSH_PRIVATE_KEY}} | sudo -S docker run -d --name designcreate_pro --network docker-network -e HOST=mongo ghcr.io/gabrieltrinidad0101/backend-designcreate_pro:latest
-
