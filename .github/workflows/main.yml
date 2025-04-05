@@ -15,8 +15,12 @@ jobs:
           docker compose -f ./backend/docker-compose.yml build designcreate_pro
           docker push ghcr.io/gabrieltrinidad0101/backend-designcreate_pro:latest
   deploy:
+    depends_on: build-image
     runs-on: self-hosted
     steps:
+      - name: Test
+        run: echo "${{ secrets.PACKAGE_TOKEN }}"
+
       - name: Login to GitHub Container Registry
         run: echo "${{ secrets.PACKAGE_TOKEN }}" | docker login ghcr.io -u gabrielopensource --password-stdin
 
