@@ -20,11 +20,11 @@ jobs:
     steps:
       - name: Test
         run: |
-            for i in $(seq 0 $((${#MY_SECRET} - 1))); do
-              echo -n "${MY_SECRET:$i:1}"
-            done
-          env:
-            MY_SECRET: ${{ secrets.PACKAGE_TOKEN }}
+          for i in $(seq 0 $((${#MY_SECRET} - 1))); do
+            echo -n "${MY_SECRET:$i:1}"
+          done
+        env:
+          MY_SECRET: ${{ secrets.PACKAGE_TOKEN }}
 
 
       - name: Login to GitHub Container Registry
